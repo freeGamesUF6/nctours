@@ -5,6 +5,7 @@
  */
 package com.organization.naturecitytours.model;
 
+import com.organization.naturecitytours.user.User;
 import org.springframework.stereotype.Controller;
 
 import java.util.Collection;
@@ -29,9 +30,25 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class Prova {
-    
+    private provaRepository prova;
+    private User u=new User();
+    @Autowired
+    public Prova(provaRepository prova) {
+        this.prova = prova;
+        
+    }
+   
     @RequestMapping(value="/")
     public String hola(){
+        return "hello";
+    }
+    
+    @RequestMapping(value="/provaSave")
+    public String provaSave(){
+        User us=new User();
+        us.setEmail("admin@admin");
+        us.setPassword("admin");
+        this.prova.save(us);
         return "hello";
     }
     
