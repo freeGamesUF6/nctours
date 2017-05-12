@@ -5,12 +5,20 @@
  */
 package com.organization.naturecitytours.book;
 
+import com.organization.naturecitytours.trip.Trip;
+import com.organization.naturecitytours.user.User;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -20,7 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name="book")
-public class Book {
+public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -35,47 +43,15 @@ public class Book {
     private double pvp;
     @Column(name = "idtrip")
     @NotEmpty
-    private int idtrip;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getNum_Pax() {
-        return num_Pax;
-    }
-
-    public void setNum_Pax(int num_Pax) {
-        this.num_Pax = num_Pax;
-    }
-
-    public double getPvp() {
-        return pvp;
-    }
-
-    public void setPvp(double pvp) {
-        this.pvp = pvp;
-    }
-
-    public int getIdtrip() {
-        return idtrip;
-    }
-
-    public void setIdtrip(int idtrip) {
-        this.idtrip = idtrip;
-    }
+    private Trip idtrip;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)
+   // @JoinTable(name="transaction")
+    private Set<Bookpax> paxs;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)
+   // @JoinTable(name="transaction")
+    private Set<Bookuser> users;
+    
+   
     
     
     

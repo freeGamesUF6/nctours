@@ -6,10 +6,7 @@
 package com.organization.naturecitytours.trip;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,21 +14,36 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Xavier
+ * @author Mark
  */
 @Entity
-@Table(name="itinerary")
-public class Itinerary implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(name="daydebrief")
-    private String daydebrief;
+@Table(name="triphotels")
+public class Triphotels implements Serializable {
+    
     @ManyToOne
     @JoinColumn(name="idtrip")
-    private Trip trip;
+    @Id
+    private Trip idtrip;
+    @ManyToOne
+    @JoinColumn(name="idhotel")
+    @Id
+    private Hotel idhotel;
 
-    
+    public Trip getIdtrip() {
+        return idtrip;
+    }
+
+    public void setIdtrip(Trip idtrip) {
+        this.idtrip = idtrip;
+    }
+
+    public Hotel getIdhotel() {
+        return idhotel;
+    }
+
+    public void setIdhotel(Hotel idhotel) {
+        this.idhotel = idhotel;
+    }
     
     
     

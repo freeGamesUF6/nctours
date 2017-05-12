@@ -5,6 +5,9 @@
  */
 package com.organization.naturecitytours.user;
 
+import com.organization.naturecitytours.book.Book;
+import com.organization.naturecitytours.book.Bookuser;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,6 +17,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +37,7 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -43,7 +47,10 @@ public class User {
     @Column(name = "password")
     @NotEmpty
     private String password;
-
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="iduser",cascade= CascadeType.ALL)
+   // @JoinTable(name="transaction")
+    private Set<Bookuser> books;
+    
     public Integer getId() {
         return id;
     }

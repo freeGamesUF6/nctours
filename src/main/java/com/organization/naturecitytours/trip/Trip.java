@@ -5,6 +5,8 @@
  */
 package com.organization.naturecitytours.trip;
 
+import com.organization.naturecitytours.book.Pax;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +17,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,8 +35,8 @@ import org.springframework.core.style.ToStringCreator;
  * @author Mark
  */
 @Entity
-@Table(name = "user")
-public class Trip {
+@Table(name = "trip")
+public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -53,7 +56,11 @@ public class Trip {
     private String pricesingle;
     @Column(name = "suplement")
     private String suplement;
-
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="idtrip",cascade= CascadeType.ALL)
+   // @JoinTable(name="transaction")
+    private Set<Triphotels> hotels;
+    
+    
     public Integer getId() {
         return id;
     }

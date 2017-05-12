@@ -5,11 +5,16 @@
  */
 package com.organization.naturecitytours.trip;
 
+import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,7 +24,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="hotel")
-public class Hotel {
+public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,7 +34,10 @@ public class Hotel {
     private int category;
     @Column(name="location")
     private String location;
-
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="idhotel",cascade= CascadeType.ALL)
+   // @JoinTable(name="transaction")
+    private Set<Triphotels> trips;
+    
     public Integer getId() {
         return id;
     }
