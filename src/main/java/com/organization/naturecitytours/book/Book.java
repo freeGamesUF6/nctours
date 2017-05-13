@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
- * @author Xavier
+ * @author Xavier,,Marc(Mapping)
  */
 @Entity
 @Table(name="book")

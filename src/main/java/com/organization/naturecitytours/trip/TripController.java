@@ -3,15 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.organization.naturecitytours.model;
-
-import com.organization.naturecitytours.user.User;
-import org.springframework.stereotype.Controller;
-
-import java.util.Collection;
-import java.util.Map;
-
-import javax.validation.Valid;
+package com.organization.naturecitytours.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,29 +21,23 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Mark
  */
 @Controller
-public class Prova {
-    private provaRepository prova;
-    private User u=new User();
+public class TripController {
+    
+    private TripRepository trip;
+    private Trip tr=new Trip();
     @Autowired
-    public Prova(provaRepository prova) {
-        this.prova = prova;
+    public TripController(TripRepository trip){
+        this.trip=trip;
+    }
+    
+    @RequestMapping("/saveTrip")
+    public String saveTrip(Trip t){
+//        tr.setDuration("2");
+//        tr.setName("viatge");
+//        tr.setPricedouble(1000.5);
+//        tr.setPricesingle(500.25);
+        this.trip.save(tr);
         
-    }
-   
-    @RequestMapping(value="/")
-    public String hola(){
         return "hello";
     }
-    
-    @RequestMapping(value="/provaSave")
-    public String provaSave(){
-        User us=new User();
-        us.setEmail("admin@admin");
-        us.setPassword("admin");
-        this.prova.save(us);
-        return "hello";
-    }
-//    
-//    @RequestMapping(value="/provaTrip")
-    
 }

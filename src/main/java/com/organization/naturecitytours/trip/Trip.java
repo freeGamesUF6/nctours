@@ -23,9 +23,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.Constraint;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
@@ -45,15 +51,14 @@ public class Trip implements Serializable {
     private String name;
     @Column(name = "duration")
     private String duration;
-    @Column(name = "iditinerary")
-    @NotEmpty
-    private String iditinerary;
     @Column(name = "pricedouble")
-    @NotEmpty
-    private String pricedouble;
+    @DecimalMax("100000.00")
+    @NotNull
+    private double pricedouble;
     @Column(name = "pricesingle")
-    @NotEmpty
-    private String pricesingle;
+    @DecimalMax("100000.00")
+    @NotNull
+    private double pricesingle;
     @Column(name = "suplement")
     private String suplement;
     @OneToMany(fetch = FetchType.LAZY,mappedBy="idtrip",cascade= CascadeType.ALL)
@@ -85,27 +90,20 @@ public class Trip implements Serializable {
         this.duration = duration;
     }
 
-    public String getIditinerary() {
-        return iditinerary;
-    }
 
-    public void setIditinerary(String iditinerary) {
-        this.iditinerary = iditinerary;
-    }
-
-    public String getPricedouble() {
+    public double getPricedouble() {
         return pricedouble;
     }
 
-    public void setPricedouble(String pricedouble) {
+    public void setPricedouble(double pricedouble) {
         this.pricedouble = pricedouble;
     }
 
-    public String getPricesingle() {
+    public double getPricesingle() {
         return pricesingle;
     }
 
-    public void setPricesingle(String pricesingle) {
+    public void setPricesingle(double pricesingle) {
         this.pricesingle = pricesingle;
     }
 
