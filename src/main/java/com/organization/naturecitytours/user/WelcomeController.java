@@ -12,10 +12,7 @@ class WelcomeController {
         return "world";
     }
     
-    @RequestMapping("/user/user")
-    public String welcome0() {
-        return "user/user";
-    }
+
     
     
     @RequestMapping("/user/profile")

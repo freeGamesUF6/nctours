@@ -1,0 +1,55 @@
+<html>
+    <div th:insert="~{fragments/head :: head}">...</div>
+
+    <body>
+        <div th:insert="~{fragments/header :: body}">...</div>
+
+        <!-- Entidad Form -->
+
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Creación de Entidad Minorista</h3>
+                    <form th:action="@{/user/new}"  th:object="${user}"  id="userForm" method="post" enctype="multipart/form-data">
+
+                        <div class="control-group form-group has-feedback">
+                            <div class="controls">
+                                <label>Email Address:</label>
+                                <input type="email" class="form-control" th:field="*{email}" >
+                                <span class="text-danger" th:errors="*{email}"></span>
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <label for="inputPassword" class="control-label">Password</label>
+
+                            <div class="form-group">
+                                <input type="password" class="form-control" th:field="*{password}" name="Password" placeholder="Password" required>
+                                <span class="text-danger" th:errors="*{password}"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control"  placeholder="confirmPassword"  required>
+                            </div>
+
+                        </div>
+
+
+
+                        <div id="success"></div>
+                        <!-- For success/fail messages -->
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <div th:insert="~{fragments/footer :: body}">...</div>
+
+    </body>
+
+</html>
+

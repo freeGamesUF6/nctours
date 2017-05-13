@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
@@ -45,6 +46,7 @@ public class User implements Serializable {
     @NotEmpty
     private String email;
     @Column(name = "password")
+    @Size(min=6,max=12)
     @NotEmpty
     private String password;
     @OneToMany(fetch = FetchType.LAZY,mappedBy="iduser",cascade= CascadeType.ALL)
