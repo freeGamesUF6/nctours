@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.organization.naturecitytours.user;
-import com.organization.naturecitytours.trip.Trip;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -22,11 +22,10 @@ public interface UserRepository extends Repository<User,Integer> {
      * @param email email para buscar un usuario
      * @return devuelve el usuario si lo encuentra
      */
-    @Query("SELECT user FROM User WHERE user.email =:email")
+    @Query("SELECT u FROM User u WHERE u.email =:email")
     @Transactional(readOnly = true)
     User findByEmail(@Param("email") String email);
-    
-    
+
     void save(User user);
 }
 

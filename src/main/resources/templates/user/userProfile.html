@@ -14,7 +14,7 @@
                     <small>Subheading</small>
                     
                     <a th:href="@{/trip/list}">Trip List</a>
-
+  <p th:text="${session.email}" th:unless="${session == null}">[...]</p>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>

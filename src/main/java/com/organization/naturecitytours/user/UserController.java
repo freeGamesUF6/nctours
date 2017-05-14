@@ -8,6 +8,7 @@ package com.organization.naturecitytours.user;
 import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.trip.TripRepository;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+
 /**
  *
  * @author Jhona
@@ -32,27 +34,33 @@ public class UserController {
         this.user = user;
     }
 
-    @RequestMapping("/user/login")
-    public String initSession(@PathVariable("userEmail") String userEmail, Model model) {
-        User user = this.user.findByEmail(userEmail);
-        model.addAttribute(user);
-
-//        if (u2 != null) {
-//            if (u2.getPassword().equals(u.getPassword())) {
-//                //Variables de Sesion!
-//                request.getSession().setAttribute("mail", u2.getEmail());
-//                request.getSession().setAttribute("nickname", u2.getNick());
-//                RequestDispatcher rd = request.getRequestDispatcher("/views/games/listGames.jsp");
-//                //RequestDispatcher rd = request.getRequestDispatcher("prova.jsp");
-//                rd.forward(request, response);
-//            } else {
-//                throw new PasswordFailException();
-//            }
-//        } else {
-//            throw new NickErrorException();
-//        }
-
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    public String initSession(Map<String, Object> model) {
+        User user = new User();
+        model.put("user", user);
         return "user/userSession";
+    }
+
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    public String initSession(@Valid User user, BindingResult result, HttpSession session) {
+        System.out.println(user.getEmail());
+        User user1 = this.user.findByEmail(user.getEmail());
+        if (user1 != null) {
+            if (user1.getPassword().equals(user.getPassword())) {
+
+                session.setAttribute("Email", user.getEmail());
+                return "user/userProfile";
+
+            } else {
+
+                System.out.println("Error en contraseña");;
+                return "user/userSession";
+            }
+        } else {
+            System.out.println("Error en correo");
+            return "user/userSession";
+        }
+
     }
 
     @RequestMapping(value = "/user/new", method = RequestMethod.GET)
@@ -68,7 +76,7 @@ public class UserController {
             return "user/userNew";
         } else {
             this.user.save(user);
-            return "user/userSession";
+            return "user/userProfile";
         }
     }
 }
