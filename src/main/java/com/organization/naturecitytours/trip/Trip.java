@@ -8,7 +8,8 @@ package com.organization.naturecitytours.trip;
 import com.organization.naturecitytours.book.Pax;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.Table;import java.util.ArrayList;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +44,7 @@ import org.springframework.core.style.ToStringCreator;
 @Entity
 @Table(name = "trip")
 public class Trip implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -62,11 +64,13 @@ public class Trip implements Serializable {
     private double pricesingle;
     @Column(name = "suplement")
     private String suplement;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="idtrip",cascade= CascadeType.ALL)
-   // @JoinTable(name="transaction")
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip", cascade = CascadeType.ALL)
     private Set<Triphotels> hotels;
-    
-    
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Trip")
+    private Set<Date> date;
+
     public Integer getId() {
         return id;
     }
@@ -91,7 +95,6 @@ public class Trip implements Serializable {
         this.duration = duration;
     }
 
-
     public double getPricedouble() {
         return pricedouble;
     }
@@ -115,6 +118,5 @@ public class Trip implements Serializable {
     public void setSuplement(String suplement) {
         this.suplement = suplement;
     }
-    
-    
+
 }
