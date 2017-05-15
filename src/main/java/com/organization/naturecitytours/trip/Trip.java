@@ -45,6 +45,7 @@ import org.springframework.core.style.ToStringCreator;
 public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
     @Column(name = "name")
     @NotEmpty

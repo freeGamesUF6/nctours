@@ -8,11 +8,13 @@ package com.organization.naturecitytours.book;
 import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.user.User;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -27,6 +29,23 @@ public class BookController {
         this.book=book;
     }
     
+    @RequestMapping(value = "/book/new", method = RequestMethod.POST)
+    public String newBook(){
+        return "book/bookForm";
+    }
+    
+    @RequestMapping(value="/book/savebook")
+    public String saveBook(Book book){
+        this.book.save(book);
+        
+        return "";
+    }
+    
+    @RequestMapping("/book/list")
+    public String list(){
+        Collection<Book> books= book.findAll();
+        return "";
+    }
 //    @RequestMapping("/book/list")
 //    public String bookList(User user, BindingResult result, Map<String, Object> model) {
 //        // find books by user
@@ -46,5 +65,7 @@ public class BookController {
 //            return "hello";
 //        } 
 //    }
+    
+    
     
 }

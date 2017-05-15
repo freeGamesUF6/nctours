@@ -31,5 +31,9 @@ public interface BookRepository extends Repository<Book,Integer> {
      */
     @Query("SELECT DISTINCT user FROM User user WHERE user.email LIKE :email%")
     @Transactional(readOnly = true)
-    Collection<User> findByEmail(@Param("email") String email);
+    public Collection<User> findByEmail(@Param("email") String email);
+    
+    
+    @Transactional(readOnly = true)
+    public Collection<Book> findAll();
 }

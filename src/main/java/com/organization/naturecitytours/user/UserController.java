@@ -110,13 +110,13 @@ public class UserController {
         }
     }
     
-    @RequestMapping("/book/list")
+    @RequestMapping("/book/listByUser")
     public String bookList(User user, BindingResult result, Map<String, Object> model) {
         // find books by user
-        Bookuser bu=new Bookuser();
-        user.setId(3);
+//        Bookuser bu=new Bookuser();
+//        user.setId(3);
         user.setEmail("admin@admin");
-        user.setPassword("admin");
+//        user.setPassword("admin");
 //        bu.setIduser(user);
         User results = this.user.findByEmail(user.getEmail());
         if (results==null) {

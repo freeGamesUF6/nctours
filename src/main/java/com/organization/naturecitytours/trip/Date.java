@@ -19,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -38,6 +39,7 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "date")
+@IdClass(Date.class)
 public class Date implements Serializable {
     
     @Column(name="departurefirst")
