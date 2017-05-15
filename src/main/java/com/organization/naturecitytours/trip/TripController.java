@@ -5,6 +5,8 @@
  */
 package com.organization.naturecitytours.trip;
 
+import java.util.Collection;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,38 @@ public class TripController {
         this.trip=trip;
     }
     
+    @RequestMapping("/trip")
+    public String trip() {
+        return "trip/trip";
+    }
+    
+     @RequestMapping("/trip/list")
+     public String tripList(Trip trip, BindingResult result, Map<String, Object> model) {
+        // allow parameterless GET request for /trips to return all records
+        if (trip.getName() == null) {
+            trip.setName(""); // empty string signifies broadest possible search
+        }
+
+        // find trips bys name
+        Collection<Trip> results = this.trip.findByName(trip.getName());
+        if (results.isEmpty()) {
+            // no trips found
+            result.rejectValue("name", "notFound", "not found");
+            return "trip/trip";
+        } 
+//        else if (results.size() == 1) {
+//            // 1 trip found
+//            trip = results.iterator().next();
+//            return "redirect:/trip/" + trip.getId();
+//        } 
+        else {
+            // multiple trips found
+            model.put("selections", results);
+            return "trip/tripList";
+        }
+        
+     }
+    
     @RequestMapping("/saveTrip")
     public String saveTrip(Trip t){
 //        tr.setDuration("2");
@@ -37,7 +71,6 @@ public class TripController {
 //        tr.setPricedouble(1000.5);
 //        tr.setPricesingle(500.25);
         this.trip.save(tr);
-        
         return "hello";
     }
 }

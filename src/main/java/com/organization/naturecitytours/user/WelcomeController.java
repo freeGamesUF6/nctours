@@ -12,19 +12,7 @@ class WelcomeController {
         return "index";
     }
     
-
-    
-    @RequestMapping("/trip/list")
-    public String welcome2() {
-        return "trip/tripList";
-    }
-    
-    @RequestMapping("/trip")
-    public String welcome3() {
-        return "trip/trip";
-    }
-    
-     @RequestMapping("/book/form")
+    @RequestMapping("/book/form")
     public String welcome4() {
         return "book/bookForm";
     }
