@@ -1,6 +1,15 @@
 <html>
     <div th:insert="~{fragments/head :: head}">...</div>
 
+    <script type="text/javascript">
+        //Hay que hacer en accionlistener, n actualiza el num de pax.
+        document.getElementById("pax").addEventListener("select",numeroPax);
+        function numeroPax(){
+            alert("yeah");
+            document.getElementById("pasajeros").innerHTML="holaaaaaa";
+        
+        }
+    </script>
     <body>
         <div th:insert="~{fragments/header :: body}">...</div>
 
@@ -11,35 +20,74 @@
         <div class="row">
             <div class="col-md-4">
                 <h3>Formulario de reserva</h3>
-                <form name="sentMessage" id="contactForm" novalidate>
+                <form name="book" id="contactForm" novalidate>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Full Name:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
+                            <label>Numero de Pasajeros:</label>
+                             <select required id="pax" name="numPax">
+                                <option value=""></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                
+                            </select> 
+                        </div>
+                    </div>
+                <div id="pasajeros">
+                    <div class="control-group form-group">
+                        <hr>
+                        <div class="controls">
+                            <label>DNI :</label>
+                            <input type="text" class="form-control" id="dni" required data-validation-required-message="Introduzca el DNI del PAX.">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Nombre:</label>
+                            <input type="text" class="form-control" id="name" required data-validation-required-message="Introduzca el nombre del PAX.">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Phone Number:</label>
-                            <input type="tel" class="form-control" id="phone" required data-validation-required-message="Please enter your phone number.">
+                            <label>Apellidos:</label>
+                            <input type="text" class="form-control" id="surname" required data-validation-required-message="Introduzca el apellido del PAX.">
+                        </div>
+                    </div>
+                   
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Fecha Nacimiento:</label>
+                            <input type="text" class="form-control" id="dob" required data-validation-required-message="Introduzca el apellido del PAX.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Email Address:</label>
-                            <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email address.">
+                            <label>Pasaporte:</label>
+                            <input type="text" class="form-control" id="passport" required data-validation-required-message="Introduzca el apellido del PAX.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Message:</label>
-                            <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+                            <label>Fecha Caducidad Pasaporte:</label>
+                            <input type="text" class="form-control" id="passportexpiry" required data-validation-required-message="Introduzca el apellido del PAX.">
                         </div>
                     </div>
+                    <hr>
+                </div>
+                    
+                    
+                    
                     <div id="success"></div>
                     <!-- For success/fail messages -->
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary">Reservar</button>
                 </form>
             </div>
 
@@ -52,5 +100,4 @@
         <div th:insert="~{fragments/footer :: body}">...</div>
 
     </body>
-
 </html>
