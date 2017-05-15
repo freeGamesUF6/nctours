@@ -7,18 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 class WelcomeController {
 
-     @RequestMapping("/hola")
+     @RequestMapping("/")
     public String welcome() {
-        return "world";
+        return "index";
     }
     
 
-    
-    
-    @RequestMapping("/user/profile")
-    public String welcome1() {
-        return "user/userProfile";
-    }
     
     @RequestMapping("/trip/list")
     public String welcome2() {

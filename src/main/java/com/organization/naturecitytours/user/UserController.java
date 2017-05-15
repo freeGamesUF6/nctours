@@ -43,26 +43,44 @@ public class UserController {
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public String initSession(@Valid User user, BindingResult result, HttpSession session) {
-        System.out.println(user.getEmail());
-        User user1 = this.user.findByEmail(user.getEmail());
-        if (user1 != null) {
-            if (user1.getPassword().equals(user.getPassword())) {
+        try {
+            User user1 = this.user.findByEmail(user.getEmail());
+       
+           BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+           boolean matches = passwordEncoder.matches(user.getPassword(),user1.getPassword());
+            System.out.println("Email del usuario devuelto: " + user1.getEmail());
+           
+                if ( matches) {
 
-                session.setAttribute("Email", user.getEmail());
-                return "user/userProfile";
+                    session.setAttribute("user", user.getEmail());
+                    return "user/userProfile";
+                   
+                } else {
 
-            } else {
+                    System.out.println("Error en contraseña");;
+                    return "user/userSession";
+                }
+      
+        } catch (Exception e) {
+             System.out.println("Error en correo");
+                    return "user/userSession";
 
-                System.out.println("Error en contraseña");;
-                return "user/userSession";
-            }
-        } else {
-            System.out.println("Error en correo");
-            return "user/userSession";
         }
 
     }
 
+    
+     @RequestMapping("/user/logout")
+    public String closeSession(HttpSession session) {
+            session.setAttribute("user", null);
+        return "index";
+    }
+    
+    @RequestMapping("/user/profile")
+    public String profile() {
+        return "/user/userProfile";
+    }
+    
     @RequestMapping(value = "/user/new", method = RequestMethod.GET)
     public String initCreationForm(Map<String, Object> model) {
         User user = new User();
@@ -73,10 +91,18 @@ public class UserController {
     @RequestMapping(value = "/user/new", method = RequestMethod.POST)
     public String processCreationForm(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
+            
             return "user/userNew";
+            
         } else {
+    
+           String cryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+           
+           user.setPassword(cryptedPassword);
+       
             this.user.save(user);
-            return "user/userProfile";
+         
+            return "user/userSession";
         }
     }
 }

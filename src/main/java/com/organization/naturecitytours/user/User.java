@@ -46,7 +46,7 @@ public class User implements Serializable {
     @NotEmpty
     private String email;
     @Column(name = "password")
-    @Size(min=6,max=12)
+   
     @NotEmpty
     private String password;
     @OneToMany(fetch = FetchType.LAZY,mappedBy="iduser",cascade= CascadeType.ALL)

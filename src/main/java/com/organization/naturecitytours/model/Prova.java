@@ -38,11 +38,11 @@ public class Prova {
         
     }
    
-    @RequestMapping(value="/")
-    public String hola(){
-        return "hello";
-    }
-    
+//    @RequestMapping(value="/")
+//    public String hola(){
+//        return "hello";
+//    }
+//    
     @RequestMapping(value="/provaSave")
     public String provaSave(){
         User us=new User();
