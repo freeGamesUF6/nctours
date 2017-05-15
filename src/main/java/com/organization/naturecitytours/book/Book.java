@@ -34,7 +34,7 @@ public class Book implements Serializable {
     private Integer id;
     @Column(name = "date")
     @NotEmpty
-    private Date date;
+    private String date;
     @Column(name = "num_pax")
     @NotEmpty
     private int num_Pax;
@@ -47,9 +47,9 @@ public class Book implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)
    // @JoinTable(name="transaction")
     private Set<Bookpax> paxs;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)
-   // @JoinTable(name="transaction")
-    private Set<Bookuser> users;
+//    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)
+//   // @JoinTable(name="transaction")
+//    private Set<Bookuser> users;
     
    
     

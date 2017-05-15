@@ -3,29 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.organization.naturecitytours.trip;
+package com.organization.naturecitytours.book;
 
+import com.organization.naturecitytours.book.Book;
+import com.organization.naturecitytours.user.User;
 import java.util.Collection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author Mark
  */
-public interface TripRepository extends Repository<Trip,Integer> {
+public interface BookRepository extends Repository<Book,Integer> {
     /**
-     * mètode per guardar un nou viatge a la base de dades
-     * @param trip 
+     * Mètode per guardar una nova reserva a base de dades
+     * @param b 
      */
-    void save(Trip trip);
+    void save(Book b);
+    
     /**
      * 
-     * @param name
-     * @return java.util.Collection de viatges
+     * @param id
+     * @return java.util.Collection de reserves
      */
-    @Query("SELECT DISTINCT trip FROM Trip trip WHERE trip.name LIKE :name%")
+    @Query("SELECT DISTINCT user FROM User user WHERE user.email LIKE :email%")
     @Transactional(readOnly = true)
-    Collection<Trip> findByName(@Param("name") String name);
+    Collection<User> findByEmail(@Param("email") String email);
 }

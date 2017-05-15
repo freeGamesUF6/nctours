@@ -7,6 +7,7 @@ package com.organization.naturecitytours.book;
 
 import com.organization.naturecitytours.user.User;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,11 +21,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="bookuser")
 public class Bookuser implements Serializable {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="iduser")
     @Id
     private User iduser;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="idbook")
     @Id
     private Book idbook;

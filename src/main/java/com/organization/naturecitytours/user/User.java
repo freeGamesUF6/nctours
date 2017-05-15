@@ -49,7 +49,7 @@ public class User implements Serializable {
    
     @NotEmpty
     private String password;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="iduser",cascade= CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="iduser",cascade= CascadeType.ALL)
    // @JoinTable(name="transaction")
     private Set<Bookuser> books;
     

@@ -5,8 +5,10 @@
  */
 package com.organization.naturecitytours.user;
 
+import com.organization.naturecitytours.book.Bookuser;
 import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.trip.TripRepository;
+import java.util.Collection;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -104,5 +106,25 @@ public class UserController {
          
             return "user/userSession";
         }
+    }
+    
+    @RequestMapping("/book/list")
+    public String bookList(User user, BindingResult result, Map<String, Object> model) {
+        // find books by user
+        Bookuser bu=new Bookuser();
+        user.setId(3);
+        user.setEmail("admin@admin");
+        user.setPassword("admin");
+        bu.setIduser(user);
+        User results = this.user.findByEmail(user.getEmail());
+        if (results==null) {
+            // no trips found
+            result.rejectValue("id", "notFound", "not found");
+            return "hello";
+        }else {
+            // multiple trips found
+            model.put("selections", results);
+            return "hello";
+        } 
     }
 }

@@ -37,6 +37,13 @@ public class TripController {
         return "trip/trip";
     }
     
+    /**
+     * Mètode que recupera un viatge determinat o una llista de viatges si el paràmetre de cerca és buit
+     * @param trip
+     * @param result
+     * @param model
+     * @return vista per mostrar la llista de viatges o el viatge seleccionat segons escaigui
+     */
      @RequestMapping("/trip/list")
      public String tripList(Trip trip, BindingResult result, Map<String, Object> model) {
         // allow parameterless GET request for /trips to return all records
@@ -64,6 +71,11 @@ public class TripController {
         
      }
     
+     /**
+      * Mètode que permet guardar un nou viatge a la base de dades
+      * @param t
+      * @return 
+      */
     @RequestMapping("/saveTrip")
     public String saveTrip(Trip t){
 //        tr.setDuration("2");
