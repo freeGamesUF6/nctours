@@ -6,8 +6,10 @@
 package com.organization.naturecitytours.user;
 
 import com.organization.naturecitytours.book.Bookuser;
+import com.organization.naturecitytours.book.Book;
 import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.trip.TripRepository;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -51,7 +53,7 @@ public class UserController {
            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
            boolean matches = passwordEncoder.matches(user.getPassword(),user1.getPassword());
             System.out.println("Email del usuario devuelto: " + user1.getEmail());
-           
+      
                 if ( matches) {
 
                     session.setAttribute("user", user.getEmail());
@@ -115,7 +117,7 @@ public class UserController {
         user.setId(3);
         user.setEmail("admin@admin");
         user.setPassword("admin");
-        bu.setIduser(user);
+//        bu.setIduser(user);
         User results = this.user.findByEmail(user.getEmail());
         if (results==null) {
             // no trips found

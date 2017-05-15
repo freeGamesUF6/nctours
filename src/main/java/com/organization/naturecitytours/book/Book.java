@@ -29,6 +29,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name="book")
 public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -43,13 +44,70 @@ public class Book implements Serializable {
     private double pvp;
     @Column(name = "idtrip")
     @NotEmpty
-    private Trip idtrip;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)
-   // @JoinTable(name="transaction")
+    private int idtrip;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)  
     private Set<Bookpax> paxs;
-//    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)
-//   // @JoinTable(name="transaction")
-//    private Set<Bookuser> users;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL) 
+    private Set<Bookuser> users;
+
+    public Book() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getNum_Pax() {
+        return num_Pax;
+    }
+
+    public void setNum_Pax(int num_Pax) {
+        this.num_Pax = num_Pax;
+    }
+
+    public double getPvp() {
+        return pvp;
+    }
+
+    public void setPvp(double pvp) {
+        this.pvp = pvp;
+    }
+
+    public int getIdtrip() {
+        return idtrip;
+    }
+
+    public void setIdtrip(int idtrip) {
+        this.idtrip = idtrip;
+    }
+
+    public Set<Bookpax> getPaxs() {
+        return paxs;
+    }
+
+    public void setPaxs(Set<Bookpax> paxs) {
+        this.paxs = paxs;
+    }
+
+    public Set<Bookuser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<Bookuser> users) {
+        this.users = users;
+    }
     
    
     

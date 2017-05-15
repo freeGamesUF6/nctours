@@ -30,6 +30,11 @@ public class Bookuser implements Serializable {
     @Id
     private Book idbook;
 
+    public Bookuser() {
+    }
+    
+    
+
     public User getIduser() {
         return iduser;
     }
