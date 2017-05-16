@@ -68,7 +68,7 @@ public class Trip implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip", cascade = CascadeType.ALL)
     private Set<Triphotels> hotels;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Trip")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip",cascade = CascadeType.ALL)
     private Set<Date> date;
 
     public Integer getId() {
