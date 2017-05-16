@@ -69,7 +69,10 @@ public class Trip implements Serializable {
     private Set<Triphotels> hotels;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip",cascade = CascadeType.ALL)
-    private Set<Date> date;
+    private Set<Date> dates;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip",cascade = CascadeType.ALL)
+    private Set<Itinerary> itineraries;
 
     public Integer getId() {
         return id;
