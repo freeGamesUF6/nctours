@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+    <div th:insert="~{fragments/head :: head}">...</div>
+
+    <body>
+        <div th:insert="~{fragments/header :: body}">...</div>
+        
+        <hr />
+       <!-- Page Content -->
+    <div class="container">
+
+       
+
+        <!-- Project One -->
+        <div class="row" th:each="book : ${selections}">
+            <div class="col-md-7">
+                <table class="table-striped">
+                        <thead>
+                            <tr>   
+                                <th class="text-left">num_pax</th>                    
+                                <th class="text-center">pvp</th>
+                                <th class="text-right">Trip name</th>
+                                <th class="text-right">Date</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <tr> 
+                            <td th:text="${book.num_Pax}"/>
+                            <td class="text-center" th:text="${book.pvp}"/>
+                            <td th:text="${book.idtrip.name}"/>
+                            <td th:text="${book.date}"/>
+                            <td th:text="${book.date}"/>
+                            
+                           </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <div class="col-md-5">                               
+                <a  class="btn btn-primary" th:href="@{/book}">Eliminar Reserva</a>               
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        
+
+        <hr>
+
+
+
+
+        <div th:insert="~{fragments/footer :: body}">...</div>
+    </div>
+    </body>
+
+</html>

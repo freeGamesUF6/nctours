@@ -62,8 +62,8 @@ public class Trip implements Serializable {
     @DecimalMax("100000.00")
     @NotNull
     private double pricesingle;
-    @Column(name = "suplement")
-    private String suplement;
+    @Column(name = "suplement",nullable=true)
+    private Double suplement;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip", cascade = CascadeType.ALL)
     private Set<Triphotels> hotels;
@@ -114,11 +114,11 @@ public class Trip implements Serializable {
         this.pricesingle = pricesingle;
     }
 
-    public String getSuplement() {
+    public double getSuplement() {
         return suplement;
     }
 
-    public void setSuplement(String suplement) {
+    public void setSuplement(double suplement) {
         this.suplement = suplement;
     }
 

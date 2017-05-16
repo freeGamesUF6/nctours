@@ -74,6 +74,12 @@ and open the template in the editor.
                                 </li>
                             </ul>
                         </li>
+                        <div th:switch="${session.user}">
+                         <li th:case="'admin@admin'">
+                            <a th:href="@{/book/list}">Book List(Admin View)</a>                  
+                        </li>
+                        <li th:case="*"></li>
+                        </div>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
