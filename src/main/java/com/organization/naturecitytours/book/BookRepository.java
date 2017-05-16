@@ -25,7 +25,7 @@ public interface BookRepository extends Repository<Book,Integer> {
     void save(Book b);
     
     /**
-     * 
+     * Mètode que busca reserves per email d'usuari
      * @param id
      * @return java.util.Collection de reserves
      */
@@ -33,7 +33,10 @@ public interface BookRepository extends Repository<Book,Integer> {
     @Transactional(readOnly = true)
     public Collection<User> findByEmail(@Param("email") String email);
     
-    
+    /**
+     * Mètode que retorna totes les reserves
+     * @return 
+     */
     @Transactional(readOnly = true)
     public Collection<Book> findAll();
 }

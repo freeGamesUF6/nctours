@@ -20,28 +20,53 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  *
  * @author Mark
+ * 
+ * @version 0.1
  */
 @Controller
 public class BookController {
     private BookRepository book;
     
+    /**
+     * constructor con inyección de dependencias
+     * @param book 
+     */
     @Autowired
     public BookController(BookRepository book){
         this.book=book;
     }
     
+    /**
+     * Método para empezar a crear una nueva reserva
+     * @return la vista con el formulario de reserva
+     */
     @RequestMapping(value = "/book/new", method = RequestMethod.GET)
     public String newBook(){
         return "book/bookForm";
     }
     
+    /**
+     * Método para guardar una nueva reserva
+     * @param book
+     * @return la vista adecuada
+     */
+    
     @RequestMapping(value="/book/savebook")
     public String saveBook(Book book){
         this.book.save(book);
         
-        return "";
+        return "book/bookForm";
     }
     
+    /**
+     * Método que muestra todas las reservas de todos los usuarios siempre
+     * que el usuario sea admin
+     * @param book
+     * @param result
+     * @param model
+     * @param session
+     * @return la vista de todas las reservas si el usuario es admin@admin
+     */
     @RequestMapping("/book/list")
     public String list(Book book,BindingResult result, Map<String, Object> model, HttpSession session){
         Collection<Book> books= this.book.findAll();
