@@ -25,8 +25,63 @@ and open the template in the editor.
                     <a class="navbar-brand" href="/">NatureCity Tours</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  th:switch="${session.user}">
+                    <ul class="nav navbar-nav navbar-right"  th:case="'admin@admin'">
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                        <li>
+                            <a href="services.html">Services</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="portfolio-1-col.html">1 Column Portfolio</a>
+                                </li>
+                                <li>
+                                    <a href="portfolio-2-col.html">2 Column Portfolio</a>
+                                </li>
+                                <li>
+                                    <a href="portfolio-3-col.html">3 Column Portfolio</a>
+                                </li>
+                                <li>
+                                    <a href="portfolio-4-col.html">4 Column Portfolio</a>
+                                </li>
+                                <li>
+                                    <a href="portfolio-item.html">Single Portfolio Item</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a th:href="@{/trip/list}">Trip List</a>
+                        </li>
+                                
+                        <li>
+                            <a th:href="@{/user/new}">Register</a>
+                        </li>
+                        <li class="dropdown">
+                            
+                            <a th:if="${session.user == null}" th:href="@{/user/login}">Login</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  th:text="${session.user}" th:unless="${session == null}" ><b class="caret"></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a th:href="@{/user/profile}" >Profile</a>
+                                    <a th:href="@{/user/logout}">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                         <li>
+                            <a th:href="@{/book/list}">Book List(Admin View)</a>                  
+                        </li>
+                        
+                       
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right"  th:case="*">
                         <li>
                             <a href="about.html">About</a>
                         </li>
@@ -81,6 +136,7 @@ and open the template in the editor.
                         <li th:case="*"></li>
                         </div>
                     </ul>
+                     </div>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
