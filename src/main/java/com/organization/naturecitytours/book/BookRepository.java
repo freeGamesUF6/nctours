@@ -25,11 +25,18 @@ public interface BookRepository extends Repository<Book,Integer> {
     void save(Book b);
     
     /**
-     * 
+     * Mètode que busca reserves per email d'usuari
      * @param id
      * @return java.util.Collection de reserves
      */
     @Query("SELECT DISTINCT user FROM User user WHERE user.email LIKE :email%")
     @Transactional(readOnly = true)
-    Collection<User> findByEmail(@Param("email") String email);
+    public Collection<User> findByEmail(@Param("email") String email);
+    
+    /**
+     * Mètode que retorna totes les reserves
+     * @return 
+     */
+    @Transactional(readOnly = true)
+    public Collection<Book> findAll();
 }

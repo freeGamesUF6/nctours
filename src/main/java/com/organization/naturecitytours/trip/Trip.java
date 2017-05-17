@@ -8,7 +8,8 @@ package com.organization.naturecitytours.trip;
 import com.organization.naturecitytours.book.Pax;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.Table;import java.util.ArrayList;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -43,8 +44,10 @@ import org.springframework.core.style.ToStringCreator;
 @Entity
 @Table(name = "trip")
 public class Trip implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
     @Column(name = "name")
     @NotEmpty
@@ -59,13 +62,18 @@ public class Trip implements Serializable {
     @DecimalMax("100000.00")
     @NotNull
     private double pricesingle;
-    @Column(name = "suplement")
-    private String suplement;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="idtrip",cascade= CascadeType.ALL)
-   // @JoinTable(name="transaction")
+    @Column(name = "suplement",nullable=true)
+    private Double suplement;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip", cascade = CascadeType.ALL)
     private Set<Triphotels> hotels;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip",cascade = CascadeType.ALL)
+    private Set<Date> dates;
     
-    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip",cascade = CascadeType.ALL)
+    private Set<Itinerary> itineraries;
+
     public Integer getId() {
         return id;
     }
@@ -90,7 +98,6 @@ public class Trip implements Serializable {
         this.duration = duration;
     }
 
-
     public double getPricedouble() {
         return pricedouble;
     }
@@ -107,13 +114,12 @@ public class Trip implements Serializable {
         this.pricesingle = pricesingle;
     }
 
-    public String getSuplement() {
+    public double getSuplement() {
         return suplement;
     }
 
-    public void setSuplement(String suplement) {
+    public void setSuplement(double suplement) {
         this.suplement = suplement;
     }
-    
-    
+
 }

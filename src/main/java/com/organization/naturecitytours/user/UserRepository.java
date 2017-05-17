@@ -23,7 +23,6 @@ public interface UserRepository extends Repository<User,Integer> {
      * @param email email para buscar un usuario
      * @return devuelve el usuario si lo encuentra
      */
-  
     @Transactional(readOnly = true)
     User findByEmail(String email);
 

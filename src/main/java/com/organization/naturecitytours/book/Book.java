@@ -17,6 +17,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -43,9 +44,10 @@ public class Book implements Serializable {
     @Column(name = "pvp")
     @NotEmpty
     private double pvp;
-    @Column(name = "idtrip")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="idtrip")
     @NotEmpty
-    private int idtrip;
+    private Trip idtrip;
     @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL)  
     private Set<Bookpax> paxs;
     @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook",cascade= CascadeType.ALL) 
@@ -86,11 +88,11 @@ public class Book implements Serializable {
         this.pvp = pvp;
     }
 
-    public int getIdtrip() {
+    public Trip getIdtrip() {
         return idtrip;
     }
 
-    public void setIdtrip(int idtrip) {
+    public void setIdtrip(Trip idtrip) {
         this.idtrip = idtrip;
     }
 
