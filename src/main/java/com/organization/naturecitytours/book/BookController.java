@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
@@ -83,6 +84,15 @@ public class BookController {
             }
             
         }
+    }
+    
+    @RequestMapping("/book/delete/{id}")
+    public String deleteBook(@PathVariable("id") String bookId){
+        Long idbook=Long.parseLong(bookId);
+        Book b=new Book();        
+        //b=this.book.findById(idbook);
+        this.book.delete(idbook);
+        return "redirect:/book/list";
     }
     
     
