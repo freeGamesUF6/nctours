@@ -17,7 +17,8 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Xavier,,Marc(Mapping)
+ * @author Xavier
+ * @author Marc
  */
 @Entity
 @Table(name="itinerary")
