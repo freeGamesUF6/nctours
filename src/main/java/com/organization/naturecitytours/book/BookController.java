@@ -7,9 +7,12 @@ package com.organization.naturecitytours.book;
 
 import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.user.User;
+import com.organization.naturecitytours.user.UserController;
+import com.organization.naturecitytours.user.UserRepository;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -27,14 +30,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BookController {
     private BookRepository book;
+    private PaxRepository pax;
+    private UserRepository user;
     
     /**
      * constructor con inyección de dependencias
      * @param book 
      */
     @Autowired
-    public BookController(BookRepository book){
+    public BookController(BookRepository book, PaxRepository pax,UserRepository user){
         this.book=book;
+        this.pax=pax;
+        this.user=user;
     }
     
     /**
@@ -53,7 +60,15 @@ public class BookController {
      */
     
     @RequestMapping(value="/book/savebook")
-    public String saveBook(Book book){
+    public String saveBook(Book book,Set<Pax> paxs,HttpSession session){
+        User user=this.user.findByEmail(session.getAttribute("user").toString());
+        for (Pax pax : paxs) {
+            Bookpax bu=new Bookpax();
+            bu.setIduser(book);
+            bu.setDnipax(pax);
+            book.getPaxs().add(bu);
+        }
+        
         this.book.save(book);
         
         return "book/bookForm";
