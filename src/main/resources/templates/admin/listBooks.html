@@ -7,6 +7,8 @@
         <div th:insert="~{fragments/header :: body}">...</div>
         
         <hr />
+        <hr />
+        <hr />
        <!-- Page Content -->
     <div class="container">
 
@@ -33,14 +35,18 @@
                             <td th:text="${book.date}"/>
                         <div th:each="user : ${book.users}">
                             <td th:text="${user.iduser.email}"/>
-                        </div>    
+                        </div> 
+                        <div class="col-md-5">                               
+                            <td>  <a  class="btn btn-danger" th:href="@{/book/delete/}+${book.id}">Eliminar Reserva</a> </td>              
+                        </div>
                            </tr>
                         </tbody>
                     </table>
+                
             </div>
-            <div class="col-md-5">                               
-                <a  class="btn btn-danger" th:href="@{/book/delete/}+${book.id}">Eliminar Reserva</a>               
+                
             </div>
+            
         </div>
         <!-- /.row -->
 

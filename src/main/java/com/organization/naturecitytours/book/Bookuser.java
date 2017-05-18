@@ -60,9 +60,31 @@ public class Bookuser implements Serializable {
      * http://stackoverflow.com/questions/38613755/java-lang-illegalargumentexception-expecting-idclass-mapping
      * 
      */
-    public class BookuserId implements Serializable {
+    public static class BookuserId implements Serializable {
         private Long iduser;
         private Long idbook;
+
+        public BookuserId() {
+        }
+
+        public BookuserId(Long iduser, Long idbook) {
+            this.iduser = iduser;
+            this.idbook = idbook;
+        }
+        
+        @Override
+        public int hashCode() {
+         return  this.iduser.hashCode();
+        }
+ 
+        @Override
+        public boolean equals(Object obj) {
+         if (obj == this) return true;
+         if (!(obj instanceof BookuserId)) return false;
+         BookuserId pk = (BookuserId) obj;
+         return pk.idbook.equals(this.idbook) && pk.iduser.equals(this.iduser);
+        }
+        
     }
     
     
