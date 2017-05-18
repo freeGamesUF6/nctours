@@ -37,13 +37,13 @@ public class Pax implements Serializable {
     private String surname;
     @Column(name = "dob")
     @NotEmpty
-    private Date dob;
+    private String dob;
     @Column(name = "passport")
     @NotEmpty
     private String passport;
     @Column(name = "passportexpiry")
     @NotEmpty
-    private Date passportexpiry;
+    private String passportexpiry;
     @OneToMany(fetch = FetchType.LAZY,mappedBy="dnipax",cascade= CascadeType.ALL)
    // @JoinTable(name="transaction")
     private Set<Bookpax> books;
@@ -73,11 +73,11 @@ public class Pax implements Serializable {
         this.surname = surname;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
@@ -89,11 +89,11 @@ public class Pax implements Serializable {
         this.passport = passport;
     }
 
-    public Date getPassportexpiry() {
+    public String getPassportexpiry() {
         return passportexpiry;
     }
 
-    public void setPassportexpiry(Date passportexpiry) {
+    public void setPassportexpiry(String passportexpiry) {
         this.passportexpiry = passportexpiry;
     }
 

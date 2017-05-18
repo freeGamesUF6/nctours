@@ -15,11 +15,13 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -60,12 +62,22 @@ public class BookController {
      */
     
     @RequestMapping(value="/book/savebook")
-    public String saveBook(Book book,Set<Pax> paxs,HttpSession session){
+    public String saveBook(Book book,HttpSession session,@RequestParam("paxs") String pax){
+        String[] paxs=pax.split(",");
+        //String paxs=request;
         User user=this.user.findByEmail(session.getAttribute("user").toString());
-        for (Pax pax : paxs) {
-            Bookpax bu=new Bookpax();
+        for (String pax1 : paxs) {
+            String[] ps=pax1.split(" ");
+            Pax p=new Pax();
+            p.setDni(ps[0]);
+            p.setName(ps[1]);
+            p.setSurname(ps[2]);
+            p.setDob(ps[3]);
+            p.setPassport(ps[4]);
+            p.setPassportexpiry(ps[5]);
+             Bookpax bu=new Bookpax();
             bu.setIduser(book);
-            bu.setDnipax(pax);
+            bu.setDnipax(p);
             book.getPaxs().add(bu);
         }
         
