@@ -56,14 +56,11 @@
 
         
     <script type="text/javascript">
-        var numPax=document.getElementById("pax");
-        
         function numeroPax(){
-            for(i=1;i<=numPax.length;i++){
-                document.getElementById("pasajeros").innerHTML=numPax;
-            //mirar lo del append
-            alert("yeah");
-            //document.getElementById("pasajeros").innerHTML="<div class=""pax><div class=""control-group form-group""><div class=""controls""><label>DNI :</label><input type=""text"" class=""form-control"" id=""dni"" required data-validation-required-message=""Introduzca el DNI del PAX.""></div></div><div class=""control-group form-group""><div class=""controls""><label>Nombre:</label><input type=""text"" class=""form-control"" id=""name"" required data-validation-required-message=""Introduzca el nombre del PAX.""><p class=""help-block""></p></div></div><div class=""control-group form-group""><div class=""controls""><label>Apellidos:</label><input type=""text"" class=""form-control"" id=""surname"" required data-validation-required-message=""Introduzca el apellido del PAX.""></div></div><div class=""control-group form-group""><div class=""controls""><label>Fecha Nacimiento:</label><input type=""text"" class=""form-control"" id=""dob"" required data-validation-required-message=""Introduzca el apellido del PAX.""></div></div><div class=""control-group form-group""><div class=""controls""><label>Pasaporte:</label><input type=""text"" class=""form-control"" id=""passport"" required data-validation-required-message=""Introduzca el apellido del PAX.""></div></div><div class=""control-group form-group""><div class=""controls""><label>Fecha Caducidad Pasaporte:</label><input type=""text"" class=""form-control"" id=""passportexpiry"" required data-validation-required-message=""Introduzca el apellido del PAX.""></div></div>";
+            var numPax=document.getElementById("pax").value;
+            for(i=1;i<=numPax;i++){
+            document.getElementById("pasajeros").innerHTML=numPax;
+            document.getElementById("pasajeros").innerHTML+='<div class="pax'+i+'"><h3>PASAJERO '+i+'</h3><div class="control-group form-group"><div class="controls"><label>DNI :</label><input type="text" class="form-control" id="dni required data-validation-required-message="Introduzca el DNI del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Nombre:</label><input type="text" class="form-control" id="name" required data-validation-required-message="Introduzca el nombre del PAX."><p class="help-block"></p></div></div><div class="control-group form-group"><div class="controls"><label>Apellidos:</label><input type="text" class="form-control" id="surname" required data-validation-required-message="Introduzca el apellido del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Nacimiento:</label><input type="text" class="form-control" id="dob" required data-validation-required-message="Introduzca el Facha naciemiento del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Pasaporte:</label><input type="text" class="form-control" id="passport" required data-validation-required-message="Introduzca el pasaporte del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Caducidad Pasaporte:</label><input type="text" class="form-control" id="passportexpiry" required data-validation-required-message="Introduzca caducidad del passaporte del PAX."></div></div>';
             }
         }
     </script>
