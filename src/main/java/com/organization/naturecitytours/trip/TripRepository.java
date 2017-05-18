@@ -15,17 +15,43 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Mark
  */
 public interface TripRepository extends Repository<Trip,Integer> {
+   
     /**
      * mètode per guardar un nou viatge a la base de dades
-     * @param trip 
+     *
+     * @param trip
      */
     void save(Trip trip);
+
     /**
-     * 
+     * Query para seleccionar un Trip de la Bade de datos
+     *
+     * @param id the id to search for
+     * @return the {@link Owner} if found
+       @Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
+    
+    @Transactional(readOnly = true)
+    Trip findById(@Param("id") Integer id);
+ */ 
+     @Transactional(readOnly = true)
+    Trip findById(Long id);
+
+    /**
+     *
      * @param name
      * @return java.util.Collection de viatges
      */
     @Query("SELECT DISTINCT trip FROM Trip trip WHERE trip.name LIKE :name%")
     @Transactional(readOnly = true)
     Collection<Trip> findByName(@Param("name") String name);
+
+    
+    @Transactional(readOnly = true)
+    Collection<Trip> findAll();
+    
+//    @Query("last_insert_id()")
+//    @Transactional(readOnly = true)
+//    Integer findLasI
+
+
 }

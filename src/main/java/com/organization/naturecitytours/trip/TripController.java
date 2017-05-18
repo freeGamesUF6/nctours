@@ -37,6 +37,25 @@ public class TripController {
         return "trip/trip";
     }
     
+        /**
+     * Metodo para aceder a un Trip por ID
+     *
+     * @param ownerId the ID of the owner to display
+     * @return a ModelMap with the model attributes for the view
+     */
+    @RequestMapping("/trip/{tripId}")
+    public ModelAndView showOTrip(@PathVariable("tripId") Long tripId) {
+        ModelAndView mav = new ModelAndView("trip/trip");
+        
+      
+        Trip t = this.trip.findById(tripId);
+        //Collection<Images> i =  this.img.findById(tripId);
+        mav.addObject(t);
+        //mav.addObject(i);
+        return mav;
+    }
+
+    
     /**
      * Mètode que recupera un viatge determinat o una llista de viatges si el paràmetre de cerca és buit
      * @param trip
@@ -56,7 +75,9 @@ public class TripController {
         if (results.isEmpty()) {
             // no trips found
             result.rejectValue("name", "notFound", "not found");
-            return "trip/trip";
+            Collection<Trip> res = this.trip.findAll();
+              model.put("tripList", res);
+            return "trip/tripList";
         } 
 //        else if (results.size() == 1) {
 //            // 1 trip found
@@ -66,9 +87,11 @@ public class TripController {
         else {
             // multiple trips found
             model.put("selections", results);
+             Collection<Trip> res = this.trip.findAll();
+              model.put("list", res);
             return "trip/tripList";
         }
-        
+
      }
     
      /**
