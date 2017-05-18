@@ -28,7 +28,7 @@ import javax.persistence.Table;
 public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(name="name")
     private String name;
     @Column(name="category")
@@ -39,11 +39,11 @@ public class Hotel implements Serializable {
    // @JoinTable(name="transaction")
     private Set<Triphotels> trips;
     
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

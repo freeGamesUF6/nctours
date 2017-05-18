@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Jhona
  */
-public interface UserRepository extends Repository<User,Integer> {
+public interface UserRepository extends Repository<User,Long> {
     
     
      /**

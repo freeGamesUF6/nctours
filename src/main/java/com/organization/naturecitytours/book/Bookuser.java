@@ -24,7 +24,7 @@ public class Bookuser implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="iduser")
     @Id
-    private User iduser;
+    public User iduser;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="idbook")
     @Id
