@@ -5,7 +5,7 @@
  */
 package com.organization.naturecitytours.user;
 
-import com.organization.naturecitytours.book.Bookuser;
+
 import com.organization.naturecitytours.book.Book;
 import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.trip.TripRepository;

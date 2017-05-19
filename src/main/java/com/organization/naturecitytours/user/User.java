@@ -6,7 +6,6 @@
 package com.organization.naturecitytours.user;
 
 import com.organization.naturecitytours.book.Book;
-import com.organization.naturecitytours.book.Bookuser;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +20,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -47,11 +49,11 @@ public class User implements Serializable {
     @NotEmpty
     private String email;
     @Column(name = "password")
-   
     @NotEmpty
     private String password;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="iduser",cascade= CascadeType.ALL)  
-    private Set<Bookuser> books;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "bookuser", joinColumns = { @JoinColumn(name = "iduser") }, inverseJoinColumns = { @JoinColumn(name = "idbook") })
+    private Set<Book> books;
 
     public User() {
     }
@@ -80,11 +82,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Set<Bookuser> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Bookuser> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
     

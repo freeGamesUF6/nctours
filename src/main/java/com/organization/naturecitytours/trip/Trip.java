@@ -26,7 +26,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -55,7 +57,7 @@ public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private Long id;
+    private int id;
     @Column(name = "name")
     @NotEmpty
     private String name;
@@ -71,12 +73,14 @@ public class Trip implements Serializable {
     private double pricesingle;
     @Column(name = "suplement",nullable=true)
     private Double suplement;
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "triphotels", joinColumns = { @JoinColumn(name = "idtrip") }, inverseJoinColumns = { @JoinColumn(name = "idhotel") })
+    private Set<Hotel> hotels;
 
      @Column(name = "image")
     private String image;
      
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip", cascade = CascadeType.ALL)
-    private Set<Triphotels> hotels;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip",cascade = CascadeType.ALL)
     private Set<Date> dates;
@@ -87,11 +91,25 @@ public class Trip implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip")
     private Set<Images> img;
     
-    public Long getId() {
+     public Trip() {
+    }
+
+    public Trip(String name, String duration, double pricedouble, double pricesingle, Double suplement, Set<Hotel> hotels, Set<Itinerary> itineraries) {
+        this.name = name;
+        this.duration = duration;
+        this.pricedouble = pricedouble;
+        this.pricesingle = pricesingle;
+        this.suplement = suplement;
+        this.hotels = hotels;
+        this.itineraries = itineraries;
+    }
+
+    
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

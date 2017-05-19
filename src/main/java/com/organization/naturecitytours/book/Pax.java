@@ -15,6 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -44,9 +47,36 @@ public class Pax implements Serializable {
     @Column(name = "passportexpiry")
     @NotEmpty
     private String passportexpiry;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="dnipax",cascade= CascadeType.ALL)
-   // @JoinTable(name="transaction")
-    private Set<Bookpax> books;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "bookpax", joinColumns = { @JoinColumn(name = "dnipax") }, inverseJoinColumns = { @JoinColumn(name = "idbook") })
+    private Set<Book> books;
+
+    public Pax() {
+    }
+
+    public Pax(String dni) {
+        this.dni = dni;
+    }
+
+    public Pax(String dni, String name, String surname, String dob, String passport, String passportexpiry) {
+        this.dni = dni;
+        this.name = name;
+        this.surname = surname;
+        this.dob = dob;
+        this.passport = passport;
+        this.passportexpiry = passportexpiry;
+        
+    }
+    
+    
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
     
     
     public String getDni() {

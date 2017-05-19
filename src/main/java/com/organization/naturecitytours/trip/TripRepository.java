@@ -34,7 +34,7 @@ public interface TripRepository extends Repository<Trip,Integer> {
     Trip findById(@Param("id") Integer id);
  */ 
      @Transactional(readOnly = true)
-    Trip findById(@Param("tripId") Long id);
+    Trip findById(@Param("tripId") int id);
 
     /**
      *

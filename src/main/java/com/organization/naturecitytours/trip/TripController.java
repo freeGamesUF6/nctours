@@ -55,7 +55,7 @@ public class TripController {
      * @return a ModelMap with the model attributes for the view
      */
     @RequestMapping("/trip/{tripId}")
-    public ModelAndView showOTrip(@PathVariable("tripId") Long tripId) {
+    public ModelAndView showOTrip(@PathVariable("tripId") int tripId) {
         ModelAndView mav = new ModelAndView("trip/trip");
         
       System.out.println("ideeee" + tripId);
