@@ -5,9 +5,14 @@
  */
 package com.organization.naturecitytours.trip;
 
+import java.awt.Image;
 import java.io.File;
+import static java.lang.reflect.Array.set;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,10 +58,18 @@ public class TripController {
     public ModelAndView showOTrip(@PathVariable("tripId") Long tripId) {
         ModelAndView mav = new ModelAndView("trip/trip");
         
-      
+      System.out.println("ideeee" + tripId);
         Trip trip = this.trip.findById(tripId);
         //Collection<Images> i =  this.img.findById(tripId);
+        
+        Set<Images> e =trip.getImg();
+        
+        for(Images i : e){
+            System.out.println("imagenes "+ i.getUrl());
+        }
         mav.addObject(trip);
+        
+        
         //mav.addObject(i);
         return mav;
     }
@@ -142,8 +155,8 @@ public class TripController {
             @ModelAttribute ImagesForm files) {
         
         System.out.println("hoooooooooooooooola");
-        String rootPath = "src/main/resources/static/resources/images";
-        String relativePath = "/resources/images";
+        String rootPath = "src/main/resources/static/resources/images/trip";
+        String relativePath = "/resources/images/trip";
         String logo = "logo.png";
         // Creamos en el directorio raiz ('images'), un direcetorio con el NOMBRE que nos llega por el formulario
         File dir = new File(rootPath + File.separator + trip.getName());
@@ -186,7 +199,7 @@ public class TripController {
                 Images i = new Images();
                 
                 
-                i.setTrip(trip);
+                i.setIdtrip(trip);
                 
                 //Seteamos la url relativa para la base de datos
                 String urlImg = relativePath +"/"+ trip.getName() + "/" + image.getOriginalFilename();

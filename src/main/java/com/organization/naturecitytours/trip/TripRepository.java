@@ -34,7 +34,7 @@ public interface TripRepository extends Repository<Trip,Integer> {
     Trip findById(@Param("id") Integer id);
  */ 
      @Transactional(readOnly = true)
-    Trip findById(Long id);
+    Trip findById(@Param("tripId") Long id);
 
     /**
      *
@@ -52,6 +52,8 @@ public interface TripRepository extends Repository<Trip,Integer> {
 //    @Query("last_insert_id()")
 //    @Transactional(readOnly = true)
 //    Integer findLasI
+
+
 
 
 }

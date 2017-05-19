@@ -1,4 +1,5 @@
 <html>
+    <head>
     <div th:insert="~{fragments/head :: head}">...</div>
     <script>
         $(document).ready(function () {
@@ -10,7 +11,7 @@
             $(add_button).click(function (e) { //on add input button click
                 e.preventDefault();
                 if (x < max_fields) { //max input box allowed
-                    $(wrapper).append('<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div>'); //add input box
+                    $(wrapper).append('<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control"><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div>'); //add input box
                     x++; //text box increment
 
                 }                                                               
@@ -24,6 +25,7 @@
             })
         });
     </script>
+    </head>
     <body>
         <div th:insert="~{fragments/header :: body}">...</div>
 

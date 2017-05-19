@@ -13,6 +13,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -82,9 +83,8 @@ public class Trip implements Serializable {
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip",cascade = CascadeType.ALL)
     private Set<Itinerary> itineraries;
-    
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip")
     private Set<Images> img;
     
     public Long getId() {
@@ -164,6 +164,11 @@ public class Trip implements Serializable {
            } catch (Exception e) {
               System.out.println("ERROR AL SUBIR foto de portada");
             }
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" + "img=" + img + '}';
     }
 
 }

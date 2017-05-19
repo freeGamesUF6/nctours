@@ -17,6 +17,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -24,20 +26,23 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tripimage")
+
 public class Images implements Serializable {
+  
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private Long id;   
+    private Long id;
     
-
     @Column(name="url")
     private String url;
     
-    
- 
-    private Trip trip;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name="idtrip")
+    private Trip idtrip;
 
     public String getUrl() {
         return url;
@@ -46,16 +51,18 @@ public class Images implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+
+   
+
+
     
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idtrip", nullable = false)
-     public Trip getTrip() {
-        return trip;
+
+     public Trip getIdtrip() {
+        return idtrip;
     }
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
+    public void setIdtrip(Trip idtrip) {
+        this.idtrip = idtrip;
     }
 
 //    public int getIdtrip() {
@@ -65,5 +72,9 @@ public class Images implements Serializable {
 //    public void setIdtrip(int idtrip) {
 //        this.idtrip = idtrip;
 //    }
+
+
     
 }
+
+
