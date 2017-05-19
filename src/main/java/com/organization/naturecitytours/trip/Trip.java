@@ -6,6 +6,9 @@
 package com.organization.naturecitytours.trip;
 
 import com.organization.naturecitytours.book.Pax;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -22,6 +25,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -36,6 +40,7 @@ import org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -43,6 +48,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 @Entity
 @Table(name = "trip")
+
 public class Trip implements Serializable {
 
     @Id
@@ -65,6 +71,9 @@ public class Trip implements Serializable {
     @Column(name = "suplement",nullable=true)
     private Double suplement;
 
+     @Column(name = "image")
+    private String image;
+     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip", cascade = CascadeType.ALL)
     private Set<Triphotels> hotels;
 
@@ -73,7 +82,11 @@ public class Trip implements Serializable {
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip",cascade = CascadeType.ALL)
     private Set<Itinerary> itineraries;
-
+    
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
+    private Set<Images> img;
+    
     public Long getId() {
         return id;
     }
@@ -120,6 +133,37 @@ public class Trip implements Serializable {
 
     public void setSuplement(double suplement) {
         this.suplement = suplement;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Set<Images> getImg() {
+        return img;
+    }
+
+    public void setImg(Set<Images> img) {
+        this.img = img;
+    }
+    
+    
+    
+      public void InserFile(MultipartFile file,File imageFile){
+        try{
+           byte[] bytes = file.getBytes();
+
+                // Insertamos el archivo en nuestro proyecto
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(imageFile));
+                stream.write(bytes);
+                stream.close();
+           } catch (Exception e) {
+              System.out.println("ERROR AL SUBIR foto de portada");
+            }
     }
 
 }

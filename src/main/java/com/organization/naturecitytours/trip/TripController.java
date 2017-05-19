@@ -5,17 +5,22 @@
  */
 package com.organization.naturecitytours.trip;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -26,16 +31,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class TripController {
     
     private TripRepository trip;
-    private Trip tr=new Trip();
+    private ImagesRepository img;
+    private Trip tr = new Trip();
+
     @Autowired
-    public TripController(TripRepository trip){
-        this.trip=trip;
+    public TripController(TripRepository trip,ImagesRepository img ) {
+        this.trip = trip;
+        this.img = img;
+ 
     }
-    
-    @RequestMapping("/trip")
-    public String trip() {
-        return "trip/trip";
-    }
+
+ 
     
         /**
      * Metodo para aceder a un Trip por ID
@@ -48,9 +54,9 @@ public class TripController {
         ModelAndView mav = new ModelAndView("trip/trip");
         
       
-        Trip t = this.trip.findById(tripId);
+        Trip trip = this.trip.findById(tripId);
         //Collection<Images> i =  this.img.findById(tripId);
-        mav.addObject(t);
+        mav.addObject(trip);
         //mav.addObject(i);
         return mav;
     }
@@ -107,5 +113,94 @@ public class TripController {
 //        tr.setPricesingle(500.25);
         this.trip.save(tr);
         return "hello";
+    }
+    
+    /**
+     * Mètode que permet guardar un nou viatge a la base de dades
+     *
+     * @param t
+     * @return
+     */
+    @RequestMapping(value = "/trip/new", method = RequestMethod.GET)
+    public String formTrip(Map<String, Object> model) {
+        Trip trip = new Trip();
+        model.put("trip", trip);
+        return "/trip/tripNew";
+    }
+
+      /**
+     * Guardda un Trip y sus imagenes relacionada
+     * @param trip objeto trip
+     * @param file imagen de pordada
+     * @param files pack de imagenes
+     * @return 
+     */
+    @RequestMapping(value = "/trip/new", method = RequestMethod.POST) 
+    public String addTrip(
+            @Valid Trip trip,
+            @RequestParam("file") MultipartFile file,
+            @ModelAttribute ImagesForm files) {
+        
+        System.out.println("hoooooooooooooooola");
+        String rootPath = "src/main/resources/static/resources/images";
+        String relativePath = "/resources/images";
+        String logo = "logo.png";
+        // Creamos en el directorio raiz ('images'), un direcetorio con el NOMBRE que nos llega por el formulario
+        File dir = new File(rootPath + File.separator + trip.getName());
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        //Sí no ha introducido una imagen en el formulario se creara uno por defecto
+        if (!file.isEmpty()) {
+            // Creamos el archivo en el directorio creado anteriormente
+            File imageFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
+
+            trip.InserFile(file, imageFile);
+        } else {
+
+            File defaulImg = new File(rootPath + File.separator + logo);
+            trip.InserFile(file, defaulImg);
+        }
+
+        //Seteamos la imagen de portada de Trip
+        String imag = relativePath + "/" + trip.getName() + "/" + file.getOriginalFilename();
+        trip.setImage(imag);
+        
+         this.trip.save(trip);
+        //Pack de imagenes del trip
+        //Iteramos las imagenes uno a uno 
+        for (MultipartFile image : files.getFiles()) {
+
+            //Sí no se ha introducido ninguna imagen agragamos una por defecto
+            System.out.println("imagenes " + image.getOriginalFilename());
+            if (!image.isEmpty()) {
+                
+                // Creamos el archivo de las imagenes dentro del directorio con el nombre del juego.
+                File imageFile = new File(dir.getAbsolutePath() + File.separator +image.getOriginalFilename());
+                
+                //Guardamos la imagen con en el proyecto
+                trip.InserFile(image, imageFile);
+                
+                //creamos una nuevo objeto image por cada imagen del pack
+                Images i = new Images();
+                
+                
+                i.setTrip(trip);
+                
+                //Seteamos la url relativa para la base de datos
+                String urlImg = relativePath +"/"+ trip.getName() + "/" + image.getOriginalFilename();
+                i.setUrl(urlImg);
+                
+                //guardamos la imagen en la base de datos
+                this.img.save(i);
+            }
+
+        }
+        
+    
+
+        return "index";
+        //return "ARCHIVO VACIO";
     }
 }
