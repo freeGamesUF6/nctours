@@ -18,9 +18,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -39,22 +42,35 @@ public class Book implements Serializable {
     @NotEmpty
     private String date;
     @Column(name = "num_pax")
-    @NotEmpty
+    @NotNull
     private int num_Pax;
     @Column(name = "pvp")
-    @NotEmpty
+    @NotNull
     private double pvp;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="idtrip")
-    @NotEmpty
+    @NotNull
     private Trip idtrip;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook")  
-    private Set<Bookpax> paxs;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="idbook") 
-    public Set<Bookuser> users;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "bookpax", joinColumns = { @JoinColumn(name = "idbook") }, inverseJoinColumns = { @JoinColumn(name = "dnipax") })
+    private Set<Pax> paxs;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "bookuser", joinColumns = { @JoinColumn(name = "idbook") }, inverseJoinColumns = { @JoinColumn(name = "iduser") })
+    public Set<User> users;
 
     public Book() {
     }
+
+    public Book(String date, int num_Pax, double pvp, Trip idtrip, Set<Pax> paxs, Set<User> users) {
+        this.date = date;
+        this.num_Pax = num_Pax;
+        this.pvp = pvp;
+        this.idtrip = idtrip;
+        this.paxs = paxs;
+        this.users = users;
+    }
+    
+    
 
     public Long getId() {
         return id;
@@ -96,19 +112,19 @@ public class Book implements Serializable {
         this.idtrip = idtrip;
     }
 
-    public Set<Bookpax> getPaxs() {
+    public Set<Pax> getPaxs() {
         return paxs;
     }
 
-    public void setPaxs(Set<Bookpax> paxs) {
+    public void setPaxs(Set<Pax> paxs) {
         this.paxs = paxs;
     }
 
-    public Set<Bookuser> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<Bookuser> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
     

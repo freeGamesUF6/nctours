@@ -14,6 +14,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,9 +38,9 @@ public class Hotel implements Serializable {
     private int category;
     @Column(name="location")
     private String location;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="idhotel",cascade= CascadeType.ALL)
-   // @JoinTable(name="transaction")
-    private Set<Triphotels> trips;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "triphotel", joinColumns = { @JoinColumn(name = "idhotel") }, inverseJoinColumns = { @JoinColumn(name = "idtrip") })
+    private Set<Trip> trips;
     
     public Long getId() {
         return id;
