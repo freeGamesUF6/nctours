@@ -13,11 +13,11 @@
                 <h3>Formulario de reserva</h3>
                 <!--th:object="${Pax}"!-->
                  
-                <form th:action="@{savebook}"  name="Book" id="contactForm"  method="post" th:object="${Book}">
+                <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get" th:object="${Book}">
                     <div class="control-group form-group">
                         <div class="controls">
                           <!--  <input type="hidden"  th:value="${Trip.id}" /> -->
-                          <input type="hidden" id="paxs" name="paxs"/>
+                          <!-- <input type="hidden" id="paxs" name="paxs"/>  -->
                             
                             <label>Numero de Pasajeros:</label>
 
@@ -38,6 +38,10 @@
                     <div id="success"></div>
                     <!-- For success/fail messages -->
                     <button type="submit" onclick="addPaxInfo()" class="btn btn-primary">Reservar</button>
+                </form>
+                <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get" th:object="${Book}">
+                    <input type="hidden" id="paxs" name="paxs"/>
+                    <button type="submit" onclick="addPaxInfo()" class="btn btn-primary">funcion</button>
                 </form>
             </div>
 
@@ -104,6 +108,7 @@
                             var cadPassport=document.getElementById("expirypassport"+i).value;
                             paxs+=dni+","+nombre+","+","+apellidos+","+dob+","+passport+","+cadPassport+";";
 			};
+                        console.log(paxs);
 			document.getElementById("paxs").value=paxs;
                         alert(paxs);
 

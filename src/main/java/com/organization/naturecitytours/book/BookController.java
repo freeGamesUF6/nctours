@@ -64,6 +64,15 @@ public class BookController {
         return mv;
     }
     
+    
+//    //XAVI
+//    @RequestMapping(value = "/book/saveBook", method = RequestMethod.POST)
+//    public String saveBookXavi(){
+//        return "index";
+//    }
+    
+    
+    
     /**
      * Método para guardar una nueva reserva
      * @param book
@@ -79,12 +88,12 @@ public class BookController {
        // User user=this.user.findByEmail(session.getAttribute("user").toString());
         /*Test code */
         Long id=new Long(1);
-        Trip trip=this.trip.findById(1);
+        Trip trip=this.trip.findById(6);
         Set<Pax> paxs=new HashSet();
         Pax p1=new Pax("46454545A","Mungo","Jerry","15-10-1983","98232346854SD","15-10-2018");
         paxs.add(p1);   
         Set<User> users=new HashSet();
-        User user=this.user.findByEmail("user@user");
+        User user=this.user.findByEmail("genialviatges@gmail.com");
         users.add(user);
         Book book=new Book("19-05-2017",5,2000.5,trip,paxs,users);
         this.book.save(book);
@@ -126,7 +135,7 @@ public class BookController {
         if (books.isEmpty()) {
             // no trips found
             result.rejectValue("id", "notFound", "not found");
-            return "hello";
+            return "admin/listBooks";
         }else {
             if (session.getAttribute("user")!=null && session.getAttribute("user").equals("admin@admin")) {
                 model.put("selections", books);
