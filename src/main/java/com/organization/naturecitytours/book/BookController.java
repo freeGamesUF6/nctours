@@ -95,7 +95,7 @@ public class BookController {
         Set<User> users=new HashSet();
         User user=this.user.findByEmail("genialviatges@gmail.com");
         users.add(user);
-        Book book=new Book("19-05-2017",5,2000.5,trip,paxs,users);
+        Book book=new Book("19-05-2017",6,2000.5,trip,paxs,users);
         this.book.save(book);
         /* End Test code*/
 //        for (String pax1 : paxs) {

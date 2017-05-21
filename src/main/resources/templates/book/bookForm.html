@@ -5,116 +5,103 @@
         <div th:insert="~{fragments/header :: body}">...</div>
 
         <!-- Book Form -->
-        
-        <hr>
-  <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Formulario de reserva</h3>
-                <!--th:object="${Pax}"!-->
-                 
-                <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get" th:object="${Book}">
-                    <div class="control-group form-group">
-                        <div class="controls">
-                          <!--  <input type="hidden"  th:value="${Trip.id}" /> -->
-                          <!-- <input type="hidden" id="paxs" name="paxs"/>  -->
-                            
-                            <label>Numero de Pasajeros:</label>
 
-                            
-                        </div>
-                    </div>
-                   
-                <div class="pasajeros">
+        <hr>
+        <div class="container">
+            <div class="row">
+
+                    <h3>Formulario de reserva</h3>
+                    <!--th:object="${Pax}"!-->
                     
+                        <form th:action="@{saveBook}" class="form-inline"  name="formPax" method="get" th:object="${Book}" >
+                            <div class="pasajeros">
+
+
+                            </div>
+                            <div class="input_fields_wrap" >
+                                <button class="add_field_button btn btn-default">Add PAX (max 9)</button><br /><br />
+                            </div>   
+
+                            <!-- For success/fail messages -->
+                        </form>
                     
-                </div>
-                <div class="input_fields_wrap" >
-                    <button class="add_field_button btn btn-default">Add PAX (max 9)</button><br /><br />
-                </div>   
-                    
-                    
-                    
-                    <div id="success"></div>
-                    <!-- For success/fail messages -->
-                    <button type="submit" onclick="addPaxInfo()" class="btn btn-primary">Reservar</button>
-                </form>
-                <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get" th:object="${Book}">
-                    <input type="hidden" id="paxs" name="paxs"/>
-                    <button type="submit" onclick="addPaxInfo()" class="btn btn-primary">funcion</button>
-                </form>
+                    <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get" th:object="${Book}">
+                        <input type="hidden" id="paxs" name="paxs"/>
+                        <button type="submit" onclick="addPaxInfo()" class="btn btn-primary">Reservar</button>
+                    </form>
             </div>
 
         </div>
-  </div>
+
         <!-- /.row -->
 
         <hr>
 
         <div th:insert="~{fragments/footer :: body}">...</div>
 
-        
-    <script type="text/javascript">
-        //Funcio amb JS pur. xavi
-        //Printa el numero de passatgers
-        /*function numeroPax(){
-            var numPax=document.getElementById("pax").value;
-            for(i=1;i<=numPax;i++){
-            document.getElementById("pasajeros").innerHTML=numPax;
-            document.getElementById("pasajeros").innerHTML+='<div class="pax'+i+'"><h3>PASAJERO '+i+'</h3><div class="control-group form-group"><div class="controls"><label>DNI :</label><input type="text" class="form-control" id="dni required data-validation-required-message="Introduzca el DNI del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Nombre:</label><input type="text" class="form-control" id="name" required data-validation-required-message="Introduzca el nombre del PAX."><p class="help-block"></p></div></div><div class="control-group form-group"><div class="controls"><label>Apellidos:</label><input type="text" class="form-control" id="surname" required data-validation-required-message="Introduzca el apellido del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Nacimiento:</label><input type="text" class="form-control" id="dob" required data-validation-required-message="Introduzca el Facha naciemiento del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Pasaporte:</label><input type="text" class="form-control" id="passport" required data-validation-required-message="Introduzca el pasaporte del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Caducidad Pasaporte:</label><input type="text" class="form-control" id="passportexpiry" required data-validation-required-message="Introduzca caducidad del passaporte del PAX."></div></div>';
-            }
-        }*/
-        //Funcio amb JQuery. xavi
-        $(document).ready(function () {
-            var max_fields = 9; //maximum input boxes allowed
-            var wrapper = $(".pasajeros"); //Fields wrapper
-            var add_button = $(".add_field_button"); //Add button ID
 
-            var i = 1; //initlal text box count
-            $(add_button).click(function (e) { //on add input button click
-                e.preventDefault();
-                if (i <= max_fields) { //max input box allowed
-                    $(wrapper).append('<div class="pax'+i+'"><h4>PASAJERO '+i+'</h4><hr/><div class="control-group form-group"><div class="controls"><label>DNI :</label><input type="text" class="form-control" th:field="*{dni}" id="dni'+i+'" required data-validation-required-message="Introduzca el DNI del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Nombre:</label><input type="text" class="form-control" id="name'+i+'" th:field="*{name}" required data-validation-required-message="Introduzca el nombre del PAX."><p class="help-block"></p></div></div><div class="control-group form-group"><div class="controls"><label>Apellidos:</label><input type="text" class="form-control" id="surname'+i+'" th:field="*{surname}" required data-validation-required-message="Introduzca el apellido del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Nacimiento:</label><input type="text" class="form-control" id="dob'+i+'" th:field="*{dob}" required data-validation-required-message="Introduzca el Facha naciemiento del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Pasaporte:</label><input type="text" class="form-control" id="passport'+i+'" th:field="*{passport}" required data-validation-required-message="Introduzca el pasaporte del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Caducidad Pasaporte:</label><input type="text" class="form-control" id="passportexpiry'+i+'" th:field="*{passportexpiry}" required data-validation-required-message="Introduzca caducidad del passaporte del PAX."></div></div><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div><br/>'); //a
-                    //input box
-                    i++; //text box increment
+        <script type="text/javascript">
+            //Funcio amb JS pur. xavi
+            //Printa el numero de passatgers
+            /*function numeroPax(){
+             var numPax=document.getElementById("pax").value;
+             for(i=1;i<=numPax;i++){
+             document.getElementById("pasajeros").innerHTML=numPax;
+             document.getElementById("pasajeros").innerHTML+='<div class="pax'+i+'"><h3>PASAJERO '+i+'</h3><div class="control-group form-group"><div class="controls"><label>DNI :</label><input type="text" class="form-control" id="dni required data-validation-required-message="Introduzca el DNI del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Nombre:</label><input type="text" class="form-control" id="name" required data-validation-required-message="Introduzca el nombre del PAX."><p class="help-block"></p></div></div><div class="control-group form-group"><div class="controls"><label>Apellidos:</label><input type="text" class="form-control" id="surname" required data-validation-required-message="Introduzca el apellido del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Nacimiento:</label><input type="text" class="form-control" id="dob" required data-validation-required-message="Introduzca el Facha naciemiento del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Pasaporte:</label><input type="text" class="form-control" id="passport" required data-validation-required-message="Introduzca el pasaporte del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Caducidad Pasaporte:</label><input type="text" class="form-control" id="passportexpiry" required data-validation-required-message="Introduzca caducidad del passaporte del PAX."></div></div>';
+             }
+             }*/
+            //Funcio amb JQuery. xavi
+            $(document).ready(function () {
+                var max_fields = 9; //maximum input boxes allowed
+                var wrapper = $(".pasajeros"); //Fields wrapper
+                var add_button = $(".add_field_button"); //Add button ID
 
-                }                                                               
+                var i = 1; //initlal text box count
+                $(add_button).click(function (e) { //on add input button click
+                    e.preventDefault();
+                    if (i <= max_fields) { //max input box allowed
+                        $(wrapper).append('<div class="pax' + i + '"><h4>PASAJERO ' + i + '</h4><hr/><div class="control-group form-group"><div class="controls"><label>DNI :</label><input type="text" class="form-control" th:field="*{dni}" id="dni' + i + '" required data-validation-required-message="Introduzca el DNI del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Nombre:</label><input type="text" class="form-control" id="name' + i + '" th:field="*{name}" required data-validation-required-message="Introduzca el nombre del PAX."><p class="help-block"></p></div></div><div class="control-group form-group"><div class="controls"><label>Apellidos:</label><input type="text" class="form-control" id="surname' + i + '" th:field="*{surname}" required data-validation-required-message="Introduzca el apellido del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Nacimiento:</label><input type="text" class="form-control" id="dob' + i + '" th:field="*{dob}" required data-validation-required-message="Introduzca el Facha naciemiento del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Pasaporte:</label><input type="text" class="form-control" id="passport' + i + '" th:field="*{passport}" required data-validation-required-message="Introduzca el pasaporte del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Caducidad Pasaporte:</label><input type="text" class="form-control" id="passportexpiry' + i + '" th:field="*{passportexpiry}" required data-validation-required-message="Introduzca caducidad del passaporte del PAX."></div></div><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div><br/>');
+                        //input box
+                        i++; //text box increment
 
+                    }
+
+                });
+
+                $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                    i--;
+                })
             });
+            /*$(function () {
+             for(i=1;i<=numPax;i++){
+             var $numPax=document.getElementById("pax").value;
+             var $form=$('<div class="pax'+i+'"><h3>PASAJERO '+i+'</h3><div class="control-group form-group"><div class="controls"><label>DNI :</label><input type="text" class="form-control" id="dni required data-validation-required-message="Introduzca el DNI del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Nombre:</label><input type="text" class="form-control" id="name" required data-validation-required-message="Introduzca el nombre del PAX."><p class="help-block"></p></div></div><div class="control-group form-group"><div class="controls"><label>Apellidos:</label><input type="text" class="form-control" id="surname" required data-validation-required-message="Introduzca el apellido del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Nacimiento:</label><input type="text" class="form-control" id="dob" required data-validation-required-message="Introduzca el Facha naciemiento del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Pasaporte:</label><input type="text" class="form-control" id="passport" required data-validation-required-message="Introduzca el pasaporte del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Caducidad Pasaporte:</label><input type="text" class="form-control" id="passportexpiry" required data-validation-required-message="Introduzca caducidad del passaporte del PAX."></div></div>');
+             $('#pasajeros').append($form);
+             }
+             });*/
 
-            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-                e.preventDefault();
-                $(this).parent('div').remove();
-                i--;
-            })
-        });
-        /*$(function () {
-            for(i=1;i<=numPax;i++){
-            var $numPax=document.getElementById("pax").value;
-            var $form=$('<div class="pax'+i+'"><h3>PASAJERO '+i+'</h3><div class="control-group form-group"><div class="controls"><label>DNI :</label><input type="text" class="form-control" id="dni required data-validation-required-message="Introduzca el DNI del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Nombre:</label><input type="text" class="form-control" id="name" required data-validation-required-message="Introduzca el nombre del PAX."><p class="help-block"></p></div></div><div class="control-group form-group"><div class="controls"><label>Apellidos:</label><input type="text" class="form-control" id="surname" required data-validation-required-message="Introduzca el apellido del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Nacimiento:</label><input type="text" class="form-control" id="dob" required data-validation-required-message="Introduzca el Facha naciemiento del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Pasaporte:</label><input type="text" class="form-control" id="passport" required data-validation-required-message="Introduzca el pasaporte del PAX."></div></div><div class="control-group form-group"><div class="controls"><label>Fecha Caducidad Pasaporte:</label><input type="text" class="form-control" id="passportexpiry" required data-validation-required-message="Introduzca caducidad del passaporte del PAX."></div></div>');
-            $('#pasajeros').append($form);
-        }
-        });*/
-    
-    
-        function addPaxInfo(){
-			var paxs="";
-			for (i=1;i <= 1;i++) {
-                            var dni=document.getElementById("dni"+i).value;
-                            var nombre=document.getElementById("name"+i).value;
-                            var apellidos=document.getElementById("surname"+i).value;
-                            var dob=document.getElementById("dob"+i).value;
-                            var passport=document.getElementById("passport"+i).value;
-                            var cadPassport=document.getElementById("expirypassport"+i).value;
-                            paxs+=dni+","+nombre+","+","+apellidos+","+dob+","+passport+","+cadPassport+";";
-			};
-                        console.log(paxs);
-			document.getElementById("paxs").value=paxs;
-                        alert(paxs);
 
-		}
-    
-           
-    </script>
+            function addPaxInfo() {
+                var numPax = $("div[class^='pax']").size();
+                var paxs = "";
+                for (i = 1; i <= numPax; i++) {
+                    var dni = $("#dni" + i).val();
+                    var nombre = $("#name" + i).val();
+                    var apellidos = $("#surname" + i).val();
+                    var dob = $("#dob" + i).val();
+                    var passport = $("#passport" + i).val();
+                    var cadPassport = $("#passportexpiry" + i).val();
+                    paxs += dni + "," + nombre + "," + apellidos + "," + dob + "," + passport + "," + cadPassport + ";";
+                }
+                ;
+                $("#pax").val(paxs);
+                alert(paxs);
+
+            }
+
+
+        </script>
     </body>
 </html>
