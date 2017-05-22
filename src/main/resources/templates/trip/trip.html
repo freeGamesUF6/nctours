@@ -63,7 +63,7 @@
                      <!-- <b th:if="${trip.suplement == null}" th:text="No"></b> | Price Suplement</li>-->
                 </ul>
                 <a th:href="@{/trip/list}">Trip List</a>
-                <a class="btn btn-primary" th:href="@{/book/form}">BOOK</i></a>
+                <a class="btn btn-primary" th:href="@{/book/form/}+${trip.id}">BOOK</i></a>
             </div>
 
         </div>

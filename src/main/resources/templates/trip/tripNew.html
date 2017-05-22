@@ -12,7 +12,7 @@
                 if (x < max_fields) { //max input box allowed
                     $(wrapper).append('<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control"><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div>'); //add input box
                     x++; //text box increment
-                }                                                               
+                }
             });
             $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
                 e.preventDefault();
@@ -20,104 +20,137 @@
                 x--;
             })
         });
+        $(document).ready(function () {
+            var max_fields = 10; //maximos inputs
+            var wrapper = $(".input_div"); //donde se crearran los input
+            var add_button = $(".add_button"); //boton de añadir inputs
+            var x = 1; // variable auxiliar
+            $(add_button).click(function (e) { //añadir boton al hacer clic
+                e.preventDefault();
+                if (x < max_fields) { //filtro de inputs
+                    $(wrapper).append('Day '+ x +'<input type="text" class="form-control" name="day" class="form-control"><a href="#" class="input-group-addon remove_input">Remove</a><hr /></div>'); //inputs
+                    x++; //text box increment
+                }
+            });
+            $(wrapper).on("click", ".remove_input", function (e) { //Eliminar input
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+            })
+        });
     </script>
-    </head>
-    <body>
-        <div th:insert="~{fragments/header :: body}">...</div>
+</head>
+<body>
+    <div th:insert="~{fragments/header :: body}">...</div>
 
-        <!-- Entidad Form -->
+    <!-- Entidad Form -->
 
-        <hr>
-        <div class="container">
-            <div class="row">
+    <hr>
+    <hr>
+    <hr>
+    
+    
+    <div class="container">
+        <div class="row">
 
-                <form th:action="@{/trip/new}" th:object="${trip}"  id="userForm" method="post" enctype="multipart/form-data" modelAttribute="images">
-                    <div class="col-md-4">
-                        <h3>New Trip</h3>
-                        <div class="control-group form-group has-feedback">
-                            <div class="controls">
-                                <label>Name</label>
-                                <input type="text" class="form-control" th:field="*{name}" >
-                                <span class="text-danger" th:errors="*{name}"></span>
-                            </div>
-                        </div>
-                        <div class="control-group form-group has-feedback">
-                            <div class="controls">
-                                <label>Day Duration</label>
-                                <input type="number" class="form-control" th:field="*{duration}" >
-                                <span class="text-danger" th:errors="*{duration}"></span>
-                            </div>
-                        </div>
-                        <div class="control-group form-group has-feedback">
-                            <div class="controls">
-                                <label>pricedouble</label>
-                                <input type="number" class="form-control" th:field="*{pricedouble}" >
-                                <span class="text-danger" th:errors="*{pricedouble}"></span>
-                            </div>
-                        </div>
-                        <div class="control-group form-group has-feedback">
-                            <div class="controls">
-                                <label>pricesingle</label>
-                                <input type="number" class="form-control" th:field="*{pricesingle}" >
-                                <span class="text-danger" th:errors="*{pricesingle}"></span>
-                            </div>
-                        </div>
-                        <div class="control-group form-group has-feedback">
-                            <div class="controls">
-                                <label class="control-label" >Image</label>
-                                <input id="input-1a" type="file" class="btn btn-primary btn-file file" name="file"  data-show-preview="false" >
-                                <span class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div id="success"></div>
-                        <!-- For success/fail messages -->
-                        <button type="submit" class="btn btn-primary">Create</button>
-                    </div>
-
-                    <div class="col-md-4">
-                        <h3>Image for Slider</h3>
-                        <div class="control-group row form-group has-feedback">
-                            <div class="controls">
-                                <div class="input_fields_wrap">
-                                    <button class="add_field_button btn btn-default">Add Image (max 3)</button><br /><br />
-                                    <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+            <form th:action="@{/trip/new}" th:object="${trip}"  id="userForm" method="post" enctype="multipart/form-data" modelAttribute="images">
                 <div class="col-md-4">
-                <h3>Date</h3>
-                <div class="control-group form-group has-feedback">
-                    <div class="controls">
-                        <label>departurefirst</label>
-                        <input   type="date" class="form-control" name="departurefirst" >
-                        
+                    <h3>New Trip</h3>
+                    <div class="control-group form-group has-feedback">
+                        <div class="controls">
+                            <label>Name</label>
+                            <input type="text" class="form-control" th:field="*{name}" >
+                            <span class="text-danger" th:errors="*{name}"></span>
+                        </div>
                     </div>
-                    <div class="controls">
-                        <label>departurelast</label>
-                        <input  type="date" class="form-control" name="departurelast" >
-                        
+                    <div class="control-group form-group has-feedback">
+                        <div class="controls">
+                            <label>Day Duration</label>
+                            <input type="number" class="form-control" th:field="*{duration}" >
+                            <span class="text-danger" th:errors="*{duration}"></span>
+                        </div>
                     </div>
-                
+                    <div class="control-group form-group has-feedback">
+                        <div class="controls">
+                            <label>pricedouble</label>
+                            <input type="number" class="form-control" th:field="*{pricedouble}" >
+                            <span class="text-danger" th:errors="*{pricedouble}"></span>
+                        </div>
+                    </div>
+                    <div class="control-group form-group has-feedback">
+                        <div class="controls">
+                            <label>pricesingle</label>
+                            <input type="number" class="form-control" th:field="*{pricesingle}" >
+                            <span class="text-danger" th:errors="*{pricesingle}"></span>
+                        </div>
+                    </div>
+                    <div class="control-group form-group has-feedback">
+                        <div class="controls">
+                            <label class="control-label" >Image</label>
+                            <input id="input-1a" type="file" class="btn btn-primary btn-file file" name="file"  data-show-preview="false" >
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div id="success"></div>
+                    <!-- For success/fail messages -->
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
-               
 
- 
+                <div class="col-md-4">
+                    <h3>Image for Slider</h3>
+                    <div class="control-group row form-group has-feedback">
+                        <div class="controls">
+                            <div class="input_fields_wrap">
+                                <button class="add_field_button btn btn-default">Add Image (max 3)</button><br /><br />
+                                <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
+                            </div>
 
-      
-        </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h3>Date</h3>
+                    <div class="control-group form-group has-feedback">
+                        <div class="controls">
+                            <label>departurefirst</label>
+                            <input   type="date" class="form-control" name="departurefirst" >
+
+                        </div>
+                        <div class="controls">
+                            <label>departurelast</label>
+                            <input  type="date" class="form-control" name="departurelast" >
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <h3>Itinerario</h3>
+                  <div class="control-group row form-group has-feedback">
+                        <div class="controls">
+                            <div class="input_div">
+                                <button class="add_button btn btn-default">Add </button><br /><br />
+                                <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
 
 
 
 
-<!-- /.row -->
+            <!-- /.row -->
 
-<hr>
+            <hr>
 
-<div th:insert="~{fragments/footer :: body}">...</div>
-    </div>
+            <div th:insert="~{fragments/footer :: body}">...</div>
+        </div>
 </body>
 
 </html>

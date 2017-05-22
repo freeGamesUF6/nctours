@@ -105,6 +105,9 @@ public class Trip implements Serializable {
     }
 
     
+    
+    
+    
     public int getId() {
         return id;
     }
@@ -177,6 +180,15 @@ public class Trip implements Serializable {
         this.dates = dates;
     }
 
+    public Set<Itinerary> getItineraries() {
+        return itineraries;
+    }
+
+    public void setItineraries(Set<Itinerary> itineraries) {
+        this.itineraries = itineraries;
+    }
+
+    
 
     
     

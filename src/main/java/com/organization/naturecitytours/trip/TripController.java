@@ -5,7 +5,6 @@
  */
 package com.organization.naturecitytours.trip;
 
-
 import java.awt.Image;
 import java.io.File;
 import static java.lang.reflect.Array.set;
@@ -44,14 +43,17 @@ public class TripController {
     private TripRepository trip;
     private ImagesRepository img;
     private DateRepository date;
+    private ItineraryRepository itinerary;
     private Trip tr = new Trip();
     private DateTrip da = new DateTrip();
+    private Itinerary it = new Itinerary();
 
     @Autowired
-    public TripController(TripRepository trip, ImagesRepository img, DateRepository date) {
+    public TripController(TripRepository trip, ImagesRepository img, DateRepository date, ItineraryRepository it) {
         this.trip = trip;
         this.img = img;
         this.date = date;
+        this.itinerary = it;
 
     }
 
@@ -65,6 +67,7 @@ public class TripController {
     public ModelAndView showOTrip(@PathVariable("tripId") int tripId) {
         ModelAndView mav = new ModelAndView("trip/trip");
 
+        
         System.out.println("ideeee" + tripId);
         Trip trip = this.trip.findById(tripId);
         //Collection<Images> i =  this.img.findById(tripId);
@@ -75,7 +78,7 @@ public class TripController {
             System.out.println("imagenes " + i.getUrl());
         }
         mav.addObject(trip);
-
+        
         //mav.addObject(i);
         return mav;
     }
@@ -165,6 +168,7 @@ public class TripController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("departurefirst") String dfirts,
             @RequestParam("departurelast") String dlast,
+            @RequestParam("day") String[] day,
             @ModelAttribute ImagesForm files) {
 
         String rootPath = "src/main/resources/static/resources/images/trip";
@@ -184,16 +188,14 @@ public class TripController {
             File imageFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
 
             trip.InserFile(file, imageFile);
-            
-               //Seteamos la imagen de portada de Trip
+
+            //Seteamos la imagen de portada de Trip
             String imag = relativePath + "/" + trip.getName() + "/" + file.getOriginalFilename();
             trip.setImage(imag);
         } else {
 
             trip.setImage(defaulImgPath);
         }
-
-     
 
         this.trip.save(trip);
         //Pack de imagenes del trip
@@ -227,22 +229,33 @@ public class TripController {
             }
         }
 
-              DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-              Date startDate;
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        Date startDate;
 
-    
-    //Guarda Fechas
-    try {
-        System.out.println("hoooooooooooooooola");
-        da.setIdtrip(trip);
-    startDate = df.parse(dfirts);
-            da.setDeparturefirst(startDate);
-   
-      startDate = df.parse(dlast);
-        da.setDeparturelast(startDate);
-        this.date.save(da);
-    }catch(ParseException e){
-        return "errore en las fechas";
+        //Guarda Fechas
+            DateTrip daTrip = new DateTrip();
+        try {
+            System.out.println("hoooooooooooooooola");
+            daTrip.setIdtrip(trip);
+            startDate = df.parse(dfirts);
+            daTrip.setDeparturefirst(startDate);
+
+            startDate = df.parse(dlast);
+            daTrip.setDeparturelast(startDate);
+            
+            this.date.save(daTrip);
+            
+        } catch (ParseException e) {
+            return "errore en las fechas";
+        }
+
+        //guarda Itinerearios
+       
+        for (String d : day) {
+       Itinerary iti = new Itinerary();
+        iti.setTrip(trip);
+            iti.setDay(d);
+            this.itinerary.save(iti);
         }
 
         return "index";
