@@ -44,16 +44,19 @@ public class TripController {
     private ImagesRepository img;
     private DateRepository date;
     private ItineraryRepository itinerary;
+    private HotelRepository hotel;
+    
     private Trip tr = new Trip();
     private DateTrip da = new DateTrip();
     private Itinerary it = new Itinerary();
 
     @Autowired
-    public TripController(TripRepository trip, ImagesRepository img, DateRepository date, ItineraryRepository it) {
+    public TripController(TripRepository trip, ImagesRepository img, DateRepository date, ItineraryRepository it,HotelRepository hotel) {
         this.trip = trip;
         this.img = img;
         this.date = date;
         this.itinerary = it;
+        this.hotel = hotel;
 
     }
 
@@ -73,7 +76,7 @@ public class TripController {
         //Collection<Images> i =  this.img.findById(tripId);
 
         Set<Images> e = trip.getImg();
-
+        
         for (Images i : e) {
             System.out.println("imagenes " + i.getUrl());
         }
@@ -149,8 +152,11 @@ public class TripController {
     public String formTrip(Map<String, Object> model) {
         Trip trip = new Trip();
         DateTrip date = new DateTrip();
+         Collection<Hotel> hoteles = this.hotel.findAll();
+        
         model.put("trip", trip);
         model.put("date", date);
+        model.put("hoteles", hoteles);
         return "/trip/tripNew";
     }
 

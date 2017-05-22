@@ -28,7 +28,7 @@
             $(add_button).click(function (e) { //añadir boton al hacer clic
                 e.preventDefault();
                 if (x < max_fields) { //filtro de inputs
-                    $(wrapper).append('Day '+ x +'<input type="text" class="form-control" name="day" class="form-control"><a href="#" class="input-group-addon remove_input">Remove</a><hr /></div>'); //inputs
+                    $(wrapper).append('<div clas="col-xs-6" > Day '+ x +'<input type="text" class="form-control" name="day" class="form-control"><a href="#" class="input-group-addon remove_input">Remove</a><hr /></div>'); //inputs
                     x++; //text box increment
                 }
             });
@@ -70,13 +70,7 @@
                             <span class="text-danger" th:errors="*{duration}"></span>
                         </div>
                     </div>
-                    <div class="control-group form-group has-feedback">
-                        <div class="controls">
-                            <label>pricedouble</label>
-                            <input type="number" class="form-control" th:field="*{pricedouble}" >
-                            <span class="text-danger" th:errors="*{pricedouble}"></span>
-                        </div>
-                    </div>
+       
                     <div class="control-group form-group has-feedback">
                         <div class="controls">
                             <label>pricesingle</label>
@@ -138,7 +132,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <h3>Hoteles</h3>
+                  <div  th:each="hotel : ${hoteles}"  >
+                      <h3 th:text="${hotel.name}"/>
 
+                        </div>
+                    </div>
+                </div>
 
             </form>
 
