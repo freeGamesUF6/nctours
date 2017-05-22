@@ -62,8 +62,8 @@
                        <!--  <b th:if="${trip.suplement != null ? trip.suplement : 'NULL'}"></b> € Suplement</li>
                      <!-- <b th:if="${trip.suplement == null}" th:text="No"></b> | Price Suplement</li>-->
                 </ul>
-                <a th:href="@{/trip/list}">Trip List</a>
-                <a class="btn btn-primary" th:href="@{/book/form/}+${trip.id}">BOOK</i></a>
+                <a th:if="${session.user != null}" class="btn btn-primary" th:href="@{/book/form/}+${trip.id}">BOOK</i></a>
+                <span th:if="${session.user == null}" class="label label-info">If You want to book, You must go to your favorite Travel Agency</span>
             </div>
 
         </div>
