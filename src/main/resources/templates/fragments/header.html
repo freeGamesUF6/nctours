@@ -29,7 +29,10 @@ and open the template in the editor.
                     <ul class="nav navbar-nav navbar-right"  th:case="'admin@admin'">
                         <li>
                             <a th:href="@{/trip/list}">Trip List</a>
-                        </li> 
+                        </li>
+                        <li>
+                                    <a th:href="@{/trip/new}">Add Trip</a>
+                        </li>
                         <li>
                             <a th:href="@{/user/new}">Register</a>
                         </li>
@@ -64,11 +67,7 @@ and open the template in the editor.
                             <ul class="dropdown-menu">
                                 <li>
                                      <a th:href="@{/trip/list}">Trip List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/trip/new}">Add Trip</a>
-                                </li>
-                                
+                                </li>      
                             </ul>
                         </li> 
                         <li>
