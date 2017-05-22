@@ -24,9 +24,9 @@ public interface PaxRepository extends Repository<Pax,String> {
     /**
      * Mètode per cercar usuaris per id
      */
-    @Query("Select pax FROM Pax pax WHERE pax.id = :id")
+    @Query("Select pax FROM Pax pax WHERE pax.dni = :dni")
     @Transactional(readOnly=true)
-    public Pax findById(@Param("id") String id);
+    public Pax findById(@Param("dni") String dni);
     
     /**
      * Mètode per cercar usuaris per id

@@ -80,40 +80,47 @@ public class BookController {
      */
     
     @RequestMapping(value = "/book/saveBook", method = RequestMethod.GET)
-    public String saveBook(){
+    public String saveBook(HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip){
        /* HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip */
-//        String[] paxs=pax.split(",");
-//        int numPax=paxs.length;
-        //String paxs=request;
-       // User user=this.user.findByEmail(session.getAttribute("user").toString());
-        /*Test code */
-        Long id=new Long(1);
-        Trip trip=this.trip.findById(6);
-        Set<Pax> paxs=new HashSet();
-        Pax p1=new Pax("46454545A","Mungo","Jerry","15-10-1983","98232346854SD","15-10-2018");
-        paxs.add(p1);   
-        Set<User> users=new HashSet();
-        User user=this.user.findByEmail("genialviatges@gmail.com");
-        users.add(user);
-        Book book=new Book("19-05-2017",6,2000.5,trip,paxs,users);
-        this.book.save(book);
-        /* End Test code*/
-//        for (String pax1 : paxs) {
-//            String[] ps=pax1.split(" ");
-//            Pax p=new Pax();
-//            p.setDni(ps[0]);
-//            p.setName(ps[1]);
-//            p.setSurname(ps[2]);
-//            p.setDob(ps[3]);
-//            p.setPassport(ps[4]);
-//            p.setPassportexpiry(ps[5]);
-//             Bookpax bu=new Bookpax();
-//            bu.setIduser(book);
-//            bu.setDnipax(p);
-//            book.getPaxs().add(bu);
-//        }
         
-        //this.book.save(b);
+        /*Test code */
+//        Long id=new Long(1);
+//        Trip trip=this.trip.findById(6);
+//        Set<Pax> paxs=new HashSet();
+//        Pax p1=new Pax("46454545A","Mungo","Jerry","15-10-1983","98232346854SD","15-10-2018");
+//        paxs.add(p1);   
+//        Set<User> users=new HashSet();
+//        User user=this.user.findByEmail("genialviatges@gmail.com");
+//        users.add(user);
+//        Book book=new Book("19-05-2017",6,2000.5,trip,paxs,users);
+//        this.book.save(book);
+        /* End Test code*/
+        String[] paxList=paxs.split(";");
+        int numPax=paxList.length;
+        User user=this.user.findByEmail(session.getAttribute("user").toString());
+        Set<User> users=new HashSet<User>();
+        users.add(user);
+        Book b=new Book();
+        b.setUsers(users);
+        for (String pax1 : paxList) {
+
+            String[] ps=pax1.split(",");
+            Pax aux=this.pax.findById(ps[0]);
+            if(aux!=null){
+                b.getPaxs().add(aux);
+            }else{
+                Pax p=new Pax();
+                p.setDni(ps[0]);
+                p.setName(ps[1]);
+                p.setSurname(ps[2]);
+                p.setDob(ps[3]);
+                p.setPassport(ps[4]);
+                p.setPassportexpiry(ps[5]); 
+                b.getPaxs().add(p);
+            }
+        }
+        
+        this.book.save(b);
         
         
         
