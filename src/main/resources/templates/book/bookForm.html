@@ -34,7 +34,7 @@
                     <!-- For success/fail messages -->
                 </form>
 
-                <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get" th:object="${Book}">
+                <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get">
                     <input type="hidden" id="paxs" name="paxs"/>
                     <input type="hidden" id="idtrip" th:value="*{idTrip}" name="idTrip"/>
                     <input type="hidden" id="date" name="date"/>
