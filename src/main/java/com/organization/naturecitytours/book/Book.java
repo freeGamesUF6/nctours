@@ -40,7 +40,7 @@ public class Book implements Serializable {
     private Long id;
     @Column(name = "date")
     @NotEmpty
-    private String date;
+    private Date date;
     @Column(name = "num_pax")
     @NotNull
     private int num_Pax;
@@ -61,7 +61,7 @@ public class Book implements Serializable {
     public Book() {
     }
 
-    public Book(String date, int num_Pax, double pvp, Trip idtrip, Set<Pax> paxs, Set<User> users) {
+    public Book(Date date, int num_Pax, double pvp, Trip idtrip, Set<Pax> paxs, Set<User> users) {
         this.date = date;
         this.num_Pax = num_Pax;
         this.pvp = pvp;
@@ -80,11 +80,11 @@ public class Book implements Serializable {
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

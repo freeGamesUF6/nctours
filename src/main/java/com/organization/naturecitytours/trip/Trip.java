@@ -63,10 +63,6 @@ public class Trip implements Serializable {
     private String name;
     @Column(name = "duration")
     private String duration;
-    @Column(name = "pricedouble")
-    @DecimalMax("100000.00")
-    @NotNull
-    private double pricedouble;
     @Column(name = "pricesingle")
     @DecimalMax("100000.00")
     @NotNull
@@ -94,10 +90,10 @@ public class Trip implements Serializable {
      public Trip() {
     }
 
-    public Trip(String name, String duration, double pricedouble, double pricesingle, Double suplement, Set<Hotel> hotels, Set<Itinerary> itineraries) {
+    public Trip(String name, String duration, double pricesingle, Double suplement, Set<Hotel> hotels, Set<Itinerary> itineraries) {
         this.name = name;
         this.duration = duration;
-        this.pricedouble = pricedouble;
+        
         this.pricesingle = pricesingle;
         this.suplement = suplement;
         this.hotels = hotels;
@@ -129,13 +125,6 @@ public class Trip implements Serializable {
         this.duration = duration;
     }
 
-    public double getPricedouble() {
-        return pricedouble;
-    }
-
-    public void setPricedouble(double pricedouble) {
-        this.pricedouble = pricedouble;
-    }
 
     public double getPricesingle() {
         return pricesingle;

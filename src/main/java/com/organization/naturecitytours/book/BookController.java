@@ -10,12 +10,17 @@ import com.organization.naturecitytours.trip.TripRepository;
 import com.organization.naturecitytours.user.User;
 import com.organization.naturecitytours.user.UserController;
 import com.organization.naturecitytours.user.UserRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -80,7 +85,7 @@ public class BookController {
      */
     
     @RequestMapping(value = "/book/saveBook", method = RequestMethod.GET)
-    public String saveBook(HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip){
+    public String saveBook(HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip,@RequestParam("date")String date){
        /* HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip */
         
         /*Test code */
@@ -95,13 +100,38 @@ public class BookController {
 //        Book book=new Book("19-05-2017",6,2000.5,trip,paxs,users);
 //        this.book.save(book);
         /* End Test code*/
+        
+        Book b=new Book();
+        //Fem un split de la cadena paxs per obtenir un array de paxs
         String[] paxList=paxs.split(";");
+        //Obtenir numero de paxs
         int numPax=paxList.length;
+        //Obtenir informació de l'usuari utilitzant les dades de sessió i afegri-ho a l'objecte
         User user=this.user.findByEmail(session.getAttribute("user").toString());
         Set<User> users=new HashSet<User>();
         users.add(user);
-        Book b=new Book();
         b.setUsers(users);
+        b.setNum_Pax(numPax);
+        //trobar el trip per id
+        Trip trip=this.trip.findById(Integer.parseInt(idtrip));
+        b.setIdtrip(trip);
+        //Data del viatge
+        SimpleDateFormat sd=new SimpleDateFormat("dd-mm-YYYY");
+        Date dat=new Date();
+        try {
+            dat=sd.parse(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        b.setDate(dat);
+        //calcular preu per nombre passatgers
+        double pvp=0;
+        for (int i = numPax; i > 0; i--) {
+            pvp+=trip.getPricesingle();
+        }
+        b.setPvp(pvp);
+        
+        //Omplir col·lecció de paxs comprovant si el pax ja existeix a base de dades
         for (String pax1 : paxList) {
 
             String[] ps=pax1.split(",");
