@@ -7,6 +7,7 @@ package com.organization.naturecitytours.trip;
 
 import java.util.Collection;
 import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -16,4 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface HotelRepository extends Repository<Hotel, Integer> {
       @Transactional(readOnly = true)
     Collection<Hotel> findAll();
+    
+         @Transactional(readOnly = true)
+    Hotel findById(@Param("hotelId") Long id);
+
 }

@@ -177,6 +177,14 @@ public class Trip implements Serializable {
         this.itineraries = itineraries;
     }
 
+    public Set<Hotel> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(Set<Hotel> hotels) {
+        this.hotels = hotels;
+    }
+
     
 
     

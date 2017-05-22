@@ -54,7 +54,7 @@
         <div class="row">
 
             <form th:action="@{/trip/new}" th:object="${trip}"  id="userForm" method="post" enctype="multipart/form-data" modelAttribute="images">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>New Trip</h3>
                     <div class="control-group form-group has-feedback">
                         <div class="controls">
@@ -80,18 +80,18 @@
                     </div>
                     <div class="control-group form-group has-feedback">
                         <div class="controls">
-                            <label class="control-label" >Image</label>
-                            <input id="input-1a" type="file" class="btn btn-primary btn-file file" name="file"  data-show-preview="false" >
+                            <label>Image</label>
+                            <input  type="file" class="form-control btn btn-primary btn-file file" name="file"  >
                             <span class="text-danger"></span>
                         </div>
                     </div>
-
+                </div>
                     <div id="success"></div>
                     <!-- For success/fail messages -->
                     <button type="submit" class="btn btn-primary">Create</button>
-                </div>
+                
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Image for Slider</h3>
                     <div class="control-group row form-group has-feedback">
                         <div class="controls">
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Date</h3>
                     <div class="control-group form-group has-feedback">
                         <div class="controls">
@@ -120,7 +120,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Itinerario</h3>
                   <div class="control-group row form-group has-feedback">
                         <div class="controls">
@@ -132,11 +132,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Hoteles</h3>
-                  <div  th:each="hotel : ${hoteles}"  >
-                      <h3 th:text="${hotel.name}"/>
-
+                  <div class="checkboox" th:each="hotel : ${hoteles}"  >
+                      
+                      <label><input type="checkbox"   name="hoteles" th:value="${hotel.id}"><b th:text="${hotel.name}"></b></label>
                         </div>
                     </div>
                 </div>
