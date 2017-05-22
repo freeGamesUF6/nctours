@@ -5,9 +5,11 @@
  */
 package com.organization.naturecitytours.trip;
 
+
 import java.awt.Image;
 import java.io.File;
 import static java.lang.reflect.Array.set;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,27 +30,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
 /**
  *
  * @author Mark
  */
 @Controller
 public class TripController {
-    
+
     private TripRepository trip;
     private ImagesRepository img;
+    private DateRepository date;
     private Trip tr = new Trip();
+    private DateTrip da = new DateTrip();
 
     @Autowired
-    public TripController(TripRepository trip,ImagesRepository img ) {
+    public TripController(TripRepository trip, ImagesRepository img, DateRepository date) {
         this.trip = trip;
         this.img = img;
- 
+        this.date = date;
+
     }
 
- 
-    
-        /**
+    /**
      * Metodo para aceder a un Trip por ID
      *
      * @param ownerId the ID of the owner to display
@@ -57,33 +64,34 @@ public class TripController {
     @RequestMapping("/trip/{tripId}")
     public ModelAndView showOTrip(@PathVariable("tripId") int tripId) {
         ModelAndView mav = new ModelAndView("trip/trip");
-        
-      System.out.println("ideeee" + tripId);
+
+        System.out.println("ideeee" + tripId);
         Trip trip = this.trip.findById(tripId);
         //Collection<Images> i =  this.img.findById(tripId);
-        
-        Set<Images> e =trip.getImg();
-        
-        for(Images i : e){
-            System.out.println("imagenes "+ i.getUrl());
+
+        Set<Images> e = trip.getImg();
+
+        for (Images i : e) {
+            System.out.println("imagenes " + i.getUrl());
         }
         mav.addObject(trip);
-        
-        
+
         //mav.addObject(i);
         return mav;
     }
 
-    
     /**
-     * Mètode que recupera un viatge determinat o una llista de viatges si el paràmetre de cerca és buit
+     * Mètode que recupera un viatge determinat o una llista de viatges si el
+     * paràmetre de cerca és buit
+     *
      * @param trip
      * @param result
      * @param model
-     * @return vista per mostrar la llista de viatges o el viatge seleccionat segons escaigui
+     * @return vista per mostrar la llista de viatges o el viatge seleccionat
+     * segons escaigui
      */
-     @RequestMapping("/trip/list")
-     public String tripList(Trip trip, BindingResult result, Map<String, Object> model) {
+    @RequestMapping("/trip/list")
+    public String tripList(Trip trip, BindingResult result, Map<String, Object> model) {
         // allow parameterless GET request for /trips to return all records
         if (trip.getName() == null) {
             trip.setName(""); // empty string signifies broadest possible search
@@ -95,31 +103,31 @@ public class TripController {
             // no trips found
             result.rejectValue("name", "notFound", "not found");
             Collection<Trip> res = this.trip.findAll();
-              model.put("tripList", res);
+            model.put("tripList", res);
             return "trip/tripList";
-        } 
-//        else if (results.size() == 1) {
-//            // 1 trip found
-//            trip = results.iterator().next();
-//            return "redirect:/trip/" + trip.getId();
-//        } 
+        } //        else if (results.size() == 1) {
+        //            // 1 trip found
+        //            trip = results.iterator().next();
+        //            return "redirect:/trip/" + trip.getId();
+        //        } 
         else {
             // multiple trips found
             model.put("selections", results);
-             Collection<Trip> res = this.trip.findAll();
-              model.put("list", res);
+            Collection<Trip> res = this.trip.findAll();
+            model.put("list", res);
             return "trip/tripList";
         }
 
-     }
-    
-     /**
-      * Mètode que permet guardar un nou viatge a la base de dades
-      * @param t
-      * @return 
-      */
+    }
+
+    /**
+     * Mètode que permet guardar un nou viatge a la base de dades
+     *
+     * @param t
+     * @return
+     */
     @RequestMapping("/saveTrip")
-    public String saveTrip(Trip t){
+    public String saveTrip(Trip t) {
 //        tr.setDuration("2");
 //        tr.setName("viatge");
 //        tr.setPricedouble(1000.5);
@@ -127,7 +135,7 @@ public class TripController {
         this.trip.save(tr);
         return "hello";
     }
-    
+
     /**
      * Mètode que permet guardar un nou viatge a la base de dades
      *
@@ -137,27 +145,33 @@ public class TripController {
     @RequestMapping(value = "/trip/new", method = RequestMethod.GET)
     public String formTrip(Map<String, Object> model) {
         Trip trip = new Trip();
+        DateTrip date = new DateTrip();
         model.put("trip", trip);
+        model.put("date", date);
         return "/trip/tripNew";
     }
 
-      /**
+    /**
      * Guardda un Trip y sus imagenes relacionada
+     *
      * @param trip objeto trip
      * @param file imagen de pordada
      * @param files pack de imagenes
-     * @return 
+     * @return
      */
-    @RequestMapping(value = "/trip/new", method = RequestMethod.POST) 
+    @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
     public String addTrip(
             @Valid Trip trip,
             @RequestParam("file") MultipartFile file,
+            @RequestParam("departurefirst") String dfirts,
+            @RequestParam("departurelast") String dlast,
             @ModelAttribute ImagesForm files) {
-        
-        System.out.println("hoooooooooooooooola");
+
         String rootPath = "src/main/resources/static/resources/images/trip";
         String relativePath = "/resources/images/trip";
-        String logo = "logo.png";
+
+        String defaulImgPath = "/resources/images/logo.png";
+
         // Creamos en el directorio raiz ('images'), un direcetorio con el NOMBRE que nos llega por el formulario
         File dir = new File(rootPath + File.separator + trip.getName());
         if (!dir.exists()) {
@@ -170,48 +184,66 @@ public class TripController {
             File imageFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
 
             trip.InserFile(file, imageFile);
+            
+               //Seteamos la imagen de portada de Trip
+            String imag = relativePath + "/" + trip.getName() + "/" + file.getOriginalFilename();
+            trip.setImage(imag);
         } else {
 
-            File defaulImg = new File(rootPath + File.separator + logo);
-            trip.InserFile(file, defaulImg);
+            trip.setImage(defaulImgPath);
         }
 
-        //Seteamos la imagen de portada de Trip
-        String imag = relativePath + "/" + trip.getName() + "/" + file.getOriginalFilename();
-        trip.setImage(imag);
-        
-         this.trip.save(trip);
+     
+
+        this.trip.save(trip);
         //Pack de imagenes del trip
         //Iteramos las imagenes uno a uno 
-        for (MultipartFile image : files.getFiles()) {
+        if (files == null) {
+            for (MultipartFile image : files.getFiles()) {
 
-            //Sí no se ha introducido ninguna imagen agragamos una por defecto
-            System.out.println("imagenes " + image.getOriginalFilename());
-            if (!image.isEmpty()) {
-                
-                // Creamos el archivo de las imagenes dentro del directorio con el nombre del juego.
-                File imageFile = new File(dir.getAbsolutePath() + File.separator +image.getOriginalFilename());
-                
-                //Guardamos la imagen con en el proyecto
-                trip.InserFile(image, imageFile);
-                
-                //creamos una nuevo objeto image por cada imagen del pack
-                Images i = new Images();
-                
-                
-                i.setIdtrip(trip);
-                
-                //Seteamos la url relativa para la base de datos
-                String urlImg = relativePath +"/"+ trip.getName() + "/" + image.getOriginalFilename();
-                i.setUrl(urlImg);
-                
-                //guardamos la imagen en la base de datos
-                this.img.save(i);
+                //Sí no se ha introducido ninguna imagen agragamos una por defecto
+                System.out.println("imagenes " + image.getOriginalFilename());
+                if (!image.isEmpty()) {
+
+                    // Creamos el archivo de las imagenes dentro del directorio con el nombre del juego.
+                    File imageFile = new File(dir.getAbsolutePath() + File.separator + image.getOriginalFilename());
+
+                    //Guardamos la imagen con en el proyecto
+                    trip.InserFile(image, imageFile);
+
+                    //creamos una nuevo objeto image por cada imagen del pack
+                    Images i = new Images();
+
+                    i.setIdtrip(trip);
+
+                    //Seteamos la url relativa para la base de datos
+                    String urlImg = relativePath + "/" + trip.getName() + "/" + image.getOriginalFilename();
+                    i.setUrl(urlImg);
+
+                    //guardamos la imagen en la base de datos
+                    this.img.save(i);
+                }
+
             }
-
         }
-        
+
+              DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+              Date startDate;
+
     
+    //Guarda Fechas
+    try {
+        System.out.println("hoooooooooooooooola");
+        da.setIdtrip(trip);
+    startDate = df.parse(dfirts);
+            da.setDeparturefirst(startDate);
+   
+      startDate = df.parse(dlast);
+        da.setDeparturelast(startDate);
+        this.date.save(da);
+    }catch(ParseException e){
+        return "errore en las fechas";
+        }
 
         return "index";
         //return "ARCHIVO VACIO";

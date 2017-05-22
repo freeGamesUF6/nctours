@@ -6,9 +6,11 @@
 package com.organization.naturecitytours.trip;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import javax.persistence.Entity;
 import javax.persistence.Table;import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,12 +26,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -39,35 +44,36 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "date")
-@IdClass(Date.class)
-public class Date implements Serializable {
+public class DateTrip implements Serializable {
+
     
+    
+    @Id
     @Column(name="departurefirst")
-    @Id
-    private Date departurefirst;
+    private Date  departurefirst;
+    
     @Column(name="departurelast")
-    @Id
-    private Date departurelast;
+    private Date   departurelast;
+    
     @ManyToOne
     @JoinColumn(name="idtrip",nullable=false)
-    @Id
     private Trip idtrip;
     
 
 
-    public Date getDeparturefirst() {
+    public Date  getDeparturefirst() {
         return departurefirst;
     }
 
-    public void setDeparturefirst(Date departurefirst) {
+    public void setDeparturefirst(Date   departurefirst) {
         this.departurefirst = departurefirst;
     }
 
-    public Date getDeparturelast() {
+    public Date  getDeparturelast() {
         return departurelast;
     }
 
-    public void setDeparturelast(Date departurelast) {
+    public void setDeparturelast(Date   departurelast) {
         this.departurelast = departurelast;
     }
 
@@ -78,6 +84,8 @@ public class Date implements Serializable {
     public void setIdtrip(Trip idtrip) {
         this.idtrip = idtrip;
     }
+
+
     
     
     

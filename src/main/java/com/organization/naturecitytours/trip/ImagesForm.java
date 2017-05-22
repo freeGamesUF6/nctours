@@ -5,7 +5,6 @@
  */
 package com.organization.naturecitytours.trip;
 
-import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -24,5 +23,5 @@ public class ImagesForm {
         this.files = files;
     }
         
-        
+     
 }

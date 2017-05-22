@@ -6,18 +6,14 @@
             var max_fields = 3; //maximum input boxes allowed
             var wrapper = $(".input_fields_wrap"); //Fields wrapper
             var add_button = $(".add_field_button"); //Add button ID
-
             var x = 0; //initlal text box count
             $(add_button).click(function (e) { //on add input button click
                 e.preventDefault();
                 if (x < max_fields) { //max input box allowed
                     $(wrapper).append('<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control"><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div>'); //add input box
                     x++; //text box increment
-
                 }                                                               
-
             });
-
             $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
                 e.preventDefault();
                 $(this).parent('div').remove();
@@ -35,7 +31,7 @@
         <div class="container">
             <div class="row">
 
-                <form th:action="@{/trip/new}"  th:object="${trip}"  id="userForm" method="post" enctype="multipart/form-data" modelAttribute="images">
+                <form th:action="@{/trip/new}" th:object="${trip}"  id="userForm" method="post" enctype="multipart/form-data" modelAttribute="images">
                     <div class="col-md-4">
                         <h3>New Trip</h3>
                         <div class="control-group form-group has-feedback">
@@ -85,25 +81,43 @@
                             <div class="controls">
                                 <div class="input_fields_wrap">
                                     <button class="add_field_button btn btn-default">Add Image (max 3)</button><br /><br />
-                                    <div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div>
+                                    <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
                                 </div>
 
                             </div>
                         </div>
                     </div>
-            </div>
+                <div class="col-md-4">
+                <h3>Date</h3>
+                <div class="control-group form-group has-feedback">
+                    <div class="controls">
+                        <label>departurefirst</label>
+                        <input   type="date" class="form-control" name="departurefirst" >
+                        
+                    </div>
+                    <div class="controls">
+                        <label>departurelast</label>
+                        <input  type="date" class="form-control" name="departurelast" >
+                        
+                    </div>
+                
+                </div>
+               
+
+ 
+
+      
         </form>
 
 
-    </div>
-</div>
+
+
 <!-- /.row -->
 
 <hr>
 
 <div th:insert="~{fragments/footer :: body}">...</div>
-
+    </div>
 </body>
 
 </html>
-

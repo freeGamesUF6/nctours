@@ -83,7 +83,7 @@ public class Trip implements Serializable {
      
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip",cascade = CascadeType.ALL)
-    private Set<Date> dates;
+    private Set<DateTrip> dates;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip",cascade = CascadeType.ALL)
     private Set<Itinerary> itineraries;
@@ -168,6 +168,16 @@ public class Trip implements Serializable {
     public void setImg(Set<Images> img) {
         this.img = img;
     }
+
+    public Set<DateTrip> getDates() {
+        return dates;
+    }
+
+    public void setDates(Set<DateTrip> dates) {
+        this.dates = dates;
+    }
+
+
     
     
     
