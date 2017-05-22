@@ -47,8 +47,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class DateTrip implements Serializable {
 
     
-    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+     
+
     @Column(name="departurefirst")
     private Date  departurefirst;
     
@@ -56,7 +59,7 @@ public class DateTrip implements Serializable {
     private Date   departurelast;
     
     @ManyToOne
-    @JoinColumn(name="idtrip",nullable=false)
+    @JoinColumn(name="idtrip")
     private Trip idtrip;
     
 
@@ -83,6 +86,14 @@ public class DateTrip implements Serializable {
 
     public void setIdtrip(Trip idtrip) {
         this.idtrip = idtrip;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 

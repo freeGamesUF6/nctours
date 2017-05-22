@@ -26,11 +26,35 @@ public class Itinerary implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="daydebrief")
-    private String daydebrief;
+    @Column(name="day")
+    private String day;
     @ManyToOne
     @JoinColumn(name="idtrip")
     private Trip trip;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
 
     
     

@@ -1,4 +1,5 @@
 /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,8 +10,8 @@ import org.springframework.data.repository.Repository;
 
 /**
  *
- * @author Jhona
+ * @author Mark
  */
-public interface DateRepository extends Repository<DateTrip,Integer> {
-    void save(DateTrip date);
+public interface ItineraryRepository extends Repository<Itinerary,Integer> {
+    void save(Itinerary it);
 }
