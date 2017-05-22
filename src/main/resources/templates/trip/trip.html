@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+    <div th:insert="~{fragments/head :: head}">...</div>
+
+
+</head>
+
+<body>
+    <div th:insert="~{fragments/header :: body}">...</div>
+
+    <hr>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+
+                    <ol class="carousel-indicators">
+
+                        <li data-target="#carousel-example-generic" data-slide-to="0"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+
+                    </ol>
+
+                    <!--Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="img-responsive" th:src="@{${trip.image}}" alt="">
+                        </div>
+
+                        <div th:each="image : ${trip.img}" class="item ">
+                            <img class="img-responsive"   th:src="@{${image.url}}"  alt="">
+                        </div>
+
+                    </div> 
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h3 th:text="${trip.name}"/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+                <h4>Prices</h4>
+                <ul>
+                
+                    <li><b th:text="${trip.pricesingle}"></b> € | Price Single</li>
+                    <li>suplemento en pruebas ...</li>
+                       <!--  <b th:if="${trip.suplement != null ? trip.suplement : 'NULL'}"></b> € Suplement</li>
+                     <!-- <b th:if="${trip.suplement == null}" th:text="No"></b> | Price Suplement</li>-->
+                </ul>
+                <a th:href="@{/trip/list}">Trip List</a>
+                <a class="btn btn-primary" th:href="@{/book/form/}+${trip.id}">BOOK</i></a>
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <!-- Service Tabs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Service Tabs</h2>
+            </div>
+            <div class="col-lg-12">
+
+                <ul id="myTab" class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#service-one" data-toggle="tab"><i class="fa fa-tree"></i> Service One</a>
+                    </li>
+                    <li class=""><a href="#service-two" data-toggle="tab"><i class="fa fa-car"></i> Service Two</a>
+                    </li>
+                    <li class=""><a href="#service-three" data-toggle="tab"><i class="fa fa-support"></i> Service Three</a>
+                    </li>
+                    <li class=""><a href="#service-four" data-toggle="tab"><i class="fa fa-database"></i> Service Four</a>
+                    </li>
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="service-one">
+                        <h4>Service One</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                    </div>
+                    <div class="tab-pane fade" id="service-two">
+                        <h4>Service Two</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                    </div>
+                    <div class="tab-pane fade" id="service-three">
+                        <h4>Service Three</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                    </div>
+                    <div class="tab-pane fade" id="service-four">
+                        <h4>Service Four</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Related Projects Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Related Projects</h3>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+
+        <div th:insert="~{fragments/footer :: body}">...</div>
+    </div>
+</body>
+
+</html>
