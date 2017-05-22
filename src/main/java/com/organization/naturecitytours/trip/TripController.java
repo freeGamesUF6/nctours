@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  *
@@ -45,13 +46,13 @@ public class TripController {
     private DateRepository date;
     private ItineraryRepository itinerary;
     private HotelRepository hotel;
-    
+
     private Trip tr = new Trip();
     private DateTrip da = new DateTrip();
     private Itinerary it = new Itinerary();
 
     @Autowired
-    public TripController(TripRepository trip, ImagesRepository img, DateRepository date, ItineraryRepository it,HotelRepository hotel) {
+    public TripController(TripRepository trip, ImagesRepository img, DateRepository date, ItineraryRepository it, HotelRepository hotel) {
         this.trip = trip;
         this.img = img;
         this.date = date;
@@ -70,18 +71,17 @@ public class TripController {
     public ModelAndView showOTrip(@PathVariable("tripId") int tripId) {
         ModelAndView mav = new ModelAndView("trip/trip");
 
-        
         System.out.println("ideeee" + tripId);
         Trip trip = this.trip.findById(tripId);
         //Collection<Images> i =  this.img.findById(tripId);
 
         Set<Images> e = trip.getImg();
-        
+
         for (Images i : e) {
             System.out.println("imagenes " + i.getUrl());
         }
         mav.addObject(trip);
-        
+
         //mav.addObject(i);
         return mav;
     }
@@ -152,8 +152,8 @@ public class TripController {
     public String formTrip(Map<String, Object> model) {
         Trip trip = new Trip();
         DateTrip date = new DateTrip();
-         Collection<Hotel> hoteles = this.hotel.findAll();
-        
+        Collection<Hotel> hoteles = this.hotel.findAll();
+
         model.put("trip", trip);
         model.put("date", date);
         model.put("hoteles", hoteles);
@@ -175,6 +175,7 @@ public class TripController {
             @RequestParam("departurefirst") String dfirts,
             @RequestParam("departurelast") String dlast,
             @RequestParam("day") String[] day,
+            @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
 
         String rootPath = "src/main/resources/static/resources/images/trip";
@@ -203,6 +204,16 @@ public class TripController {
             trip.setImage(defaulImgPath);
         }
 
+         //guardar Hoteles
+         Set<Hotel> HotelList =  new HashSet<Hotel>();
+        for (Long hotel : hoteles) {
+            
+            Hotel ho = this.hotel.findById(hotel);
+            System.out.println("hotelessss " +ho.getName());
+            HotelList.add(ho);
+
+        }
+         trip.setHotels(HotelList);
         this.trip.save(trip);
         //Pack de imagenes del trip
         //Iteramos las imagenes uno a uno 
@@ -239,7 +250,7 @@ public class TripController {
         Date startDate;
 
         //Guarda Fechas
-            DateTrip daTrip = new DateTrip();
+        DateTrip daTrip = new DateTrip();
         try {
             System.out.println("hoooooooooooooooola");
             daTrip.setIdtrip(trip);
@@ -248,22 +259,22 @@ public class TripController {
 
             startDate = df.parse(dlast);
             daTrip.setDeparturelast(startDate);
-            
+
             this.date.save(daTrip);
-            
+
         } catch (ParseException e) {
             return "errore en las fechas";
         }
 
         //guarda Itinerearios
-       
         for (String d : day) {
-       Itinerary iti = new Itinerary();
-        iti.setTrip(trip);
+            Itinerary iti = new Itinerary();
+            iti.setTrip(trip);
             iti.setDay(d);
             this.itinerary.save(iti);
         }
 
+       
         return "index";
         //return "ARCHIVO VACIO";
     }
