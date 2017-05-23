@@ -85,7 +85,7 @@ public class BookController {
      */
     
     @RequestMapping(value = "/book/saveBook", method = RequestMethod.GET)
-    public String saveBook(HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip,@RequestParam("date")String date){
+    public String saveBook(HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idTrip")String idtrip,@RequestParam("date")String date){
        /* HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip */
         
         /*Test code */
@@ -116,7 +116,7 @@ public class BookController {
         Trip trip=this.trip.findById(Integer.parseInt(idtrip));
         b.setIdtrip(trip);
         //Data del viatge
-        SimpleDateFormat sd=new SimpleDateFormat("dd-mm-YYYY");
+        SimpleDateFormat sd=new SimpleDateFormat("dd/mm/YYYY");
         Date dat=new Date();
         try {
             dat=sd.parse(date);
@@ -132,6 +132,7 @@ public class BookController {
         b.setPvp(pvp);
         
         //Omplir col·lecció de paxs comprovant si el pax ja existeix a base de dades
+        Set<Pax>pse=new HashSet();
         for (String pax1 : paxList) {
 
             String[] ps=pax1.split(",");
@@ -143,12 +144,26 @@ public class BookController {
                 p.setDni(ps[0]);
                 p.setName(ps[1]);
                 p.setSurname(ps[2]);
-                p.setDob(ps[3]);
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+                Date dob=new Date();
+                try {
+                    dob=sdf.parse(ps[3]);
+                } catch (ParseException ex) {
+                    Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                p.setDob(dob);
                 p.setPassport(ps[4]);
-                p.setPassportexpiry(ps[5]); 
-                b.getPaxs().add(p);
+                try {
+                    dob=sdf.parse(ps[5]);
+                } catch (ParseException ex) {
+                    Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                p.setPassportexpiry(dob); 
+                pse.add(p);
+                //b.getPaxs().add(p);
             }
         }
+        b.setPaxs(pse);
         
         this.book.save(b);
         

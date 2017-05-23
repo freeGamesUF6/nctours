@@ -34,11 +34,11 @@
                     <!-- For success/fail messages -->
                 </form>
 
-                <form th:action="@{saveBook}"  name="Book" id="contactForm"  method="get">
+                <form action="/book/saveBook"  name="Book" id="contactForm"  method="get">
                     <input type="hidden" id="paxs" name="paxs"/>
                     <input type="hidden" id="idtrip" th:value="*{idTrip}" name="idTrip"/>
                     <input type="hidden" id="date" name="date"/>
-
+                    
                     <button type="submit" onclick="addPaxInfo()" class="btn btn-primary">Reservar</button>
                 </form>
             </div>
@@ -100,8 +100,8 @@
                     paxs += dni + "," + nombre + "," + apellidos + "," + dob + "," + passport + "," + cadPassport + ";";
                 }
                 ;
-                $("#pax").val(paxs);
-                var date=$("#date").val();
+                $("#paxs").val(paxs);
+                var date=$("#fecha").val();
                 $("#date").val(date);
 
             }

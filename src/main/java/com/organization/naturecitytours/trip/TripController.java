@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  *
@@ -45,13 +46,13 @@ public class TripController {
     private DateRepository date;
     private ItineraryRepository itinerary;
     private HotelRepository hotel;
-    
+
     private Trip tr = new Trip();
     private DateTrip da = new DateTrip();
     private Itinerary it = new Itinerary();
 
     @Autowired
-    public TripController(TripRepository trip, ImagesRepository img, DateRepository date, ItineraryRepository it,HotelRepository hotel) {
+    public TripController(TripRepository trip, ImagesRepository img, DateRepository date, ItineraryRepository it, HotelRepository hotel) {
         this.trip = trip;
         this.img = img;
         this.date = date;
@@ -70,18 +71,17 @@ public class TripController {
     public ModelAndView showOTrip(@PathVariable("tripId") int tripId) {
         ModelAndView mav = new ModelAndView("trip/trip");
 
-        
         System.out.println("ideeee" + tripId);
         Trip trip = this.trip.findById(tripId);
         //Collection<Images> i =  this.img.findById(tripId);
 
         Set<Images> e = trip.getImg();
-        
+
         for (Images i : e) {
             System.out.println("imagenes " + i.getUrl());
         }
         mav.addObject(trip);
-        
+
         //mav.addObject(i);
         return mav;
     }
@@ -152,8 +152,8 @@ public class TripController {
     public String formTrip(Map<String, Object> model) {
         Trip trip = new Trip();
         DateTrip date = new DateTrip();
-         Collection<Hotel> hoteles = this.hotel.findAll();
-        
+        Collection<Hotel> hoteles = this.hotel.findAll();
+
         model.put("trip", trip);
         model.put("date", date);
         model.put("hoteles", hoteles);
@@ -171,100 +171,137 @@ public class TripController {
     @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
     public String addTrip(
             @Valid Trip trip,
+            BindingResult result,
+            @RequestParam("firts") String firstDate,
+            @RequestParam("last") String lastDate,
             @RequestParam("file") MultipartFile file,
-            @RequestParam("departurefirst") String dfirts,
-            @RequestParam("departurelast") String dlast,
+            @RequestParam("departuredates") String[] ddates,
             @RequestParam("day") String[] day,
+            @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
-
-        String rootPath = "src/main/resources/static/resources/images/trip";
-        String relativePath = "/resources/images/trip";
-
-        String defaulImgPath = "/resources/images/logo.png";
-
-        // Creamos en el directorio raiz ('images'), un direcetorio con el NOMBRE que nos llega por el formulario
-        File dir = new File(rootPath + File.separator + trip.getName());
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        //Sí no ha introducido una imagen en el formulario se creara uno por defecto
-        if (!file.isEmpty()) {
-            // Creamos el archivo en el directorio creado anteriormente
-            File imageFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
-
-            trip.InserFile(file, imageFile);
-
-            //Seteamos la imagen de portada de Trip
-            String imag = relativePath + "/" + trip.getName() + "/" + file.getOriginalFilename();
-            trip.setImage(imag);
+        if (result.hasErrors()) {
+            return "trip/tripNew";
         } else {
 
-            trip.setImage(defaulImgPath);
-        }
+            String rootPath = "src/main/resources/static/resources/images/trip";
+            String relativePath = "/resources/images/trip";
 
-        this.trip.save(trip);
-        //Pack de imagenes del trip
-        //Iteramos las imagenes uno a uno 
-        if (files == null) {
-            for (MultipartFile image : files.getFiles()) {
+            String defaulImgPath = "/resources/images/logo.png";
 
-                //Sí no se ha introducido ninguna imagen agragamos una por defecto
-                System.out.println("imagenes " + image.getOriginalFilename());
-                if (!image.isEmpty()) {
+            // Creamos en el directorio raiz ('images'), un direcetorio con el NOMBRE que nos llega por el formulario
+            File dir = new File(rootPath + File.separator + trip.getName());
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
 
-                    // Creamos el archivo de las imagenes dentro del directorio con el nombre del juego.
-                    File imageFile = new File(dir.getAbsolutePath() + File.separator + image.getOriginalFilename());
+            //Sí no ha introducido una imagen en el formulario se creara uno por defecto
+            if (!file.isEmpty()) {
+                // Creamos el archivo en el directorio creado anteriormente
+                File imageFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
 
-                    //Guardamos la imagen con en el proyecto
-                    trip.InserFile(image, imageFile);
+                trip.InserFile(file, imageFile);
 
-                    //creamos una nuevo objeto image por cada imagen del pack
-                    Images i = new Images();
+                //Seteamos la imagen de portada de Trip
+                String imag = relativePath + "/" + trip.getName() + "/" + file.getOriginalFilename();
+                trip.setImage(imag);
+            } else {
 
-                    i.setIdtrip(trip);
+                trip.setImage(defaulImgPath);
+            }
 
-                    //Seteamos la url relativa para la base de datos
-                    String urlImg = relativePath + "/" + trip.getName() + "/" + image.getOriginalFilename();
-                    i.setUrl(urlImg);
+            //GUARDA DE FECHA DE SALIDA
+            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            Date newDate = new Date();
 
-                    //guardamos la imagen en la base de datos
-                    this.img.save(i);
+            try {
+                newDate = df.parse(firstDate);
+                trip.setDeparturefirst(newDate);
+
+                newDate = df.parse(lastDate);
+                trip.setDeparturelast(newDate);
+
+            } catch (ParseException e) {
+                return "Error en la primera o ultima fecha";
+            }
+
+            //guardar Hoteles
+            if (hoteles != null) {
+                Set<Hotel> HotelList = new HashSet<Hotel>();
+                for (Long hotel : hoteles) {
+                    try {
+                        Hotel ho = this.hotel.findById(hotel);
+                        System.out.println("hotelessss " + ho.getName());
+                        HotelList.add(ho);
+
+                    } catch (Exception r) {
+                        return "NO Existe el Hotel";
+                    }
+
+                }
+                trip.setHotels(HotelList);
+            }
+            this.trip.save(trip);
+            //Pack de imagenes del trip
+            //Iteramos las imagenes uno a uno 
+            if (files != null) {
+                for (MultipartFile image : files.getFiles()) {
+
+                    //Sí no se ha introducido ninguna imagen agragamos una por defecto
+                    System.out.println("imagenes " + image.getOriginalFilename());
+                    if (!image.isEmpty()) {
+
+                        // Creamos el archivo de las imagenes dentro del directorio con el nombre del juego.
+                        File imageFile = new File(dir.getAbsolutePath() + File.separator + image.getOriginalFilename());
+
+                        //Guardamos la imagen con en el proyecto
+                        trip.InserFile(image, imageFile);
+
+                        //creamos una nuevo objeto image por cada imagen del pack
+                        Images i = new Images();
+
+                        i.setIdtrip(trip);
+
+                        //Seteamos la url relativa para la base de datos
+                        String urlImg = relativePath + "/" + trip.getName() + "/" + image.getOriginalFilename();
+                        i.setUrl(urlImg);
+
+                        //guardamos la imagen en la base de datos
+                        this.img.save(i);
+                    }
+
+                }
+            }
+
+            //Guarda Fechas
+            try {
+                System.out.println("hoooooooooooooooola");
+
+                for (String date : ddates) {
+
+                    DateTrip daTrip = new DateTrip();
+                    daTrip.setIdtrip(trip);
+                    newDate = df.parse(date);
+                    daTrip.setDeparturedates(newDate);
+                    this.date.save(daTrip);
+
                 }
 
+            } catch (ParseException e) {
+                return "errore en  las fechas";
             }
+
+            //guarda Itinerearios
+            for (String d : day) {
+
+                Itinerary iti = new Itinerary();
+                iti.setTrip(trip);
+                iti.setDay(d);
+                this.itinerary.save(iti);
+
+            }
+
         }
-
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        Date startDate;
-
-        //Guarda Fechas
-            DateTrip daTrip = new DateTrip();
-        try {
-            System.out.println("hoooooooooooooooola");
-            daTrip.setIdtrip(trip);
-            startDate = df.parse(dfirts);
-            daTrip.setDeparturefirst(startDate);
-
-            startDate = df.parse(dlast);
-            daTrip.setDeparturelast(startDate);
-            
-            this.date.save(daTrip);
-            
-        } catch (ParseException e) {
-            return "errore en las fechas";
-        }
-
-        //guarda Itinerearios
-       
-        for (String d : day) {
-       Itinerary iti = new Itinerary();
-        iti.setTrip(trip);
-            iti.setDay(d);
-            this.itinerary.save(iti);
-        }
-
-        return "index";
+        return "redirect:/trip/list";
         //return "ARCHIVO VACIO";
     }
 }

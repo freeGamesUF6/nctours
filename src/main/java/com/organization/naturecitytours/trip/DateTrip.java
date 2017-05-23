@@ -52,33 +52,25 @@ public class DateTrip implements Serializable {
     private Long id;
      
 
-    @Column(name="departurefirst")
-    private Date  departurefirst;
+    @Column(name="departuredates")
+    private Date  departuredates;
     
-    @Column(name="departurelast")
-    private Date   departurelast;
+
     
     @ManyToOne
     @JoinColumn(name="idtrip")
     private Trip idtrip;
+
+    public Date getDeparturedates() {
+        return departuredates;
+    }
+
+    public void setDeparturedates(Date departuredates) {
+        this.departuredates = departuredates;
+    }
     
 
 
-    public Date  getDeparturefirst() {
-        return departurefirst;
-    }
-
-    public void setDeparturefirst(Date   departurefirst) {
-        this.departurefirst = departurefirst;
-    }
-
-    public Date  getDeparturelast() {
-        return departurelast;
-    }
-
-    public void setDeparturelast(Date   departurelast) {
-        this.departurelast = departurelast;
-    }
 
     public Trip getIdtrip() {
         return idtrip;

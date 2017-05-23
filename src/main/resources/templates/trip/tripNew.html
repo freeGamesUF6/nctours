@@ -24,7 +24,7 @@
             var max_fields = 10; //maximos inputs
             var wrapper = $(".input_div"); //donde se crearran los input
             var add_button = $(".add_button"); //boton de añadir inputs
-            var x = 1; // variable auxiliar
+            var x = 2; // variable auxiliar
             $(add_button).click(function (e) { //añadir boton al hacer clic
                 e.preventDefault();
                 if (x < max_fields) { //filtro de inputs
@@ -54,13 +54,13 @@
         <div class="row">
 
             <form th:action="@{/trip/new}" th:object="${trip}"  id="userForm" method="post" enctype="multipart/form-data" modelAttribute="images">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>New Trip</h3>
                     <div class="control-group form-group has-feedback">
                         <div class="controls">
                             <label>Name</label>
                             <input type="text" class="form-control" th:field="*{name}" >
-                            <span class="text-danger" th:errors="*{name}"></span>
+                            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></span>
                         </div>
                     </div>
                     <div class="control-group form-group has-feedback">
@@ -80,18 +80,18 @@
                     </div>
                     <div class="control-group form-group has-feedback">
                         <div class="controls">
-                            <label class="control-label" >Image</label>
-                            <input id="input-1a" type="file" class="btn btn-primary btn-file file" name="file"  data-show-preview="false" >
+                            <label>Image</label>
+                            <input  type="file" class="form-control btn btn-primary btn-file file" name="file"  >
                             <span class="text-danger"></span>
                         </div>
                     </div>
-
+                </div>
                     <div id="success"></div>
                     <!-- For success/fail messages -->
                     <button type="submit" class="btn btn-primary">Create</button>
-                </div>
+                
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Image for Slider</h3>
                     <div class="control-group row form-group has-feedback">
                         <div class="controls">
@@ -103,40 +103,60 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Date</h3>
                     <div class="control-group form-group has-feedback">
                         <div class="controls">
                             <label>departurefirst</label>
-                            <input   type="date" class="form-control" name="departurefirst" >
+                            <input   type="date" class="form-control" name="firts" >
 
                         </div>
                         <div class="controls">
                             <label>departurelast</label>
-                            <input  type="date" class="form-control" name="departurelast" >
+                            <input  type="date" class="form-control" name="last" >
 
                         </div>
 
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                    
+                    <div class="col-md-3">
+                    <h3>Departure Dates</h3>
+                    <div class="control-group form-group has-feedback">
+                        <div class="controls">
+                            <label>first</label>
+                            <input   type="date" class="form-control" name="departuredates" >
+
+                        </div>
+                        <div class="controls">
+                            <label>seconds</label>
+                            <input  type="date" class="form-control" name="departuredates" >
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-3">
                     <h3>Itinerario</h3>
                   <div class="control-group row form-group has-feedback">
                         <div class="controls">
                             <div class="input_div">
                                 <button class="add_button btn btn-default">Add </button><br /><br />
-                                <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
+                               <div> Day 1<input type="text"  name="day" class="form-control" required><hr /></div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Hoteles</h3>
-                  <div  th:each="hotel : ${hoteles}"  >
-                      <h3 th:text="${hotel.name}"/>
-
+                     <input type="checkbox" class="hidden"  name="hoteles" checked="checked" value="0">
+                  <div class="checkboox" th:each="hotel : ${hoteles}"  >
+                     
+                    
+                      <label><input type="checkbox"   name="hoteles" th:value="${hotel.id}"><b th:text="${hotel.name}"></b></label>
                         </div>
                     </div>
                 </div>

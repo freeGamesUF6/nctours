@@ -34,10 +34,13 @@ public class Hotel implements Serializable {
     private Long id;
     @Column(name="name")
     private String name;
+    
     @Column(name="category")
     private int category;
+    
     @Column(name="location")
     private String location;
+    
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "triphotel", joinColumns = { @JoinColumn(name = "idhotel") }, inverseJoinColumns = { @JoinColumn(name = "idtrip") })
     private Set<Trip> trips;
@@ -72,6 +75,14 @@ public class Hotel implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Set<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(Set<Trip> trips) {
+        this.trips = trips;
     }
     
     

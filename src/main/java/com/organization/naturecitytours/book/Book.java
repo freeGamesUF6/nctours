@@ -39,7 +39,7 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "date")
-    @NotEmpty
+    @NotNull
     private Date date;
     @Column(name = "num_pax")
     @NotNull

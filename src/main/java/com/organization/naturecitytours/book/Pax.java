@@ -20,6 +20,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -39,14 +41,16 @@ public class Pax implements Serializable {
     @NotEmpty
     private String surname;
     @Column(name = "dob")
-    @NotEmpty
-    private String dob;
+    @NotNull
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    private Date dob;
     @Column(name = "passport")
     @NotEmpty
     private String passport;
     @Column(name = "passportexpiry")
-    @NotEmpty
-    private String passportexpiry;
+    @NotNull
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    private Date passportexpiry;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "bookpax", joinColumns = { @JoinColumn(name = "dnipax") }, inverseJoinColumns = { @JoinColumn(name = "idbook") })
     private Set<Book> books;
@@ -58,7 +62,7 @@ public class Pax implements Serializable {
         this.dni = dni;
     }
 
-    public Pax(String dni, String name, String surname, String dob, String passport, String passportexpiry) {
+    public Pax(String dni, String name, String surname, Date dob, String passport, Date passportexpiry) {
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -103,11 +107,11 @@ public class Pax implements Serializable {
         this.surname = surname;
     }
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
@@ -119,11 +123,11 @@ public class Pax implements Serializable {
         this.passport = passport;
     }
 
-    public String getPassportexpiry() {
+    public Date getPassportexpiry() {
         return passportexpiry;
     }
 
-    public void setPassportexpiry(String passportexpiry) {
+    public void setPassportexpiry(Date passportexpiry) {
         this.passportexpiry = passportexpiry;
     }
 
