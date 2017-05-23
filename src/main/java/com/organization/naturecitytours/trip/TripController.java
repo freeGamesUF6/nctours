@@ -234,7 +234,7 @@ public class TripController {
                         HotelList.add(ho);
 
                     } catch (Exception r) {
-                        return "NO Existe el Hotel";
+                        System.out.println("No existe el hotel con id: "+ hotel);
                     }
 
                 }
@@ -243,7 +243,7 @@ public class TripController {
             this.trip.save(trip);
             //Pack de imagenes del trip
             //Iteramos las imagenes uno a uno 
-            if (files != null) {
+            if (files.getFiles() != null) {
                 for (MultipartFile image : files.getFiles()) {
 
                     //Sí no se ha introducido ninguna imagen agragamos una por defecto
