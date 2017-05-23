@@ -12,7 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="header" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -22,14 +22,14 @@ and open the template in the editor.
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/"><img class="img-responsive" th:src="@{/resources/images/logoGrande.jpg}" style="width: 580px;" /></a>
+                    <a class="navbar-brand" href="/"><img class="embed-responsive-item" id="logo" th:src="@{/resources/images/logoGrande.jpg}" /></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  th:switch="${session.user}">
                     
                     <!-- LO QUE VE EL ADMINISTRADOR !-->
                     
-                    <ul class="nav navbar-nav navbar-right"  th:case="'admin@admin'">
+                    <ul class="nav navbar-nav navbar-right" id="menu" th:case="'admin@admin'">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">TRIPS <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -60,7 +60,7 @@ and open the template in the editor.
                        
                     </ul>
                     <!-- LO QUE VEN TODOS LOS USUARIOS -->
-                    <ul class="nav navbar-nav navbar-right"  th:case="*">
+                    <ul class="nav navbar-nav navbar-right" id="menu"  th:case="*">
                         <li>
                             <a th:if="${session.user != null}" th:href="@{/book/listBooksUser}">Booking List</a>
                         </li>

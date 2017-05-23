@@ -12,7 +12,7 @@ body {
 }
 
 body {
-    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 85px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 .img-portfolio {
@@ -78,7 +78,7 @@ footer {
 }
 
 body{
-    background-color: white;
+    background-color: #F2F2F2;
 }
 
 
@@ -113,12 +113,101 @@ body{
 
 
 
+
+
+#logo{
+    width: 180px;
+}
+
+#menu{
+    padding-top: 2%;
+}
+
+#header{
+    background-color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
+    color:#97BD12;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    color:#97BD12;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+    color:#3A2F0B;
+}
+
+.page-header{
+   border-bottom: 1px solid #3A2F0B;
+}
+
+#footer{
+    background-color: #97BD12;
+    color:#3A2F0B;
+    border-color: #3A2F0B;
+    height: 10px;
+}
+
+.navbar-default .navbar-text{
+    color:#3A2F0B;
+}
+
+h1{
+    color:#97BD12;
+}
+h2{
+    color:#97BD12;
+}
+h3{
+    color:#97BD12;
+}
+h4{
+    color:#3A2F0B;
+}
+h1 small{
+    color:#3A2F0B;
+}
+
+
+.btn-primary{
+    background-color: #97BD12;
+    border-color: #3A2F0B;
+}
+
+.btn-primary:hover{
+     background-color:#3A2F0B;
+}
+
+a:hover{
+    text-decoration: none;
+    color:#97BD12;
+}
+
+#lista{
+    margin-bottom: 75px;
+}
+#relationedTrip{
+    margin-bottom: 75px;
+}
+
+
+
+
+
+
+
+
 /* Responsive Styles */
 
 @media(max-width:991px) {
     .customer-img,
     .img-related {
         margin-bottom: 30px;
+    }
+    .navbar-toggle{
+        background-color: #97BD12;
     }
 }
 
@@ -129,5 +218,8 @@ body{
 
     header.carousel .carousel {
         height: 70%;
+    }
+    .navbar-toggle{
+        background-color: #97BD12;
     }
 }
