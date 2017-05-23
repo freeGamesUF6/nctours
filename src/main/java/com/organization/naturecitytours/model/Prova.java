@@ -5,10 +5,13 @@
  */
 package com.organization.naturecitytours.model;
 
+import com.organization.naturecitytours.book.Book;
+import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.user.User;
 import org.springframework.stereotype.Controller;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -38,10 +41,18 @@ public class Prova {
         
     }
    
-//    @RequestMapping(value="/")
-//    public String hola(){
-//        return "hello";
-//    }
+    @RequestMapping(value="/provaModal")
+    public String provaModal( Map<String, Object> model){
+        Trip trip=new Trip();
+        trip.setName("Calella");
+        Book book=new Book();
+        book.setDate(new Date());
+        book.setNum_Pax(5);
+        book.setPvp(1000);
+        book.setIdtrip(trip);
+        model.put("book", book);
+        return "book/infoBook";
+    }
 //    
     @RequestMapping(value="/provaSave")
     public String provaSave(){

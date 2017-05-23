@@ -85,7 +85,7 @@ public class BookController {
      */
     
     @RequestMapping(value = "/book/saveBook", method = RequestMethod.GET)
-    public String saveBook(HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idTrip")String idtrip,@RequestParam("date")String date){
+    public String saveBook(HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idTrip")String idtrip,@RequestParam("date")String date, Map<String, Object> model){
        /* HttpSession session,@RequestParam("paxs") String paxs,@RequestParam("idtrip")String idtrip */
         
         /*Test code */
@@ -138,7 +138,7 @@ public class BookController {
             String[] ps=pax1.split(",");
             Pax aux=this.pax.findById(ps[0]);
             if(aux!=null){
-                b.getPaxs().add(aux);
+               pse.add(aux);
             }else{
                 Pax p=new Pax();
                 p.setDni(ps[0]);
@@ -167,10 +167,15 @@ public class BookController {
         
         this.book.save(b);
         
+        model.put("book", b);
         
-        
-        return "trip/tripList";
+        return "book/infoBook";
     }
+    
+//    @RequestMapping("/book/infoBook")
+//    public String infoBook(){
+//        return "book/infoBook";
+//    }
     
     /**
      * Método que muestra todas las reservas de todos los usuarios siempre
