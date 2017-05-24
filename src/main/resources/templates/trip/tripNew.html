@@ -1,44 +1,7 @@
 <html>
     <head>
     <div th:insert="~{fragments/head :: head}">...</div>
-    <script>
-        $(document).ready(function () {
-            var max_fields = 3; //maximum input boxes allowed
-            var wrapper = $(".input_fields_wrap"); //Fields wrapper
-            var add_button = $(".add_field_button"); //Add button ID
-            var x = 0; //initlal text box count
-            $(add_button).click(function (e) { //on add input button click
-                e.preventDefault();
-                if (x < max_fields) { //max input box allowed
-                    $(wrapper).append('<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control"><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div>'); //add input box
-                    x++; //text box increment
-                }
-            });
-            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            })
-        });
-        $(document).ready(function () {
-            var max_fields = 10; //maximos inputs
-            var wrapper = $(".input_div"); //donde se crearran los input
-            var add_button = $(".add_button"); //boton de añadir inputs
-            var x = 2; // variable auxiliar
-            $(add_button).click(function (e) { //añadir boton al hacer clic
-                e.preventDefault();
-                if (x < max_fields) { //filtro de inputs
-                    $(wrapper).append('<div> Day ' + x + '<input type="text" class="form-control input-md" name="day" ><a href="#" class="input-group-addon remove_input">Remove</a><hr /></div>'); //inputs
-                    x++; //text box increment
-                }
-            });
-            $(wrapper).on("click", ".remove_input", function (e) { //Eliminar input
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            })
-        });
-    </script>
+       <script type="text/javascript" th:src="@{/resources/fonts/tripForm.js}"></script>
 </head>
 <body>
     <div th:insert="~{fragments/header :: body}">...</div>
@@ -124,14 +87,27 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Trips Days <br />
                         </label>  
-                        <div class="col-md-4">
-                            Day 1
-                            <input  name="day" type="text" placeholder="placeholder" class="form-control">
+                        <div class="col-md-12">
+                            Day _Es
+                             <div class="input_fields_wrap">
+                                 <textarea  name="day" type="text" placeholder="placeholder" class="form-control">description itinerary</textarea>
                             <span class="help-block">help</span>
                             <div class="input_div">...</div>
-                            <div class="input_fields_wrap">
-                                <br /><br />
-                                <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
+                           
+                            </div>
+                             Day _CAT
+                             <div class="input_fields_wrap">
+                                 <textarea  name="day" type="text" placeholder="placeholder" class="form-control">description itinerary</textarea>
+                            <span class="help-block">help</span>
+                            <div class="input_div">...</div>
+                           
+                            </div>
+                              Day _EN
+                             <div class="input_fields_wrap">
+                                 <textarea  name="day" type="text" placeholder="placeholder" class="form-control">description itinerary</textarea>
+                            <span class="help-block">help</span>
+                            <div class="input_div">...</div>
+                           
                             </div>
 
                             <button class="add_button btn btn-default">Add Day</button>

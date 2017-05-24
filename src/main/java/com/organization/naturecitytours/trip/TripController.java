@@ -153,7 +153,7 @@ public class TripController {
         Trip trip = new Trip();
         DateTrip date = new DateTrip();
         Collection<Hotel> hoteles = this.hotel.findAll();
-
+        
         model.put("trip", trip);
         model.put("date", date);
         model.put("hoteles", hoteles);
@@ -170,17 +170,21 @@ public class TripController {
      */
     @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
     public ModelAndView addTrip(
+            Map<String, Object> model,
             @Valid Trip trip,
             BindingResult result,
             @RequestParam("firts") String firstDate,
             @RequestParam("last") String lastDate,
             @RequestParam("file") MultipartFile file,
             @RequestParam("departuredates") String[] ddates,
-            @RequestParam("day") String[] day,
+            @RequestParam("day") String[] day_es,
+            @RequestParam("day") String[] day_ca,
+            @RequestParam("day") String[] day_en,
             @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
         if (result.hasErrors()) {
-            return new ModelAndView ("redirect:/trip/newdg");
+            model.put("errores",result.getAllErrors());
+            return new ModelAndView ("redirect:/trip/new");
         } else {
 
             String rootPath = "src/main/resources/static/resources/images/trip";
@@ -291,11 +295,11 @@ public class TripController {
             }
 
             //guarda Itinerearios
-            for (String d : day) {
+            for (String d : day_es) {
 
                 Itinerary iti = new Itinerary();
                 iti.setTrip(trip);
-                iti.setDay(d);
+                iti.setDay_es(d);
                 this.itinerary.save(iti);
 
             }
