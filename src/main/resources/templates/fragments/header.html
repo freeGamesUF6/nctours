@@ -62,6 +62,9 @@ and open the template in the editor.
                     <!-- LO QUE VEN TODOS LOS USUARIOS -->
                     <ul class="nav navbar-nav navbar-right" id="menu"  th:case="*">
                         <li>
+                            <a th:if="${session.user == null}" th:href="@{/user/about}">About us</a>
+                        </li>
+                        <li>
                             <a th:if="${session.user != null}" th:href="@{/book/listBooksUser}">Booking List</a>
                         </li>
                         <li>

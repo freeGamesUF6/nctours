@@ -14,7 +14,7 @@
                         <div class="control-group form-group has-feedback">
                             <div class="controls">
                                 <label>Email Address:</label>
-                               <input class="form-control" th:field="*{email}" type="text" name="username"/>
+                               <input class="form-control" th:field="*{email}" type="text" placeholder="example@example.com" name="username"/>
                                 
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <label for="inputPassword" class="control-label">Password</label>
 
                             <div class="form-group">
-                                 <input class="form-control" th:field="*{password}" type="password" name="password"/>
+                                 <input class="form-control" th:field="*{password}" placeholder="Password" type="password" name="password"/>
                          
                             </div>
 
@@ -33,7 +33,7 @@
 
                         <div id="success"></div>
                         <!-- For success/fail messages -->
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Log in</button>
                     </form>
                 </div>
 
