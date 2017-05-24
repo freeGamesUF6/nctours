@@ -17,13 +17,12 @@
             <div class="col-md-7">
                 <table class="table table-striped" cellpadding="10">
                         <thead>
-                            <tr>
-                                <th>Localizador</th> 
-                                <th>num_pax</th>                    
-                                <th>pvp</th>
-                                <th>Trip name</th>
-                                <th>Date</th>
-                                <th>Agency</th>
+                            <tr>   
+                                <th th:text="#{numPax}" />                    
+                                <th th:text="#{pvp}" />
+                                <th th:text="#{tripName}" />
+                                <th th:text="#{date}" />
+                                <th th:text="#{agency}" />
                             </tr>
                         </thead>
                         <tbody>
@@ -37,7 +36,7 @@
                             <td th:text="${user.email}"/>
                         </div> 
                         <div class="col-md-5">                               
-                            <td>  <a  class="btn btn-danger" th:href="@{/book/delete/}+${book.id}">Eliminar Reserva</a> </td>              
+                            <td>  <a  class="btn btn-danger" th:href="@{/book/delete/}+${book.id}" th:text="#{numPax}" /> </td>              
                         </div>
                            </tr>
                         </tbody>
