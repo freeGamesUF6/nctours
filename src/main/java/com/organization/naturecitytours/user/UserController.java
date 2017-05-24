@@ -175,7 +175,8 @@ public class UserController {
     }
         @RequestMapping("/book/listBooksUser")
     public String list(Book book,BindingResult result, Map<String, Object> model, HttpSession session){
-        Collection<Book> books= this.book.findAll();
+        User u=this.user.findByEmail(session.getAttribute("user").toString());
+        Collection<Book> books= u.getBooks();
         if (books.isEmpty()) {
             // no trips found
             result.rejectValue("id", "notFound", "not found");

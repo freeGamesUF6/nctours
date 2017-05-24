@@ -16,11 +16,8 @@
                 <form th:action="@{saveBook}" class="form-inline"  name="formPax" method="get" >
                     <div class="form-group">
                         <label for="sel1">Departure Dates:</label>
-                        <select class="form-control" id="fecha">
-                            <option>23/11/1994</option>
-                            <option>12/05/1986</option>
-                            <option>19/01/1999</option>
-                            <option>31/07/2011</option>
+                        <select class="form-control" onload="cargarFechas()" id="fecha">
+
                         </select>
                     </div>
                     <div class="pasajeros">
@@ -105,7 +102,7 @@
                 $("#date").val(date);
 
             }
-
+            
 
         </script>
     </body>
