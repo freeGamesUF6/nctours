@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -70,7 +71,7 @@ public class UserController {
      * @return Profile de la agencia / login 
      */
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public String initSession(@Valid User user, BindingResult result, HttpSession session) {
+    public String initSession(@Valid User user, BindingResult result, HttpSession session,@RequestParam("lang") String lang) {
         try {
             User user1 = this.user.findByEmail(user.getEmail());
        
@@ -84,7 +85,7 @@ public class UserController {
 
                     session.setAttribute("user", user1.getEmail());
                     session.setAttribute("userID", user1.getId());
-                    
+                    session.setAttribute("lang", lang);
                     return "user/userProfile";
                    
                 } else {

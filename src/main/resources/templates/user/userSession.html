@@ -6,10 +6,11 @@
 
        <hr>
         <div class="container">
+            <form th:action="@{login}" method="post" th:object="${user}" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-4">
                     <h3>Login</h3>
-                       <form th:action="@{login}" method="post" th:object="${user}" enctype="multipart/form-data">
+                       
 
                         <div class="control-group form-group has-feedback">
                             <div class="controls">
@@ -34,11 +35,19 @@
                         <div id="success"></div>
                         <!-- For success/fail messages -->
                         <button type="submit" class="btn btn-primary">Log in</button>
-                    </form>
+                   
                 </div>
-
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="radio" name="lang" value="ca" checked>Català
+                    <input type="radio" name="lang" value="es">Castellano
+                    <input type="radio" name="lang" value="en">English
+                </div>
+            </div>
+                </form>
         </div>
+        
         <!-- /.row -->
 
         <hr>
