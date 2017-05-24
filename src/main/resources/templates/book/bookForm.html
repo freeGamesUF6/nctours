@@ -16,8 +16,9 @@
                 <form th:action="@{saveBook}" class="form-inline"  name="formPax" method="get" >
                     <div class="form-group">
                         <label for="sel1">Departure Dates:</label>
-                        <select class="form-control" id="fecha" th:each="fecha : ${dates}">
-                            <option th:value="${fecha.departuredates}"></option>
+                        <select class="form-control" id="fecha">
+                            <option>Fechas disponibles</option>
+                            <option th:each="fecha : ${dates}" th:value="${fecha.departuredates}"><p th:text="${fecha.departuredates}"></p></option>
 
                         </select>
                     </div>
