@@ -46,15 +46,12 @@
     <!-- Entidad Form -->
 
     <hr>
-    <hr>
-    <hr>
-
 
     <div class="container">
         <div class="row">
 
 
-            <form class="form-inline" th:action="@{/trip/new}" th:object="${trip}" method="post" enctype="multipart/form-data" >
+            <form class="form-inline" id="lista" th:action="@{/trip/new}" th:object="${trip}" method="post" enctype="multipart/form-data" >
                 <fieldset>
 
                     <!-- Form Name -->
@@ -120,49 +117,55 @@
                         </div>
                     </div>
 
-                   <!-- Form Name -->
+                    <!-- Form Name -->
                     <legend>Itineray</legend>
 
                     <!-- Textarea -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Trips Days <br />
-                            <button class="add_button btn btn-default">Add Day</button>
                         </label>  
                         <div class="col-md-4">
                             Day 1
-                            <input  name="day" type="text" placeholder="placeholder" class="form-control input-md">
+                            <input  name="day" type="text" placeholder="placeholder" class="form-control">
                             <span class="help-block">help</span>
                             <div class="input_div">...</div>
+                            <div class="input_fields_wrap">
+                                <br /><br />
+                                <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
+                            </div>
 
+                            <button class="add_button btn btn-default">Add Day</button>
                         </div>
+
+
                     </div>
 
                     <br />
                     <hr>
                     <br />
 
-
+                    <!-- Form Name -->
+                    <legend>Hotels</legend>
                     <!-- Multiple Checkboxes -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="checkboxes">Hotels</label>
+                        <label class="col-md-4 control-label" for="checkboxes">List</label>
                         <div class="col-md-4">
                             <input type="hidden" class="hidden"  name="hoteles" value=''>
                             <div class="checkboox" th:each="hotel : ${hoteles}"  >
-                            
-                                    <label th:for="${hotel.name}">
-                                        <input type="checkbox" name="hoteles" th:value="${hotel.id}">
-                                        <b th:text="${hotel.name}"></b>
-                                    </label>
-                       
+
+                                <label th:for="${hotel.name}">
+                                    <input type="checkbox" name="hoteles" th:value="${hotel.id}">
+                                    <b th:text="${hotel.name}"></b>
+                                </label>
+
                             </div>
 
                         </div>
                     </div>
 
-                    <br />
-                    <hr>
-                    <br />
 
+                    <!-- Form Name -->
+                    <legend>Images</legend>
                     <!-- File Button --> 
                     <div class="form-group">
                         <label class="col-md-12 control-label" for="filebutton">Portada Image</label>
@@ -176,20 +179,19 @@
                         <label class="col-md-12 control-label" for="filebutton">Slide Image</label>
                         <div class="col-md-4">
                             <div class="input_fields_wrap">
-                                <button class="add_field_button btn btn-default">Add Image (max 3)</button><br /><br />
+                                <br /><br />
                                 <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
                             </div>
+                            <button class="add_field_button btn btn-default">Add Image (max 3)</button>
                         </div>
                     </div>
 
                 </fieldset>
+                <button type="submit" class="btn btn-primary">Create</button>
             </form>
 
 
-
             <!-- /.row -->
-
-            <hr>
 
             <div th:insert="~{fragments/footer :: body}">...</div>
         </div>
