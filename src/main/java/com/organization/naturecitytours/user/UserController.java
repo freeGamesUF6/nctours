@@ -8,11 +8,13 @@ package com.organization.naturecitytours.user;
 
 import com.organization.naturecitytours.book.Book;
 import com.organization.naturecitytours.book.BookRepository;
+import com.organization.naturecitytours.trip.DateTrip;
 import com.organization.naturecitytours.trip.Trip;
 import com.organization.naturecitytours.trip.TripRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +36,14 @@ public class UserController {
 
     private UserRepository user;
     private BookRepository book;
+    private TripRepository trip;
     // private User us = new User();
 
     @Autowired
-    public UserController(UserRepository user,BookRepository book) {
+    public UserController(UserRepository user,BookRepository book, TripRepository trip) {
         this.user = user;
         this.book=book;
+        this.trip = trip;
     }
 
     /**
@@ -190,5 +194,21 @@ public class UserController {
             }
             
         }
+    }
+    
+    
+   @RequestMapping("/book/form/{id}")
+    public String welcome4(Map<String, Object> model,@PathVariable("id") String idTrip) {
+        
+        int id = Integer.parseInt(idTrip);
+        Trip t = this.trip.findById(id);
+        
+        Set <DateTrip> dates = t.getDates();
+        
+        model.put("dates",dates);
+        model.put("idTrip",idTrip);
+        System.out.println("id trip "+ idTrip);
+                
+        return "book/bookForm";
     }
 }

@@ -169,7 +169,7 @@ public class TripController {
      * @return
      */
     @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
-    public String addTrip(
+    public ModelAndView addTrip(
             @Valid Trip trip,
             BindingResult result,
             @RequestParam("firts") String firstDate,
@@ -180,7 +180,7 @@ public class TripController {
             @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
         if (result.hasErrors()) {
-            return "trip/tripNew";
+            return new ModelAndView ("redirect:/trip/newdg");
         } else {
 
             String rootPath = "src/main/resources/static/resources/images/trip";
@@ -221,7 +221,7 @@ public class TripController {
                 trip.setDeparturelast(newDate);
 
             } catch (ParseException e) {
-                return "Error en la primera o ultima fecha";
+                System.out.println("Error en la primera o ultima fecha");
             }
 
             //guardar Hoteles
@@ -287,7 +287,7 @@ public class TripController {
                 }
 
             } catch (ParseException e) {
-                return "errore en  las fechas";
+                System.out.println("errore en  las fechas");
             }
 
             //guarda Itinerearios
@@ -301,7 +301,7 @@ public class TripController {
             }
 
         }
-        return "redirect:/trip/list";
+       return new ModelAndView ("redirect:/trip/list");
         //return "ARCHIVO VACIO";
     }
 }
