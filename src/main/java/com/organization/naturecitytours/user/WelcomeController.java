@@ -15,12 +15,5 @@ class WelcomeController {
         return "index";
     }
     
-    @RequestMapping("/book/form/{id}")
-    public String welcome4(Map<String, Object> model,@PathVariable("id") String idTrip) {
-        
-        model.put("idTrip",idTrip);
-        System.out.println("id trip "+ idTrip);
-                
-        return "book/bookForm";
-    }
+  
 }
