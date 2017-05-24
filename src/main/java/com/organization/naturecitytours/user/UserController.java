@@ -177,6 +177,7 @@ public class UserController {
             return "hello";
         } 
     }
+    
         @RequestMapping("/book/listBooksUser")
     public String list(Book book,BindingResult result, Map<String, Object> model, HttpSession session){
         User u=this.user.findByEmail(session.getAttribute("user").toString());
@@ -210,5 +211,10 @@ public class UserController {
         System.out.println("id trip "+ idTrip);
                 
         return "book/bookForm";
+    }
+    
+    @RequestMapping("/user/about")
+    public String about(){
+        return "/about";
     }
 }
