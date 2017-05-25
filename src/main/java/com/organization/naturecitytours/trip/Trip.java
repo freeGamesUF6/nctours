@@ -86,6 +86,15 @@ public class Trip implements Serializable {
     @Column(name = "image")
     private String image;
 
+     @Column(name = "descripcion_es")
+    private String descripcion_es;
+     
+     @Column(name = "descripcion_ca")
+    private String descripcion_ca;
+     
+      @Column(name = "descripcion_en")
+    private String descripcion_en;
+      
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "triphotels", joinColumns = {
         @JoinColumn(name = "idtrip")}, inverseJoinColumns = {
@@ -114,6 +123,31 @@ public class Trip implements Serializable {
         this.itineraries = itineraries;
     }
 
+    public String getDescripcion_es() {
+        return descripcion_es;
+    }
+
+    public void setDescripcion_es(String descripcion_es) {
+        this.descripcion_es = descripcion_es;
+    }
+
+    public String getDescripcion_ca() {
+        return descripcion_ca;
+    }
+
+    public void setDescripcion_ca(String descripcion_ca) {
+        this.descripcion_ca = descripcion_ca;
+    }
+
+    public String getDescripcion_en() {
+        return descripcion_en;
+    }
+
+    public void setDescripcion_en(String descripcion_en) {
+        this.descripcion_en = descripcion_en;
+    }
+
+    
     public int getId() {
         return id;
     }

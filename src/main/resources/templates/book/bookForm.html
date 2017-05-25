@@ -17,10 +17,9 @@
                     <div class="form-group">
                         <label for="sel1">Departure Dates:</label>
                         <select class="form-control" id="fecha">
-                            <option>23/11/1994</option>
-                            <option>12/05/1986</option>
-                            <option>19/01/1999</option>
-                            <option>31/07/2011</option>
+                            <option>Fechas disponibles</option>
+                            <option th:each="fecha : ${dates}" th:value="${fecha.departuredates}"><p th:text="${fecha.departuredates}"></p></option>
+
                         </select>
                     </div>
                     <div class="pasajeros">
@@ -54,7 +53,6 @@
 
         <script type="text/javascript">
             //Funcio amb JS pur. xavi
-            //Printa el numero de passatgers
             /*function numeroPax(){
              var numPax=document.getElementById("pax").value;
              for(i=1;i<=numPax;i++){
@@ -63,6 +61,7 @@
              }
              }*/
             //Funcions amb JQuery. Xavier
+            //afegeix passatgers
             $(document).ready(function () {
                 var max_fields = 9; //maximum input boxes allowed
                 var wrapper = $(".pasajeros"); //Fields wrapper
@@ -79,14 +78,15 @@
                     }
 
                 });
-
+                //elimina passatgers
                 $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
                     e.preventDefault();
                     $(this).parent('div').remove();
                     i--;
                 })
             });
-
+            
+            //guarda l'informació de cada passatger en un String separat per comes, cada pax es dividit per punt i coma
             function addPaxInfo() {
                 var numPax = $("div[class^='pax']").size();
                 var paxs = "";
@@ -105,7 +105,7 @@
                 $("#date").val(date);
 
             }
-
+            
 
         </script>
     </body>

@@ -16,7 +16,7 @@
                         <div class="control-group form-group has-feedback">
                             <div class="controls">
                                 <label>Email Address:</label>
-                                <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" th:field="*{email}" placeholder="example@example.com" >
+                                <input type="email" placeholder="example@example.com" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" th:field="*{email}" >
                                 <span class="text-danger" th:errors="*{email}"></span>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                 <span class="text-danger" th:errors="*{password}"></span>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control"  placeholder="confirm Password"  required>
+                                <input type="password" class="form-control"  placeholder="Confirm Password"  required>
                             </div>
 
                         </div>
@@ -37,7 +37,7 @@
 
                         <div id="success"></div>
                         <!-- For success/fail messages -->
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">sign up</button>
                     </form>
                 </div>
 

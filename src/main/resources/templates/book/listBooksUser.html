@@ -21,16 +21,22 @@ and open the template in the editor.
             <div class="col-md-7">
                 <table class="table table-striped" cellpadding="10">
                         <thead>
-                            <tr>   
+                            <tr>
+                                <th>Localizador</th>
                                 <th>num_pax</th>                    
                                 <th>pvp</th>
                                 <th>Trip name</th>
                                 <th>Date</th>
                                 <th>Agency</th>
+                                <th>DNI</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>PVP</th>
                             </tr>
                         </thead>
                         <tbody>
-                           <tr> 
+                           <tr>
+                            <td th:text="${book.id}"/>
                             <td th:text="${book.num_Pax}"/>
                             <td th:text="${book.pvp}"/>
                             <td th:text="${book.idtrip.name}"/>
@@ -38,6 +44,10 @@ and open the template in the editor.
                         <div th:each="user : ${book.users}">
                             <td th:text="${user.email}"/>
                         </div> 
+                            <td th:text="${dni}"/>
+                            <td th:text="${nombre}"/>
+                            <td th:text="${apellidos}"/>
+                            <td th:text="${book.pvp}"/>
                            </tr>
                         </tbody>
                     </table>

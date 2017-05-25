@@ -1,44 +1,9 @@
 <html>
     <head>
     <div th:insert="~{fragments/head :: head}">...</div>
-    <script>
-        $(document).ready(function () {
-            var max_fields = 3; //maximum input boxes allowed
-            var wrapper = $(".input_fields_wrap"); //Fields wrapper
-            var add_button = $(".add_field_button"); //Add button ID
-            var x = 0; //initlal text box count
-            $(add_button).click(function (e) { //on add input button click
-                e.preventDefault();
-                if (x < max_fields) { //max input box allowed
-                    $(wrapper).append('<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control"><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div>'); //add input box
-                    x++; //text box increment
-                }
-            });
-            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            })
-        });
-        $(document).ready(function () {
-            var max_fields = 10; //maximos inputs
-            var wrapper = $(".input_div"); //donde se crearran los input
-            var add_button = $(".add_button"); //boton de añadir inputs
-            var x = 2; // variable auxiliar
-            $(add_button).click(function (e) { //añadir boton al hacer clic
-                e.preventDefault();
-                if (x < max_fields) { //filtro de inputs
-                    $(wrapper).append('<div clas="col-xs-6" > Day '+ x +'<input type="text" class="form-control" name="day" class="form-control"><a href="#" class="input-group-addon remove_input">Remove</a><hr /></div>'); //inputs
-                    x++; //text box increment
-                }
-            });
-            $(wrapper).on("click", ".remove_input", function (e) { //Eliminar input
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            })
-        });
-    </script>
+    <script type="text/javascript" th:src="@{/resources/fonts/tripForm.js}"></script>
+        <script type="text/javascript" th:src="@{/resources/fonts/datetimepicker.js}"></script>
+
 </head>
 <body>
     <div th:insert="~{fragments/header :: body}">...</div>
@@ -46,132 +11,221 @@
     <!-- Entidad Form -->
 
     <hr>
-    <hr>
-    <hr>
-    
-    
+
     <div class="container">
         <div class="row">
 
-            <form th:action="@{/trip/new}" th:object="${trip}"  id="userForm" method="post" enctype="multipart/form-data" modelAttribute="images">
-                <div class="col-md-3">
-                    <h3>New Trip</h3>
-                    <div class="control-group form-group has-feedback">
-                        <div class="controls">
-                            <label>Name</label>
-                            <input type="text" class="form-control" th:field="*{name}" >
-                            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></span>
-                        </div>
-                    </div>
-                    <div class="control-group form-group has-feedback">
-                        <div class="controls">
-                            <label>Day Duration</label>
-                            <input type="number" class="form-control" th:field="*{duration}" >
-                            <span class="text-danger" th:errors="*{duration}"></span>
-                        </div>
-                    </div>
-       
-                    <div class="control-group form-group has-feedback">
-                        <div class="controls">
-                            <label>pricesingle</label>
-                            <input type="number" class="form-control" th:field="*{pricesingle}" >
-                            <span class="text-danger" th:errors="*{pricesingle}"></span>
-                        </div>
-                    </div>
-                    <div class="control-group form-group has-feedback">
-                        <div class="controls">
-                            <label>Image</label>
-                            <input  type="file" class="form-control btn btn-primary btn-file file" name="file"  >
-                            <span class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                    <div id="success"></div>
-                    <!-- For success/fail messages -->
-                    <button type="submit" class="btn btn-primary">Create</button>
-                
 
-                <div class="col-md-3">
-                    <h3>Image for Slider</h3>
-                    <div class="control-group row form-group has-feedback">
-                        <div class="controls">
+            <form class="form-inline" id="lista" th:action="@{/trip/new}" th:object="${trip}" method="post" enctype="multipart/form-data" >
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Trip</legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Name*</label>
+                        <div class="col-md-4">
+                            <input th:field="*{name}"  type="text" placeholder="placeholder" class="form-control input-md" required="require">
+                            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >help</span>
+                        </div>
+                    </div>
+
+                    <!-- Numb input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Day Duration*</label>
+                        <div class="col-md-4">
+                            <input th:field="*{duration}"  type="number" placeholder="placeholder" class="form-control input-md" required="require">
+                            <span  th:if="${#fields.hasErrors('duration')}" th:errors="*{name}">help</span>
+                        </div>
+                    </div>
+
+                    <!-- Num input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Price Single*</label>
+                        <div class="col-md-4">
+                            <input th:field="*{pricesingle}" type="number" placeholder="placeholder" class="form-control input-md" required="require">
+                            <span th:if="${#fields.hasErrors('pricesingle')}" class="text-danger" th:errors="*{pricesingle}">help</span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Num input-->
+                    <div class="form-group">
+                        <legend>Description Trip</legend>
+                        <div class="col-md-4">
+                            Descripción _ES *
+
+                            <textarea rows="4" cols="40" th:field="*{descripcion_es}"   name="description_es" type="text"   placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <span class="help-block">help</span>
+
+
+                        </div>
+
+                        <div class="col-md-4">
+                            Descripció _ CA *
+
+                            <textarea rows="4" cols="40" th:field="*{descripcion_ca}" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <span class="help-block">help</span>
+
+
+
+                        </div>
+                        <div class="col-md-4">
+                            Description _ EN *
+                            <textarea rows="4" cols="40" th:field="*{descripcion_en}" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <span class="help-block">help</span>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- Form Name -->
+                    <legend>Trip Dates Range</legend>
+
+                    <!-- Date input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Firts Departure*</label>
+                        <div class="col-md-4">
+                            <input  id="first1" name="firts" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require"><a href="javascript:NewCal('first1','ddmmyyyy')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                            <span class="help-block">help</span>
+                        </div>
+                    </div>
+
+                    <!-- Date input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Last Departure*</label>
+                        <div class="col-md-4">
+                            <input  id="last2" name="last" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require"><a href="javascript:NewCal('last2','ddmmyyyy')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                            <span class="help-block">help</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- Form Name -->
+                    <legend>Dates Departure</legend>
+                    <div class="form-group">
+                    <!-- Date input-->
+                 
+                    <label class="col-md-12 control-label" for="textinput">Lista de Fechas*</label>
+                    <div class="col-md-3">
+                        <input  id="cal1" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal1','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                    </div>
+                    <div class="col-md-3">
+                        <input  id="cal2" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal2','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                    </div>
+                    <div class="col-md-3">
+                        <input  id="cal3" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal3','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                    </div>
+                    <div class="col-md-3">
+                        <input  id="cal4" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal4','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                    </div>
+                    </div>
+                  <br />
+                  <hr>
+                    <!-- Form Name -->
+                      
+                    <legend>Itineray</legend>
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="textinput">Trips Days
+                        </label>
+                        <div class="col-md-4">
+                            Day 1 ES *
+
+                            <textarea rows="4" cols="40" name="day_es" type="text"   placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <span class="help-block">help</span>
+
+
+                        </div>
+
+                        <div class="col-md-4">
+                            Day 1 CA *
+
+                            <textarea rows="4" cols="40" name="day_ca" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <span class="help-block">help</span>
+
+
+
+                        </div>
+                        <div class="col-md-4">
+                            Day 1 EN *
+                            <textarea rows="4" cols="40" name="day_en" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <span class="help-block">help</span>
+
+                        </div>
+
+                        <div class="input_div"></div>
+
+                    </div>
+                    <button class="add_button btn btn-default">Add Day</button>
+
+
+
+
+
+                    <hr>
+
+                    <!-- Form Name -->
+                    <legend>Hotels</legend>
+                    <!-- Multiple Checkboxes -->
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="checkboxes">List</label>
+
+                        <input type="hidden" class="hidden"  name="hoteles" value=''>
+                        <div class="checkboox col-md-4" th:each="hotel : ${hoteles}"  >
+
+                            <label  th:for="${hotel.name}">
+
+                                <input type="checkbox" name="hoteles" th:value="${hotel.id}">
+                                <b th:text="${hotel.name}"></b>
+
+                            </label>
+
+
+
+                        </div>
+                    </div>
+
+                    <hr>
+                    <!-- Form Name -->
+                    <legend>Portada Image</legend>
+                    <!-- File Button -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <input name="file" class="input-file btn btn-primary" type="file">
+                        </div>
+                    </div>
+                    <hr>
+                    <br />
+
+                    <!-- File Button -->
+                    <legend>Slide Image</legend>
+                    <div class="form-group">
+
+                        <div class="col-md-4">
                             <div class="input_fields_wrap">
-                                <button class="add_field_button btn btn-default">Add Image (max 3)</button><br /><br />
+
                                 <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
                             </div>
-
+                            <button class="add_field_button btn btn-default">Add Image (max 3)</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <h3>Date</h3>
-                    <div class="control-group form-group has-feedback">
-                        <div class="controls">
-                            <label>departurefirst</label>
-                            <input   type="date" class="form-control" name="firts" >
-
-                        </div>
-                        <div class="controls">
-                            <label>departurelast</label>
-                            <input  type="date" class="form-control" name="last" >
-
-                        </div>
-
-                    </div>
-
-                </div>
-                    
-                    <div class="col-md-3">
-                    <h3>Departure Dates</h3>
-                    <div class="control-group form-group has-feedback">
-                        <div class="controls">
-                            <label>first</label>
-                            <input   type="date" class="form-control" name="departuredates" >
-
-                        </div>
-                        <div class="controls">
-                            <label>seconds</label>
-                            <input  type="date" class="form-control" name="departuredates" >
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="col-md-3">
-                    <h3>Itinerario</h3>
-                  <div class="control-group row form-group has-feedback">
-                        <div class="controls">
-                            <div class="input_div">
-                                <button class="add_button btn btn-default">Add </button><br /><br />
-                               <div> Day 1<input type="text"  name="day" class="form-control" required><hr /></div>
-                            </div>
-
+                    <hr>
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <h3>Hoteles</h3>
-                     <input type="hidden" class="hidden"  name="hoteles" value=''>
-                  <div class="checkboox" th:each="hotel : ${hoteles}"  >
-                     
-                    
-                      <label><input type="checkbox"   name="hoteles" th:value="${hotel.id}"><b th:text="${hotel.name}"></b></label>
-                        </div>
-                    </div>
-                </div>
+
 
             </form>
-
-
-
-
-            <!-- /.row -->
-
-            <hr>
-
-            <div th:insert="~{fragments/footer :: body}">...</div>
         </div>
+    </div>
+    <!-- /.row -->
+
+    <div th:insert="~{fragments/footer :: body}">...</div>
+
 </body>
 
 </html>

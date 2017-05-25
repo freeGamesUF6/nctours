@@ -127,6 +127,10 @@ public class Book implements Serializable {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    void setDate(String date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
    
     
