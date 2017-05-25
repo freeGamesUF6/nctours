@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
+import org.springframework.validation.ObjectError;
 
 /**
  *
@@ -153,7 +154,7 @@ public class TripController {
         Trip trip = new Trip();
         DateTrip date = new DateTrip();
         Collection<Hotel> hoteles = this.hotel.findAll();
-        
+
         model.put("trip", trip);
         model.put("date", date);
         model.put("hoteles", hoteles);
@@ -161,12 +162,20 @@ public class TripController {
     }
 
     /**
-     * Guardda un Trip y sus imagenes relacionada
-     *
-     * @param trip objeto trip
-     * @param file imagen de pordada
-     * @param files pack de imagenes
-     * @return
+     * 
+     * @param model // modelo para reenviar a otro controlador
+     * @param trip // Objeto Trip 
+     * @param result // Objeto BindindResult con los errores que se pudieran producir
+     * @param firstDate //Dia del primer vuelo del viaje
+     * @param lastDate //Dia del último vuelo del viaje
+     * @param file  // Imagen de portada del viaje 
+     * @param ddates // Lista de fechas de los dias disponibles del viaje
+     * @param day_es //Descripción de los itinerarios en Español
+     * @param day_ca //Descripción de los itinerarios en Catalán
+     * @param day_en //Descripción de los itinerarios en Ingles
+     * @param hoteles // Hoteles que incluyen en el viaje
+     * @param files // Pack de imagenes para Slider
+     * @return 
      */
     @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
     public ModelAndView addTrip(
@@ -183,8 +192,12 @@ public class TripController {
             @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
         if (result.hasErrors()) {
-            model.put("errores",result.getAllErrors());
-            return new ModelAndView ("redirect:/trip/new");
+            model.put("errores", result.getAllErrors());
+
+            for(ObjectError e : result.getAllErrors()){
+                System.out.println("errores"+ e);
+            }
+            return new ModelAndView("redirect:/trip/new");
         } else {
 
             String rootPath = "src/main/resources/static/resources/images/trip";
@@ -238,7 +251,7 @@ public class TripController {
                         HotelList.add(ho);
 
                     } catch (Exception r) {
-                        System.out.println("No existe el hotel con id: "+ hotel);
+                        System.out.println("No existe el hotel con id: " + hotel);
                     }
 
                 }
@@ -279,15 +292,18 @@ public class TripController {
             //Guarda Fechas
             try {
                 System.out.println("hoooooooooooooooola");
-
+            df = new SimpleDateFormat("yyyy-mm-dd");
                 for (String date : ddates) {
-
-                    DateTrip daTrip = new DateTrip();
-                    daTrip.setIdtrip(trip);
+                    if(date != null){
+                       
+                    DateTrip dates = new DateTrip();
+                    dates.setIdtrip(trip);
                     newDate = df.parse(date);
-                    daTrip.setDeparturedates(newDate);
-                    this.date.save(daTrip);
-
+                    dates.setDeparturedates(newDate);
+                    this.date.save(dates);
+                    }else{
+                        System.out.println("fecha vacia");
+                    }
                 }
 
             } catch (ParseException e) {
@@ -295,17 +311,21 @@ public class TripController {
             }
 
             //guarda Itinerearios
-            for (String d : day_es) {
-
-                Itinerary iti = new Itinerary();
-                iti.setTrip(trip);
-                iti.setDay_es(d);
-                this.itinerary.save(iti);
-
-            }
+             
+            int i = 0;
+        while(i< day_es.length){
+             Itinerary iti = new Itinerary();
+             iti.setDay_es(day_es[i]);
+             System.out.println("day ca "+ day_ca[i]);
+             iti.setDay_ca(day_ca[i]);
+             iti.setDay_en(day_en[i]);
+             iti.setTrip(trip);
+             this.itinerary.save(iti);
+             i++;
+        }
 
         }
-       return new ModelAndView ("redirect:/trip/list");
+        return new ModelAndView("redirect:/trip/list");
         //return "ARCHIVO VACIO";
     }
 }

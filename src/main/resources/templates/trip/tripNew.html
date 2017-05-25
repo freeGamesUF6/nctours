@@ -2,6 +2,8 @@
     <head>
     <div th:insert="~{fragments/head :: head}">...</div>
     <script type="text/javascript" th:src="@{/resources/fonts/tripForm.js}"></script>
+        <script type="text/javascript" th:src="@{/resources/fonts/datetimepicker.js}"></script>
+
 </head>
 <body>
     <div th:insert="~{fragments/header :: body}">...</div>
@@ -54,7 +56,7 @@
                         <div class="col-md-4">
                             Descripción _ES *
 
-                            <textarea rows="4" cols="40" name="day_es" type="text"   placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <textarea rows="4" cols="40" th:field="*{descripcion_es}"   name="description_es" type="text"   placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
                             <span class="help-block">help</span>
 
 
@@ -63,7 +65,7 @@
                         <div class="col-md-4">
                             Descripció _ CA *
 
-                            <textarea rows="4" cols="40" name="day_ca" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <textarea rows="4" cols="40" th:field="*{descripcion_ca}" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
                             <span class="help-block">help</span>
 
 
@@ -71,7 +73,7 @@
                         </div>
                         <div class="col-md-4">
                             Description _ EN *
-                            <textarea rows="4" cols="40" name="day_en" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
+                            <textarea rows="4" cols="40" th:field="*{descripcion_en}" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
                             <span class="help-block">help</span>
 
                         </div>
@@ -84,7 +86,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Firts Departure*</label>
                         <div class="col-md-4">
-                            <input  name="firts" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require">
+                            <input  id="first1" name="firts" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require"><a href="javascript:NewCal('first1','ddmmyyyy')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
                             <span class="help-block">help</span>
                         </div>
                     </div>
@@ -93,28 +95,32 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Last Departure*</label>
                         <div class="col-md-4">
-                            <input name="last" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require">
+                            <input  id="last2" name="last" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require"><a href="javascript:NewCal('last2','ddmmyyyy')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
                             <span class="help-block">help</span>
                         </div>
                     </div>
                     <hr>
                     <!-- Form Name -->
                     <legend>Dates Departure</legend>
-
+                    <div class="form-group">
                     <!-- Date input-->
                  
                     <label class="col-md-12 control-label" for="textinput">Lista de Fechas*</label>
                     <div class="col-md-3">
-                        <input name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require">
-                        <hr><button class="add_button_date btn btn-default">Add Date</button>  <hr>
+                        <input  id="cal1" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal1','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
                     </div>
-                    <div class="input_date">
-
+                    <div class="col-md-3">
+                        <input  id="cal2" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal2','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
                     </div>
-                
-
-
-
+                    <div class="col-md-3">
+                        <input  id="cal3" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal3','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                    </div>
+                    <div class="col-md-3">
+                        <input  id="cal4" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal4','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                    </div>
+                    </div>
+                  <br />
+                  <hr>
                     <!-- Form Name -->
                       
                     <legend>Itineray</legend>
