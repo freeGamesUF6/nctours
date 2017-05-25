@@ -177,9 +177,9 @@ public class TripController {
             @RequestParam("last") String lastDate,
             @RequestParam("file") MultipartFile file,
             @RequestParam("departuredates") String[] ddates,
-            @RequestParam("day") String[] day_es,
-            @RequestParam("day") String[] day_ca,
-            @RequestParam("day") String[] day_en,
+            @RequestParam("day_es") String[] day_es,
+            @RequestParam("day_ca") String[] day_ca,
+            @RequestParam("day_en") String[] day_en,
             @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
         if (result.hasErrors()) {

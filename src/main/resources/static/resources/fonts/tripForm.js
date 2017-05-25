@@ -33,7 +33,7 @@
             $(add_button).click(function (e) { //añadir boton al hacer clic
                 e.preventDefault();
                 if (x < max_fields) { //filtro de inputs
-                    $(wrapper).append('<div> Day ' + x + '<textarea type="text" class="form-control" name="day" >description itinerary</textarea><a href="#" class="input-group-addon remove_input">Remove</a><hr /></div>'); //inputs
+                    $(wrapper).append('<div><div class="col-md-4" > Day ' + x + ' ES<textarea rows="4" cols="40" type="text" class="form-control" name="day_es" >description itinerary</textarea></div><div class="col-md-4">Day ' + x + ' CA<textarea rows="4" cols="40" type="text" class="form-control" name="day_ca" >description itinerary</textarea></div><div class="col-md-4">Day ' + x + ' EN<textarea rows="4" cols="40" type="text" class="form-control" name="day_en" >description itinerary</textarea></div><a href="#" class="input-group-addon remove_input">Remove</a><br /></div>'); //inputs
                     x++; //text box increment
                 }
             });
