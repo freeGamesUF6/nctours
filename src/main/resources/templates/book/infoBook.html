@@ -6,6 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
     <div th:insert="~{fragments/head :: head}">...</div>
     <style>
         /* The Modal (background) */
@@ -106,17 +107,25 @@ and open the template in the editor.
                                 <th>Localizador</th>
                                 <th>Trip</th>
                                 <th>Num. Pax</th>
-                                <th>Date</th>
+                                <th>Booking Date</th>
+                                <th>Trip Date</th>
                                 <th>PvP</th>
+                                <th>DNI</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                               <td th:text="${book.id}"/>
+                               <td id="loc" th:text="${book.id}"/>
                                <td th:text="${book.idtrip.name}"/>
                                <td th:text="${book.num_Pax}"/>
                                <td th:text="${book.date}"/>
+                               <!--<td th:text="${book.trip.}"/>!-->
                                <td th:text="${book.pvp}"/> 
+                               <td th:text="${dni}"/>
+                               <td th:text="${nombre}"/>
+                               <td th:text="${apellidos}"/>
                             </tr>
                         </tbody>
                     </table>
@@ -157,6 +166,12 @@ and open the template in the editor.
                     modal.style.display = "none";
                 }
             }
+            var localizador = $("#loc").val();
+            var doc = new jsPDF();
+            //var imgData ="C:\Users\Xavier\Desktop\nctours\src\main\resources\static\resources\images\logoGrande.jpg";
+            //doc.addImage(imgData, 'JPEG', 15, 40, 180, 180);
+            doc.text('Hello world!', 10, 10);
+            doc.save('a2.pdf');
     </script>
     </body>
 </html>

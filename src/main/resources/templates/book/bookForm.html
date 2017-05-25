@@ -53,7 +53,6 @@
 
         <script type="text/javascript">
             //Funcio amb JS pur. xavi
-            //Printa el numero de passatgers
             /*function numeroPax(){
              var numPax=document.getElementById("pax").value;
              for(i=1;i<=numPax;i++){
@@ -62,6 +61,7 @@
              }
              }*/
             //Funcions amb JQuery. Xavier
+            //afegeix passatgers
             $(document).ready(function () {
                 var max_fields = 9; //maximum input boxes allowed
                 var wrapper = $(".pasajeros"); //Fields wrapper
@@ -78,14 +78,15 @@
                     }
 
                 });
-
+                //elimina passatgers
                 $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
                     e.preventDefault();
                     $(this).parent('div').remove();
                     i--;
                 })
             });
-
+            
+            //guarda l'informació de cada passatger en un String separat per comes, cada pax es dividit per punt i coma
             function addPaxInfo() {
                 var numPax = $("div[class^='pax']").size();
                 var paxs = "";
