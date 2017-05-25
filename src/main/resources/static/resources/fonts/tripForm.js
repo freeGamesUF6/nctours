@@ -43,3 +43,23 @@
                 x--;
             })
         });
+        
+         // TEXTAREA ITINERARY
+        $(document).ready(function () {
+            var max_fields = 3; //maximos inputs
+            var wrapper = $(".input_date"); //donde se crearran los input
+            var add_button = $(".add_button_date"); //boton de añadir inputs
+            var x = 0; // variable auxiliar
+            $(add_button).click(function (e) { //añadir boton al hacer clic
+                e.preventDefault();
+                if (x < max_fields) { //filtro de inputs
+                    $(wrapper).append('<div class="col-md-3"> <input  name="departuredates" type="date" placeholder="placeholder" class="form-control" required="require"><a href="#" class="input-group-addon remove_date">Remove</a></div>'); //inputs
+                    x++; //text box increment
+                }
+            });
+            $(wrapper).on("click", ".remove_date", function (e) { //Eliminar input
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+            })
+        });
