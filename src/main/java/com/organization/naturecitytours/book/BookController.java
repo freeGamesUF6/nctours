@@ -208,7 +208,7 @@ public class BookController {
             result.rejectValue("id", "notFound", "not found");
             return "admin/listBooks";
         }else {
-            if (session.getAttribute("user")!=null && session.getAttribute("user").equals("admin@admin")) {
+            if (session.getAttribute("user")!=null && session.getAttribute("user").equals("admin@admin.com")) {
                 model.put("selections", books);
                 return "admin/listBooks";
             }else{
@@ -218,6 +218,11 @@ public class BookController {
         }
     }
     
+    /**
+     * Metode que serveix per eliminar reserves
+     * @param bookId
+     * @return 
+     */
     @RequestMapping("/book/delete/{id}")
     public String deleteBook(@PathVariable("id") String bookId){
         Long idbook=Long.parseLong(bookId);
@@ -227,26 +232,6 @@ public class BookController {
         return "redirect:/book/list";
     }
     
-    
-//    @RequestMapping("/book/list")
-//    public String bookList(User user, BindingResult result, Map<String, Object> model) {
-//        // find books by user
-//        Bookuser bu=new Bookuser();
-//        user.setId(3);
-//        user.setEmail("admin@admin");
-//        user.setPassword("admin");
-//        bu.setIduser(user);
-//        Collection<User> results = this.book.findByEmail(user.getEmail());
-//        if (results.isEmpty()) {
-//            // no trips found
-//            result.rejectValue("id", "notFound", "not found");
-//            return "hello";
-//        }else {
-//            // multiple trips found
-//            model.put("selections", results);
-//            return "hello";
-//        } 
-//    }
     
     
     

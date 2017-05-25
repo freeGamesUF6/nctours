@@ -167,6 +167,16 @@ public class UserController {
         }
     }
 
+    
+    
+    /**
+     * Metode que et redirecciona a una vista que retorna una llista amb totes les reserves fetes per l'Usuari.
+     * @param book
+     * @param result
+     * @param model
+     * @param session
+     * @return 
+     */
     @RequestMapping("/book/listBooksUser")
     public String list(Book book,BindingResult result, Map<String, Object> model, HttpSession session){
         User u=this.user.findByEmail(session.getAttribute("user").toString());
@@ -186,6 +196,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Metode que serveix per pasar les Dates del viatge i la seva ID per fer la reserva.
+     * @param model
+     * @param idTrip
+     * @return 
+     */
     @RequestMapping("/book/form/{id}")
     public String welcome4(Map<String, Object> model, @PathVariable("id") String idTrip) {
 
@@ -201,6 +217,10 @@ public class UserController {
         return "book/bookForm";
     }
 
+    /**
+     * Metode que et redirecciona a la vista d'about.html
+     * @return 
+     */
     @RequestMapping("/user/about")
     public String about() {
         return "/about";
