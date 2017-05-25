@@ -14,7 +14,7 @@
                         <div class="control-group form-group has-feedback">
                             <div class="controls">
                                 <label>Email Address:</label>
-                               <input class="form-control" th:field="*{email}" type="text" name="username"/>
+                                <input class="form-control" th:field="*{email}" type="text" name="username" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="example@example.com"/>
                                 
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <label for="inputPassword" class="control-label">Password</label>
 
                             <div class="form-group">
-                                 <input class="form-control" th:field="*{password}" type="password" name="password"/>
+                                <input class="form-control" th:field="*{password}" type="password" name="password" placeholder="Password"/>
                          
                             </div>
 
