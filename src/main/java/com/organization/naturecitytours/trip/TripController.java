@@ -328,4 +328,12 @@ public class TripController {
         return new ModelAndView("redirect:/trip/list");
         //return "ARCHIVO VACIO";
     }
+    
+     @RequestMapping("/trip/delete/{id}")
+    public String deleteTrip(@PathVariable("id") String tripId){
+        int idtrip=Integer.parseInt(tripId);
+        this.trip.removeById(idtrip);
+        
+        return "redirect:/trip/list";
+    }
 }

@@ -6,6 +6,7 @@
 package com.organization.naturecitytours.trip;
 
 import java.util.Collection;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -52,8 +53,10 @@ public interface TripRepository extends Repository<Trip,Integer> {
 //    @Query("last_insert_id()")
 //    @Transactional(readOnly = true)
 //    Integer findLasI
-
-
+    @Modifying
+    @Query("DELETE Trip trip WHERE trip.id = :id")
+    @Transactional(readOnly = false)
+    void removeById(@Param("id") int id);
 
 
 }
