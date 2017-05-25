@@ -159,26 +159,7 @@ public class UserController {
         }
     }
     
-    @RequestMapping("/book/listByUser")
-    public String bookList(User user, BindingResult result, Map<String, Object> model) {
-        // find books by user
-//        Bookuser bu=new Bookuser();
-//        user.setId(3);
-        user.setEmail("admin@admin");
-//        user.setPassword("admin");
-//        bu.setIduser(user);
-        User results = this.user.findByEmail(user.getEmail());
-        if (results==null) {
-            // no trips found
-            result.rejectValue("id", "notFound", "not found");
-            return "hello";
-        }else {
-            // multiple trips found
-            model.put("selections", results);
-            return "hello";
-        } 
-    }
-    
+  
         @RequestMapping("/book/listBooksUser")
     public String list(Book book,BindingResult result, Map<String, Object> model, HttpSession session){
         User u=this.user.findByEmail(session.getAttribute("user").toString());

@@ -116,12 +116,15 @@ public class BookController {
         Trip trip=this.trip.findById(Integer.parseInt(idtrip));
         b.setIdtrip(trip);
         //Data del viatge
-        SimpleDateFormat sd=new SimpleDateFormat("dd/mm/YYYY");
+       
+        SimpleDateFormat sd=new SimpleDateFormat("yyyy-mm-dd");
         Date dat=new Date();
         try {
             dat=sd.parse(date);
+             System.out.println(dat);
         } catch (ParseException ex) {
             Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
         b.setDate(dat);
         //calcular preu per nombre passatgers
@@ -166,8 +169,19 @@ public class BookController {
         b.setPaxs(pse);
         
         this.book.save(b);
-        
+        Set <Pax> p=b.getPaxs();
+        String dni="";
+        String nombre="";
+        String apellidos="";
+        for (Pax pax : p) {
+            dni=pax.getDni();
+            nombre=pax.getName();
+            apellidos=pax.getSurname();
+        }
         model.put("book", b);
+        model.put("dni",dni);
+        model.put("nombre",nombre);
+        model.put("apellidos",apellidos);
         
         return "book/infoBook";
     }
