@@ -55,15 +55,15 @@
                 <h3 th:text="${trip.name}"/>
 
 
-                            <p th:case="'es'" th:text="${trip.descripcion_es}"></p>
-                            <p th:case="'ca'" th:text="${trip.descripcion_ca}"></p>
-                            <p th:case="'en'" th:text="${trip.descripcion_en}"></p>
+                <p th:case="'es'" th:text="${trip.descripcion_es}"></p>
+                <p th:case="'ca'" th:text="${trip.descripcion_ca}"></p>
+                <p th:case="'en'" th:text="${trip.descripcion_en}"></p>
 
                 <h4>Prices</h4>
                 <ul>
-                
+
                     <li><b th:text="${trip.pricesingle}"></b> € | Price/pax</li>
-                 
+
                 </ul>
                 <a th:if="${session.user != null}" class="btn btn-primary" th:href="@{/book/form/}+${trip.id}">BOOK</i></a>
                 <a   th:if="${session.user == 'admin@admin'}" class="btn btn-danger" th:href="@{/trip/delete/}+${trip.id}" th:text="#{deleteTip}" />
@@ -84,7 +84,7 @@
                     </li>
                     <li class=""><a href="#service-two" data-toggle="tab"><i class="fa fa-car"></i>Hotels</a>
                     </li>
-                        <li class=""><a href="#service-three" data-toggle="tab"><i class="fa fa-support"></i> Dates</a>
+                    <li class=""><a href="#service-three" data-toggle="tab"><i class="fa fa-support"></i> Dates</a>
                     </li>
                     <li class=""><a href="#service-four" data-toggle="tab"><i class="fa fa-database"></i> Conditions</a>
                     </li>
@@ -93,21 +93,38 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade active in" id="service-one">
                         <h4>Itinnerary</h4>
-                        <div th:case="'es'" >
-                          <!--  <div th:each="trip : ${trip.}"> -->
-                            <p th:text="${trip.descripcion_es}"></p>
+
+                        <div th:switch="${session.lang}" th:each="it,iter : ${trip.itineraries}">
+                            <b th:text="#{itineraryDay}+${iter.index+1}"></b>
+                            <p th:case="'es'" th:text="${it.day_es}"></p>
+                            <p th:case="'ca'" th:text="${it.day_ca}"></p>
+                            <p th:case="'en'" th:text="${it.day_en}"></p>
                         </div>
-                            <p th:case="'ca'" th:text="${trip.descripcion_ca}"></p>
-                            <p th:case="'en'" th:text="${trip.descripcion_en}"></p> </div>
+
+                    </div>
                     <div class="tab-pane fade" id="service-two">
-                        <h4>Service Two</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                        <h4>Hotels</h4>
+                        <div  th:each="hotel : ${trip.hotels}">
+                            <div class="col-md-3 text-center align-middle">
+                                <img th:src="@{/resources/images/utils/hotel.png}">
+                                <p  th:text="${hotel.name}"></p>
+                                <p  th:text="${hotel.location}"></p>
+                                <div class="col-md-12 col-xs-12">
+                                <div th:each="i :${new int [hotel.category]}" >
+
+                                    <p class="fa fa-star col-xs-1 col-md-1" aria-hidden="true"></p>
+
+                                </div>
+                                    </div>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="service-three">
-                        <h4>Service Three</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
+                        <h4>Dates</h4>
+                        <div  th:each="date : ${trip.dates}">
+                            <p th:text="${date.departuredates}"></p>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="service-four">
                         <h4>Service Four</h4>
