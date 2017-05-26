@@ -65,7 +65,7 @@ public class Trip implements Serializable {
     @NotEmpty
     private String name;
     
-    @Range(min = 1, max = 150)
+    @Range(min = 1, max = 9)
     @Column(name = "duration")
     private String duration;
     

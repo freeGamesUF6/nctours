@@ -33,6 +33,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
 /**
@@ -150,7 +153,25 @@ public class TripController {
         Trip trip = new Trip();
         DateTrip date = new DateTrip();
         Collection<Hotel> hoteles = this.hotel.findAll();
-
+        
+    
+        model.put("trip", trip);
+        model.put("date", date);
+        model.put("hoteles", hoteles);
+        return "/trip/tripNew";
+    }
+    
+      @RequestMapping(value = "/trip/new/errors", method = RequestMethod.GET)
+    public String formTripErrors(Map<String, Object> model,HttpServletRequest request) {
+        
+        String r =request.getParameter("result");
+        
+          System.out.println("errorreees " + r);
+        Trip trip = new Trip();
+        DateTrip date = new DateTrip();
+        Collection<Hotel> hoteles = this.hotel.findAll();
+        
+    
         model.put("trip", trip);
         model.put("date", date);
         model.put("hoteles", hoteles);
@@ -175,7 +196,7 @@ public class TripController {
      */
     @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
     public ModelAndView addTrip(
-            Map<String, Object> model,
+            Model model,
             @Valid Trip trip,
             BindingResult result,
             @RequestParam("firts") String firstDate,
@@ -188,12 +209,20 @@ public class TripController {
             @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
         if (result.hasErrors()) {
-            model.put("errores", result.getAllErrors());
-
-            for(ObjectError e : result.getAllErrors()){
-                System.out.println("errores"+ e);
+            ModelAndView mav = new ModelAndView("/trip/tripNew");
+           
+            DateTrip datew = new DateTrip();
+            Collection<Hotel> hotelesw = this.hotel.findAll();
+            
+           List<ObjectError> f =  result.getAllErrors();
+            for (ObjectError fe : f){
+                System.out.println(fe.getCodes()[1] +"error - "+ fe.getDefaultMessage());
+               
             }
-            return new ModelAndView("redirect:/trip/new");
+            mav.addObject("date", datew);
+            mav.addObject("hoteles", hotelesw);
+            mav.addObject("result", result.getAllErrors());
+            return mav;
         } else {
 
             String rootPath = "src/main/resources/static/resources/images/trip";
