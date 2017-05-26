@@ -164,10 +164,19 @@ h3{
     color:#97BD12;
 }
 h4{
+    color:#97BD12;
+}
+h5{
     color:#3A2F0B;
+}
+h6{
+    color:white;
 }
 h1 small{
     color:#3A2F0B;
+}
+#letraPdf{
+    color: #97BD12;
 }
 
 

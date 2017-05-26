@@ -10,7 +10,7 @@ and open the template in the editor.
         <script src="https://raw.githubusercontent.com/MrRio/jsPDF/master/plugins/from_html.js"></script>
         <script src="https://raw.githubusercontent.com/MrRio/jsPDF/master/plugins/split_text_to_size.js"></script>
         <script src="https://raw.githubusercontent.com/MrRio/jsPDF/master/plugins/standard_fonts_metrics.js"></script>
-        
+
     <div th:insert="~{fragments/head :: head}">...</div>
     <style>
         /* The Modal (background) */
@@ -83,26 +83,26 @@ and open the template in the editor.
             //color: black;
         }
     </style>
-    </head>
-    <body onload="printPDF()">
-        <div th:insert="~{fragments/header :: body}">...</div>
-        
-        <hr />
-       <!-- Page Content -->
-       <div id="lista" class="container">
-           <div class="row">
-               <div class="col-md-4"></div> 
-               <div class="col-md-4"><h1>Booking process Successful!!</h1></div>
-               <div class="col-md-4"><button id="myBtn" class="btn btn-primary">See Booking Information</button></div> 
-           </div>
-           <!-- The Modal -->
-            <div id="myModal" class="modal">
+</head>
+<body onload="printPDF()">
+    <div th:insert="~{fragments/header :: body}">...</div>
 
-              <!-- Modal content -->
-              <div class="modal-content">
+    <hr />
+    <!-- Page Content -->
+    <div id="lista" class="container">
+        <div class="row">
+            <div class="col-md-4"></div> 
+            <div class="col-md-4"><h1>Booking process Successful!!</h1></div>
+            <div class="col-md-4"><button id="myBtn" class="btn btn-primary">See Booking Information</button></div> 
+        </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
                 <div class="modal-header">
-                  <span class="close">&times;</span>
-                  <h2 class="text-center">Book Info</h2>
+                    <span class="close">&times;</span>
+                    <h2 class="text-center">Book Info</h2>
                 </div>
                 <div class="modal-body">
                     <table class="table table-striped" cellpadding="10">
@@ -121,82 +121,103 @@ and open the template in the editor.
                         <tbody>
                             <tr>
                                 <td id="loc" th:text="${book.id}"/>
-                               <td th:text="${book.idtrip.name}"/>
-                               <td th:text="${book.num_Pax}"/>
-                               <td th:text="${book.date}"/>
-                               <td th:text="${book.pvp}"/> 
-                               <td th:text="${dni}"/>
-                               <td th:text="${nombre}"/>
-                               <td th:text="${apellidos}"/>
+                                <td th:text="${book.idtrip.name}"/>
+                                <td th:text="${book.num_Pax}"/>
+                                <td th:text="${book.date}"/>
+                                <td th:text="${book.pvp}"/> 
+                                <td th:text="${dni}"/>
+                                <td th:text="${nombre}"/>
+                                <td th:text="${apellidos}"/>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-              </div>
-
             </div>
-           <hr />
-           <div id="pdf" class="hidden">
-               <div class="col-md-2"></div>
-               <div class="col-md-8">
-                   <h1>Localizador</h1>
-                   <h4 id="loc" th:text="${book.id}"></h4>
-                                <h1>Trip</h1>
-                                <h4 th:text="${book.idtrip.name}"></h4>
-                                <h1>Num. Pax</h1>
-                                <h4 th:text="${book.num_Pax}"></h4>
-                                <h1>Trip Date</h1>
-                                <h4 th:text="${book.date}"></h4>
-                                <h1>PvP</h1>
-                                <h4 th:text="${book.pvp}"></h4>
-                                <h1>DNI</h1>
-                                <h4 th:text="${dni}"></h4>
-                                <h1>Nombre</h1>
-                                <h4 th:text="${nombre}"></h4>
-                                <h1>Apellidos</h1>
-                                <h4 th:text="${apellidos}"></h4>
-                </div>
-               <div class="col-md-2">Sello de la agencia:</div>
-           </div>
-           <hr />
-           <div th:insert="~{fragments/footer :: body}">...</div> 
-       </div>
-       <script>
-            // Get the modal
-            var modal = document.getElementById('myModal');
 
-            // Get the button that opens the modal
-            var btn = document.getElementById("myBtn");
+        </div>
+        <hr />
+        <div id="pdf" class="hidden">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h1>NatureCity Tours</h1>
+                <h6>.</h6>
+                <b id="letraPdf">LOC</b> <b id="loc" th:text="${book.id}"></b>
+                <h6>.</h6>
+                <b id="letraPdf">TRIP</b> <b th:text="${book.idtrip.name}"></b>
+                <h6>.</h6>
+                <b id="letraPdf">NUM PAX</b> <b th:text="${book.num_Pax}"></b>
+                <h6>.</h6>
+                <b id="letraPdf">TRIP DATE</b> <b th:text="${book.date}"></b>
+                <h6>.</h6>
+                <b id="letraPdf">PVP</b> <b th:text="${book.pvp}"></b>
+                <h6>.</h6>
+                <b id="letraPdf">DNI</b> <b th:text="${dni}"></b>
+                <h6>.</h6>
+                <b id="letraPdf">NAME</b> <b th:text="${nombre}"></b>
+                <h6>.</h6>
+                <b id="letraPdf">SURNAME</b> <b th:text="${apellidos}"></b>
+                <h6>.</h6>
+                <h4>Política de cancelación</h4>
+                <p style="font-size: 8px; text-align: justify;">La cancelación de los servicios contratados, se podrá efectuar solo 90 días antes del comienzo del viaje, teniendo en este caso una retención en concepto de gastos del 10% del importe total del tour. Con posterioridad a esa fecha y hasta 30 días del comienzo del viaje, el pasajero podrá transferir su pasaje a otra persona, debiendo ambos presentarse en la oficina de la Agencia de Viajes Minorista para suscribir la documentación respectiva. Dentro de los 30 días a la fecha de salida, no habrá devolución ni posibilidad de transferencia de pasajes a otra persona. Toda notificación a NaturCity Tours debe ser efectuada en forma fehaciente.</p>
+                <h6>.</h6>
+                <h4>Documentación</h4>
+                <p style="font-size: 8px; text-align: justify;">Para los viajes internacionales es necesario atender la legislacion vigente en cada caso, siendo responsabilidad del pasajero informarse de los requisitos que cada país exige como ser visados, documentacion, requisitos sanitarios etc. Todos los viajeros deberán llevar en regla su documentación personal, pasaportes, visado, certificados de vacunación, etc. Se declina toda responsabilidad en caso de ser rechazada por alguna autoridad la concesión del visado, por causas particulares del cliente, o ser denegada su entrada en un país, por carecer de algunos de los requisitos que se exigen o defecto del pasaporte, etc., será por cuenta del viajero cualquier gasto que se origine, aplicándole en estas circunstancias las condiciones establecidas para anulación y desistimiento voluntario de servicios.</p>
+                <h6>.</h6>
+            </div>
+            
+            <div class="col-md-2">Sello de la agencia:</div>             
+        </div>
+        <hr />
+        <div th:insert="~{fragments/footer :: body}">...</div> 
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
 
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
 
-            // When the user clicks the button, open the modal 
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
+        function printPDF() {
+           // var logo =new Image();
+            //logo.src='https://raw.githubusercontent.com/freeGamesUF6/nctours/master/src/main/resources/static/resources/images/logoGrande.jpg';
+            var printDoc = new jsPDF();
+            //printDoc.addImage(logo, 'JPEG', 30, 100, 180, 180);
 
-function printPDF() {
-    var printDoc = new jsPDF();
-    //var imgData = 
-    //printDoc.addImage(imgData, 'JPEG', 15, 40, 180, 180);
-    printDoc.fromHTML($('#pdf').get(0), 25, 10, {'width': 180});
-    printDoc.autoPrint();
-    printDoc.output("dataurlnewwindow"); // obre una nova pestanya amb el pdf preparat per printar
-}
+
+            printDoc.rect(25, 29, 78, 0.1);
+            printDoc.rect(25, 45, 76, 0.1);
+            printDoc.rect(25, 60, 76, 0.1);
+            printDoc.rect(25, 75, 76, 0.1);
+            printDoc.rect(25, 88, 76, 0.1);
+            printDoc.rect(25, 102, 76, 0.1);
+            printDoc.rect(25, 116, 76, 0.1);
+            printDoc.rect(25, 130, 76, 0.1);
+            printDoc.rect(23, 34, 80, 110);
+            printDoc.fromHTML($('#pdf').get(0), 25, 10, {'width': 180});
+            printDoc.autoPrint();
+            printDoc.output("dataurlnewwindow"); // obre una nova pestanya amb el pdf preparat per imprimir
+        }
     </script>
-    </body>
+</body>
 </html>
