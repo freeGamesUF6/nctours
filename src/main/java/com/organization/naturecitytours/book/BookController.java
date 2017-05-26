@@ -76,9 +76,9 @@ public class BookController {
 //        return "index";
 //    }
     
-    
-    
-    /**
+       
+           
+        /**
      * Método para guardar una nueva reserva
      * @param book
      * @return la vista adecuada
