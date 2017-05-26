@@ -72,7 +72,7 @@ public class TripController {
     public ModelAndView showOTrip(@PathVariable("tripId") int tripId) {
         ModelAndView mav = new ModelAndView("trip/trip");
 
-        System.out.println("ideeee" + tripId);
+        //System.out.println("ideeee" + tripId);
         Trip trip = this.trip.findById(tripId);
         //Collection<Images> i =  this.img.findById(tripId);
 
@@ -135,10 +135,6 @@ public class TripController {
      */
     @RequestMapping("/saveTrip")
     public String saveTrip(Trip t) {
-//        tr.setDuration("2");
-//        tr.setName("viatge");
-//        tr.setPricedouble(1000.5);
-//        tr.setPricesingle(500.25);
         this.trip.save(tr);
         return "hello";
     }
