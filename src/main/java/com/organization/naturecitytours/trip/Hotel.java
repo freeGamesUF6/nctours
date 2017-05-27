@@ -42,7 +42,7 @@ public class Hotel implements Serializable {
     private String location;
     
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "triphotel", joinColumns = { @JoinColumn(name = "idhotel") }, inverseJoinColumns = { @JoinColumn(name = "idtrip") })
+    @JoinTable(name = "triphotels", joinColumns = { @JoinColumn(name = "idhotel") }, inverseJoinColumns = { @JoinColumn(name = "idtrip") })
     private Set<Trip> trips;
     
     public Long getId() {

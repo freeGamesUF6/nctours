@@ -93,7 +93,7 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade active in" id="service-one">
                         <h4>Itinnerary</h4>
-
+                       
                         <div th:switch="${session.lang}" th:each="it,iter : ${trip.itineraries}">
                             <b th:text="#{itineraryDay}+${iter.index+1}"></b>
                             <p th:case="'es'" th:text="${it.day_es}"></p>
