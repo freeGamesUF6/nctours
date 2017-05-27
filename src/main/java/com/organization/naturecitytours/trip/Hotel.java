@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -32,12 +33,15 @@ public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotEmpty
     @Column(name="name")
     private String name;
-    
+
     @Column(name="category")
     private int category;
     
+    @NotEmpty
     @Column(name="location")
     private String location;
     

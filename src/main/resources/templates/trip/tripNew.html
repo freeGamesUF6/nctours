@@ -17,7 +17,7 @@
 
             <div class="alert alert-danger" th:if="${result != null}" >
                 <div th:each="error : ${result}">
-                    <strong th:text="${error.codes[1]}"></strong><p th:text="${error.DefaultMessage}"></p>
+                    <strong th:if="${error.codes != null }" th:text="${error.codes[1]}"></strong><p th:text="${error.DefaultMessage}"></p>
                     
                 </div>
             </div>
@@ -41,18 +41,19 @@
                         <label class="col-md-4 control-label" for="textinput">Day Duration*</label>
                         <div class="col-md-4">
                             <input th:field="*{duration}"  type="number" placeholder="Day of duration Trip " class="form-control input-md" required="require">
-                            <span  th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}">help</span>
+                            <span  th:if="${#fields.hasErrors('duration')}" class="text-danger"   th:errors="*{duration}">help</span>
                         </div>
                     </div>
 
                     <!-- Num input-->
-                    <div class="form-group col-md-4">
-                        <label class="control-label" for="textinput">Price Single*</label>
-                        <div class="input-group">
+                    <div class="form-group">
+                        <label class="col-md-4  control-label" for="textinput">Price Single*</label>
+                        <div class="col-md-4  input-group">
                             <span class="input-group-addon"><i class="fa fa-eur" aria-hidden="true"></i></span>
                             <input th:field="*{pricesingle}" type="number" placeholder="placeholder" class="form-control input-md"  step="any" required="require">
+                            <b th:if="${#fields.hasErrors('pricesingle')}" class="text-danger" th:errors="*{pricesingle}">help</b>
                         </div>
-                    </div> <b th:if="${#fields.hasErrors('pricesingle')}" class="text-danger" th:errors="*{pricesingle}">help</b>
+                    </div> 
                     <hr>
 
                     <!-- Num input-->

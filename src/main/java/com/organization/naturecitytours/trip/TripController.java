@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
@@ -161,22 +162,7 @@ public class TripController {
         return "/trip/tripNew";
     }
     
-      @RequestMapping(value = "/trip/new/errors", method = RequestMethod.GET)
-    public String formTripErrors(Map<String, Object> model,HttpServletRequest request) {
-        
-        String r =request.getParameter("result");
-        
-          System.out.println("errorreees " + r);
-        Trip trip = new Trip();
-        DateTrip date = new DateTrip();
-        Collection<Hotel> hoteles = this.hotel.findAll();
-        
-    
-        model.put("trip", trip);
-        model.put("date", date);
-        model.put("hoteles", hoteles);
-        return "/trip/tripNew";
-    }
+  
 
     /**
      * 
@@ -195,7 +181,7 @@ public class TripController {
      * @return 
      */
     @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
-    public ModelAndView addTrip(
+    public String addTrip(
             Model model,
             @Valid Trip trip,
             BindingResult result,
@@ -208,21 +194,26 @@ public class TripController {
             @RequestParam("day_en") String[] day_en,
             @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
+        
+        
         if (result.hasErrors()) {
-            ModelAndView mav = new ModelAndView("/trip/tripNew");
+            //ModelAndView mav = new ModelAndView("/trip/tripNew");
            
-            DateTrip datew = new DateTrip();
-            Collection<Hotel> hotelesw = this.hotel.findAll();
+            
             
            List<ObjectError> f =  result.getAllErrors();
             for (ObjectError fe : f){
                 System.out.println(fe.getCodes()[1] +"error - "+ fe.getDefaultMessage());
                
             }
-            mav.addObject("date", datew);
-            mav.addObject("hoteles", hotelesw);
-            mav.addObject("result", result.getAllErrors());
-            return mav;
+            
+            DateTrip datew = new DateTrip();
+            Collection<Hotel> hotelesw = this.hotel.findAll();
+            model.addAttribute("date", datew);
+            model.addAttribute("hoteles", hotelesw);
+            model.addAttribute("result", result.getAllErrors());
+            
+            return "/trip/tripNew";
         } else {
 
             String rootPath = "src/main/resources/static/resources/images/trip";
@@ -282,7 +273,22 @@ public class TripController {
                 }
                 trip.setHotels(HotelList);
             }
+            try{
             this.trip.save(trip);
+            }catch(Exception e){
+            ObjectError edd = new ObjectError("Nombre Duplicado"," El nombre del Trip ya existe!");
+               
+            
+            result.addError(edd);
+            DateTrip datew = new DateTrip();
+            Collection<Hotel> hotelesw = this.hotel.findAll();
+            model.addAttribute("date", datew);
+            model.addAttribute("hoteles", hotelesw);
+            
+            model.addAttribute("result", result.getAllErrors());
+            
+            return "/trip/tripNew";
+            }
             //Pack de imagenes del trip
             //Iteramos las imagenes uno a uno 
             if (files.getFiles() != null) {
@@ -350,7 +356,7 @@ public class TripController {
         }
 
         }
-        return new ModelAndView("redirect:/trip/list");
+        return "redirect:/trip/list";
         //return "ARCHIVO VACIO";
     }
     
