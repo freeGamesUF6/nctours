@@ -2,8 +2,11 @@
     <head>
     <div th:insert="~{fragments/head :: head}">...</div>
     <script type="text/javascript" th:src="@{/resources/fonts/tripForm.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/fonts/moment-with-locales.js}"></script>
     <script type="text/javascript" th:src="@{/resources/fonts/datetimepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/fonts/bootstrap-datetimepicker.js}"></script>
 
+    <link rel="stylesheet" th:href="@{/resources/fonts/bootstrap-datetimepicker.css}">
 </head>
 <body>
     <div th:insert="~{fragments/header :: body}">...</div>
@@ -18,7 +21,7 @@
             <div class="alert alert-danger" th:if="${result != null}" >
                 <div th:each="error : ${result}">
                     <strong th:if="${error.codes != null }" th:text="${error.codes[1]}"></strong><p th:text="${error.DefaultMessage}"></p>
-                    
+
                 </div>
             </div>
             <form class="form-inline" id="lista" th:action="@{/trip/new}" th:object="${trip}" method="post" enctype="multipart/form-data" >
@@ -27,37 +30,49 @@
                     <!-- Form Name -->
                     <legend>Trip</legend>
 
+                    <div  class="col-md-6 col-md-offset-3">
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Name*</label>
-                        <div class="col-md-4">
-                            <input th:field="*{name}"  type="text" placeholder="Name Trip" class="form-control input-md" required="require">
+                        <label class="col-md-12 control-label" >Name*</label>
+                       
+                            <input id="nametrip"  th:field="*{name}"  type="text" placeholder="Name Trip"  class=" form-control input-md" required="require">
                             <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >help</span>
-                        </div>
+                        
                     </div>
+                    <br />
 
                     <!-- Numb input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Day Duration*</label>
-                        <div class="col-md-4">
-                            <input th:field="*{duration}"  type="number" placeholder="Day of duration Trip " class="form-control input-md" required="require">
+                        <label class="col-md-12 control-label" for="textinput">Day Duration*</label>
+                        
+                                 
+                               
+                            <select  id="daystrip" th:field="*{duration}"  class="form-control">
+                                    <div th:each="i,it :${new int [9]}" >
+                                    <option th:value="${it.count}" th:text="${it.count}"></option>
+                                    </div>
+                                </select>
                             <span  th:if="${#fields.hasErrors('duration')}" class="text-danger"   th:errors="*{duration}">help</span>
-                        </div>
+                     
                     </div>
 
                     <!-- Num input-->
                     <div class="form-group">
-                        <label class="col-md-4  control-label" for="textinput">Price Single*</label>
-                        <div class="col-md-4  input-group">
+                        <label class="col-md-12  control-label" for="textinput">Price Single*</label>
+                       
+                            <div class=" input-group">
+                            <input id="price"  th:field="*{pricesingle}" type="number" placeholder="placeholder" class="form-control input-md"  step="any" required="require">
                             <span class="input-group-addon"><i class="fa fa-eur" aria-hidden="true"></i></span>
-                            <input th:field="*{pricesingle}" type="number" placeholder="placeholder" class="form-control input-md"  step="any" required="require">
                             <b th:if="${#fields.hasErrors('pricesingle')}" class="text-danger" th:errors="*{pricesingle}">help</b>
+                      
                         </div>
                     </div> 
+                    </div>
                     <hr>
 
                     <!-- Num input-->
                     <div class="form-group">
+                         <hr>
                         <legend>Description Trip</legend>
                         <div class="col-md-4">
                             Descripción _ES *
@@ -85,48 +100,73 @@
                         </div>
                     </div>
                     <hr>
-                    <!-- Form Name -->
+
+                    <!-- Form Dates -->
                     <legend>Trip Dates Range</legend>
 
                     <!-- Date input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Firts Departure*</label>
-                        <div class="col-md-4">
-                            <input  id="first1" name="firts" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require"><a href="javascript:NewCal('first1','ddmmyyyy')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
-                            <span class="help-block">help</span>
+                        <label class="col-md-12 control-label">Firts Departure*</label>
+                        <div class="col-md-12">
+                            <div class="input-group date" id="datetimepicker1">
+                                <input type="text" name="first" placeholder="YYYY-mm-dd" class="form-control input-md" >
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Date input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Last Departure*</label>
-                        <div class="col-md-4">
-                            <input  id="last2" name="last" type="date" placeholder="YYYY-mm-dd" class="form-control input-md" required="require"><a href="javascript:NewCal('last2','ddmmyyyy')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
-                            <span class="help-block">help</span>
+                        <label class="col-md-12 control-label" >Last Departure*</label>
+                        <div class="col-md-12">
+                            <div class="input-group date" id="datetimepicker2">
+                                <input type="text" name="last" placeholder="YYYY-MMM-dd" class="form-control input-md" required="require">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
                         </div>
                     </div>
                     <hr>
                     <!-- Form Name -->
                     <legend>Dates Departure</legend>
-                    <div class="form-group">
+                    <div class="form-group ">
                         <!-- Date input-->
 
-                        <label class="col-md-12 control-label" for="textinput">Lista de Fechas*</label>
+                        <label class="col-md-12 control-label " >Lista de Fechas*</label>
+
                         <div class="col-md-3">
-                            <input  id="cal1" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal1','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                            <div   class="input-group date"  id="datetimepicker3">
+                                <input  name="departuredates" type="text" placeholder="YYYY-MMM-dd" class="form-control input-md" >
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div   class="input-group date"  id="datetimepicker4">
+                                <input  name="departuredates" type="text" placeholder="YYYY-MMM-dd" class="form-control input-md" >
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
                         </div>
                         <div class="col-md-3">
-                            <input  id="cal2" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal2','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                            <div   class="input-group date"  id="datetimepicker5">
+                                <input  name="departuredates" type="text" placeholder="YYYY-MMM-dd" class="form-control input-md" >
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
                         </div>
                         <div class="col-md-3">
-                            <input  id="cal3" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal3','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
-                        </div>
-                        <div class="col-md-3">
-                            <input  id="cal4" name="departuredates" type="date" placeholder="placeholder" class="form-control input-md" required="require"><a href="javascript:NewCal('cal4','yyyyddmm')"><img th:src="@{/resources/images/utils/cal.png}" width="16" height="16" border="0" alt="Pick a date"></a>
+                            <div   class="input-group date"  id="datetimepicker6">
+                                <input  name="departuredates" type="text" placeholder="YYYY-MMM-dd" class="form-control input-md" >
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
                         </div>
                     </div>
                     <br />
                     <hr>
+
+
+
                     <!-- Form Name -->
 
                     <legend>Itineray</legend>
@@ -231,7 +271,16 @@
     <!-- /.row -->
 
     <div th:insert="~{fragments/footer :: body}">...</div>
-
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({viewMode: 'years', format: 'YYYY-MMM-DD'});
+            $('#datetimepicker2').datetimepicker({viewMode: 'years', format: 'YYYY-MMM-DD'});
+            $('#datetimepicker3').datetimepicker({viewMode: 'years', format: 'YYYY-MMM-DD'});
+            $('#datetimepicker4').datetimepicker({viewMode: 'years', format: 'YYYY-MMM-DD'});
+            $('#datetimepicker5').datetimepicker({viewMode: 'years', format: 'YYYY-MMM-DD'});
+            $('#datetimepicker6').datetimepicker({viewMode: 'years', format: 'YYYY-MMM-DD'});
+        });
+    </script>
 </body>
 
 </html>

@@ -235,3 +235,26 @@ a:hover{
         background-color: #97BD12;
     }
 }
+
+#price{
+    height:50px;
+    font-size: 30px;
+
+}
+
+#priceb
+#nametrip{
+    height:50px;
+    font-size: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+#daystrip{
+    height:40px;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+#suplementtrip{
+    height:20px;
+    font-size: 10px;
+}

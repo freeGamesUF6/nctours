@@ -185,7 +185,7 @@ public class TripController {
             Model model,
             @Valid Trip trip,
             BindingResult result,
-            @RequestParam("firts") String firstDate,
+            @RequestParam("first") String firstDate,
             @RequestParam("last") String lastDate,
             @RequestParam("file") MultipartFile file,
             @RequestParam("departuredates") String[] ddates,
@@ -243,11 +243,14 @@ public class TripController {
             }
 
             //GUARDA DE FECHA DE SALIDA
-            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            DateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
             Date newDate = new Date();
 
             try {
+                
+                System.out.println("primera fecha "+ firstDate);
                 newDate = df.parse(firstDate);
+                System.out.println("fecha parseda" + newDate);
                 trip.setDeparturefirst(newDate);
 
                 newDate = df.parse(lastDate);
@@ -323,7 +326,6 @@ public class TripController {
             //Guarda Fechas
             try {
                 System.out.println("hoooooooooooooooola");
-            df = new SimpleDateFormat("yyyy-mm-dd");
                 for (String date : ddates) {
                     if(date != null){
                        
