@@ -5,12 +5,14 @@
  */
 package com.organization.naturecitytours.trip;
 
+import java.awt.print.Pageable;
 import java.util.Collection;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author Mark
@@ -50,13 +52,20 @@ public interface TripRepository extends Repository<Trip,Integer> {
     @Transactional(readOnly = true)
     Collection<Trip> findAll();
     
-//    @Query("last_insert_id()")
-//    @Transactional(readOnly = true)
-//    Integer findLasI
+
     @Modifying
     @Query("DELETE Trip trip WHERE trip.id = :id")
     @Transactional(readOnly = false)
     void removeById(@Param("id") int id);
 
 
+
+ 
+       @Query(value = "SELECT * FROM Trip order by rand() limit 4",
+            nativeQuery = true)
+       
+    @Transactional(readOnly = true)
+    Collection<Trip> randomTrip();
+    
+    
 }

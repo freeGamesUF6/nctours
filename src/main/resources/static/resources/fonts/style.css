@@ -241,8 +241,15 @@ a:hover{
     font-size: 30px;
 
 }
-
-#priceb
+#dates{
+    text-align: center;
+    margin: 20px;
+    
+    padding-left: 0px;
+    padding-right: 0px;
+    width:112px;
+    height:157px;
+}
 #nametrip{
     height:50px;
     font-size: 30px;
@@ -257,4 +264,12 @@ a:hover{
 #suplementtrip{
     height:20px;
     font-size: 10px;
+}
+#datehead{
+  
+    padding-bottom: 0px;
+
+}
+#dateday{
+    font-size: 20px;
 }
