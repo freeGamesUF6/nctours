@@ -128,7 +128,7 @@
                                 </div>
 
                                 <div class = "panel-body">
-                                     <b  id="dateday" th:text="${#dates.dayOfWeek(date.departuredates)}"></b>
+                                     <b  id="dateday" th:text="${#dates.day(date.departuredates)}"></b>
                                    <p th:text="${#dates.monthName(date.departuredates).toUpperCase()}"></p>
                                     <p th:text="${#dates.year(date.departuredates)}"></p>
                                 </div>
