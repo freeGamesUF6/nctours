@@ -178,7 +178,9 @@ h1 small{
 #letraPdf{
     color: #97BD12;
 }
-
+p{
+    text-align: justify;
+}
 
 .btn-primary{
     background-color: #97BD12;
