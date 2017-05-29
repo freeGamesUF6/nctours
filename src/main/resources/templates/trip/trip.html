@@ -80,11 +80,11 @@
             <div class="col-lg-12">
 
                 <ul id="myTab" class="nav nav-tabs nav-justified">
-                    <li class="active"><a href="#service-one" data-toggle="tab"><i class="fa fa-tree"></i> Itinerary</a>
+                    <li class="active"><a href="#service-one" data-toggle="tab"><i class="fa fa-book"></i> Itinerary</a>
                     </li>
-                    <li class=""><a href="#service-two" data-toggle="tab"><i class="fa fa-car"></i>Hotels</a>
+                    <li class=""><a href="#service-two" data-toggle="tab"><i class="fa fa-bed"></i>Hotels</a>
                     </li>
-                    <li class=""><a href="#service-three" data-toggle="tab"><i class="fa fa-support"></i> Dates</a>
+                    <li class=""><a href="#service-three" data-toggle="tab"><i class="fa fa-calendar"></i> Dates</a>
                     </li>
                     <li class=""><a href="#service-four" data-toggle="tab"><i class="fa fa-database"></i> Conditions</a>
                     </li>
@@ -93,7 +93,7 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade active in" id="service-one">
                         <h4>Itinnerary</h4>
-                       
+
                         <div th:switch="${session.lang}" th:each="it,iter : ${trip.itineraries}">
                             <b th:text="#{itineraryDay}+${iter.index+1}"></b>
                             <p th:case="'es'" th:text="${it.day_es}"></p>
@@ -110,19 +110,30 @@
                                 <p  th:text="${hotel.name}"></p>
                                 <p  th:text="${hotel.location}"></p>
                                 <div class="col-md-12 col-xs-12">
-                                <div th:each="i :${new int [hotel.category]}" >
-                                    <p class="fa fa-star col-xs-1 col-md-1" aria-hidden="true"></p>
-                                </div>
+                                    <div th:each="i :${new int [hotel.category]}" >
+                                        <p class="fa fa-star col-xs-1 col-md-1" aria-hidden="true"></p>
                                     </div>
+                                </div>
                             </div>
 
                         </div>
                     </div>
                     <div class="tab-pane fade" id="service-three">
                         <h4>Dates</h4>
-                        <div  th:each="date : ${trip.dates}">
-                            <p th:text="${date.departuredates}"></p>
-                            <p th:text="${#dates.monthName(date.departuredates)}"></p>
+                        <div th:each="date : ${trip.dates}">
+
+                            <div id="dates"  class = "panel panel-primary col-xs-6 col-md-3">
+                                <div id="datehead"  class = "panel-heading">
+                            <p th:text="${#dates.dayOfWeekName(date.departuredates).toUpperCase()}"></p>
+                                </div>
+
+                                <div class = "panel-body">
+                                     <b  id="dateday" th:text="${#dates.day(date.departuredates)}"></b>
+                                   <p th:text="${#dates.monthName(date.departuredates).toUpperCase()}"></p>
+                                    <p th:text="${#dates.year(date.departuredates)}"></p>
+                                </div>
+                            </div>
+                          
                         </div>
                     </div>
                     <div class="tab-pane fade" id="service-four">
@@ -141,30 +152,17 @@
             <div class="col-lg-12">
                 <h3 class="page-header">Related Projects</h3>
             </div>
+             <div  th:each="r : ${ramdon}"  >
+                 <p ></p>
+                <div class="col-sm-3 col-xs-6">
+                    <div  style="width: 300px; height: 150px; padding: 30px;">
+                    <a th:href="${r.id}">
+                        <img class="img-responsive img-hover img-related"  height="100%" width="100%" th:src="@{${r.getImage()}}"  alt="">
+                    </a>
+                    </div>
+                </div>
 
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
+             </div>
 
         </div>
         <!-- /.row -->
@@ -172,6 +170,11 @@
         <hr>
 
 
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
         <div th:insert="~{fragments/footer :: body}">...</div>
     </div>
 </body>

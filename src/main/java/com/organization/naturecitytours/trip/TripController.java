@@ -6,6 +6,7 @@
 package com.organization.naturecitytours.trip;
 
 import java.awt.Image;
+import java.awt.print.Pageable;
 import java.io.File;
 import static java.lang.reflect.Array.set;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
@@ -73,22 +75,20 @@ public class TripController {
      * @return a ModelMap with the model attributes for the view
      */
     @RequestMapping("/trip/{tripId}")
-    public ModelAndView showOTrip(@PathVariable("tripId") int tripId) {
-        ModelAndView mav = new ModelAndView("trip/trip");
-
-        //System.out.println("ideeee" + tripId);
+    public String showOTrip(Map<String, Object> model,@PathVariable("tripId") int tripId) {
+     
         Trip trip = this.trip.findById(tripId);
-        //Collection<Images> i =  this.img.findById(tripId);
 
-        Set<Images> e = trip.getImg();
-
-        for (Images i : e) {
-            System.out.println("imagenes " + i.getUrl());
+        Collection<Trip> ramdon = this.trip.randomTrip();
+        for (Trip t : ramdon) {
+            System.out.println("hola imaagen randon " + t.getImage() );
         }
-        mav.addObject(trip);
+        
+        model.put("ramdon",ramdon);
+        model.put("trip",trip);
 
         //mav.addObject(i);
-        return mav;
+        return "trip/trip";
     }
 
     /**
@@ -243,7 +243,7 @@ public class TripController {
             }
 
             //GUARDA DE FECHA DE SALIDA
-            DateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
+            DateFormat df = new SimpleDateFormat("yyyy/MMM/dd");
             Date newDate = new Date();
 
             try {
