@@ -10,33 +10,33 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <!-- Navigation -->
+
         <nav class="navbar navbar-inverse navbar-fixed-top" id="header" role="navigation">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
+
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="/"><img class="embed-responsive-item" id="logo" th:src="@{/resources/images/logoGrande.jpg}" /></a>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
+
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  th:switch="${session.user}">
                     
                     <!-- LO QUE VE EL ADMINISTRADOR !-->
                     
                     <ul class="nav navbar-nav navbar-right" id="menu" th:case="'admin@admin.com'">
                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">HOTELS <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" th:text="#{hotels}"> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                     <a th:href="@{/hotel/list}">Hotel List</a>
+                                     <a th:href="@{/hotel/list}" th:text="#{hotelList}"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/hotel/new}">Add Hotel</a>
+                                    <a th:href="@{/hotel/new}" th:text="#{addHotel}">Add Hotel</a>
                                 </li>
                                 
                             </ul>
