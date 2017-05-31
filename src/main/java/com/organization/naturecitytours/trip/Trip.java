@@ -31,6 +31,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.Constraint;
@@ -102,9 +103,11 @@ public class Trip implements Serializable {
     private Set<Hotel> hotels;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip", cascade = CascadeType.ALL)
+    @OrderBy("departuredates asc")
     private Set<DateTrip> dates;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip", cascade = CascadeType.ALL)
+    @OrderBy("day_es asc")
     private Set<Itinerary> itineraries;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip")
