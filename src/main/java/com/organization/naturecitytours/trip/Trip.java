@@ -107,7 +107,7 @@ public class Trip implements Serializable {
     private Set<DateTrip> dates;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip", cascade = CascadeType.ALL)
-    @OrderBy("day_es asc")
+    @OrderBy("id asc")
     private Set<Itinerary> itineraries;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idtrip")

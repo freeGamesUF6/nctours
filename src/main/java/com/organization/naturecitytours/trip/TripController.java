@@ -249,7 +249,7 @@ public class TripController {
                 newDate = df.parse(firstDate);
                 System.out.println("fecha parseda" + newDate);
                 trip.setDeparturefirst(newDate);
-
+System.out.println("last fecha" + lastDate);
                 newDate = df.parse(lastDate);
                 trip.setDeparturelast(newDate);
 
