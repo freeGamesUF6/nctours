@@ -13,7 +13,7 @@
 
     <hr>
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" id="lista">
         <!-- Portfolio Item Row -->
         <div class="row">
 
@@ -54,25 +54,30 @@
             <div class="col-md-4">
                 <h3 th:text="${trip.name}"/>
 
+                <div th:if="${session.user == null}">
+                    <p th:text="${trip.descripcion_en}"></p>
+                </div>
+                <div th:unless="${session.user == null}">
+                    <p th:case="'es'" th:text="${trip.descripcion_es}"></p>
+                    <p th:case="'ca'" th:text="${trip.descripcion_ca}"></p>
+                    <p th:case="'en'" th:text="${trip.descripcion_en}"></p>
+                </div>
 
-                <p th:case="'es'" th:text="${trip.descripcion_es}"></p>
-                <p th:case="'ca'" th:text="${trip.descripcion_ca}"></p>
-                <p th:case="'en'" th:text="${trip.descripcion_en}"></p>
-
-                <h5>Prices</h5>
+                <h5 th:text="#{prix}"></h5>
                 <ul>
 
-                    <li><b th:text="${trip.pricesingle}"></b> € | Price/pax</li>
+                    <li>
+                            <b th:text="${trip.pricesingle}"></b> <b th:text="#{price}"></b>
+                    </li>
 
                 </ul>
-                <a th:if="${session.user != null}" class="btn btn-primary" th:href="@{/book/form/}+${trip.id}">BOOK</i></a>
+                <a th:if="${session.user != null}" class="btn btn-primary" th:href="@{/book/form/}+${trip.id}" th:text="#{reservar}"></a>
                 <a   th:if="${session.user == 'admin@admin.com'}" class="btn btn-danger" th:href="@{/trip/delete/}+${trip.id}" th:text="#{deleteTip}" />
                 <span th:if="${session.user == null}" class="label label-info">If You want to book, You must go to your favorite Travel Agency</span>
             </div>
 
         </div>
-        <!-- /.row -->
-        <!-- Service Tabs -->
+
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="page-header" th:text="#{services}"></h2>
@@ -92,9 +97,18 @@
 
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade active in" id="service-one">
-                        <h4 th:text="#{itinerary}"></h4>
-
-                        <div th:switch="${session.lang}" th:each="it,iter : ${trip.itineraries}">
+                        <div th:if="${session.user == null}">
+                            <h4>Itinerary</h4>
+                        </div>
+                        <div th:unless="${session.user == null}">
+                            <h4 th:text="#{itinerary}"></h4>
+                        </div>
+                      
+                        <div th:if="${session.user == null}" th:each="it,iter : ${trip.itineraries}">
+                            <b th:text="#{itineraryDay}+${iter.index+1}"></b>
+                            <p th:text="${it.day_en}"></p>
+                        </div>
+                        <div th:unless="${session.user == null}" th:switch="${session.lang}" th:each="it,iter : ${trip.itineraries}">
                             <b th:text="#{itineraryDay}+${iter.index+1}"></b>
                             <p th:case="'es'" th:text="${it.day_es}"></p>
                             <p th:case="'ca'" th:text="${it.day_ca}"></p>
@@ -137,16 +151,23 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="service-four">
-                        <h4 th:text="#{conditions}"></h4>
-                        <p th:text="#{conditionsL}"></p>
-                        <p th:text="#{conditions2}"></p>
+                        <div th:if="${session.user == null}">
+                            <h4>Conditions</h4>
+                            <p>Visas, airport taxes and / or fees and out, vaccination certificates, "extras" such as coffee, wine, spirits, mineral water, special diets-even in the case of full board or half pension, unless expressly agreed in the contract one else-washing and ironing, optional hotel services, and in general, any other service not included specifically in the section 'the price of the package includes "stating whether or not specifically detailed in the program / offer, in the contract or in the documentation that is delivered to subscribing consumers.</p>
+                            <p>Cancellation fees consist of: · 20% of the total amount of the stay 20 to 30 days before departure. · 30% of the total amount of the stay 10 to 19 days before departure. · 75% of the total amount of the stay 5 to 9 days before departure. · 100% of the total stay Until four days before departure. In all the cases listed above, the penalty for cancellation could be increased with the amount of air tickets, if you have them, if they were already cast. Failure to appear at the scheduled time for departure, the user or consumer is not entitled to any refund of the amount paid.</p>
+                        </div>
+                        <div th:unless="${session.user == null}">
+                            <h4 th:text="#{conditions}"></h4>
+                            <p th:text="#{conditionsL}"></p>
+                            <p th:text="#{conditions2}"></p>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <!-- Related Projects Row -->
+
         <div class="row" id="relationedTrip">
 
             <div class="col-lg-12">
@@ -165,16 +186,9 @@
              </div>
 
         </div>
-        <!-- /.row -->
-
-        <hr>
 
 
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
+
         <div th:insert="~{fragments/footer :: body}">...</div>
     </div>
 </body>

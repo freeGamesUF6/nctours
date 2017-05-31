@@ -80,9 +80,6 @@ public class TripController {
         Trip trip = this.trip.findById(tripId);
 
         Collection<Trip> ramdon = this.trip.randomTrip();
-        for (Trip t : ramdon) {
-            System.out.println("hola imaagen randon " + t.getImage() );
-        }
         
         model.put("ramdon",ramdon);
         model.put("trip",trip);
@@ -325,7 +322,6 @@ public class TripController {
 
             //Guarda Fechas
             try {
-                System.out.println("hoooooooooooooooola");
                 for (String date : ddates) {
                     if(date != null){
                        

@@ -24,26 +24,27 @@
 
                 </div>
             </div>
+            <h1 th:text="#{addTrip}" />
             <form class="form-inline" id="lista" th:action="@{/trip/new}" th:object="${trip}" method="post" enctype="multipart/form-data" >
                 <fieldset>
 
                     <!-- Form Name -->
-                    <legend>Trip</legend>
+                    <legend th:text="#{product}"></legend>
 
                     <div  class="col-md-6 col-md-offset-3">
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-12 control-label" >Name*</label>
+                        <label class="col-md-12 control-label" th:text="#{productName}"></label>
                        
                             <input id="nametrip"  th:field="*{name}"  type="text" placeholder="Name Trip"  class=" form-control input-md" required="require">
-                            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >help</span>
+                            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></span>
                         
                     </div>
                     <br />
 
                     <!-- Numb input-->
                     <div class="form-group">
-                        <label class="col-md-12 control-label" for="textinput">Day Duration*</label>
+                        <label class="col-md-12 control-label" for="textinput" th:text="#{productDuration}"></label>
                         
                                  
                                
@@ -52,18 +53,18 @@
                                     <option th:value="${it.count}" th:text="${it.count}"></option>
                                     </div>
                                 </select>
-                            <span  th:if="${#fields.hasErrors('duration')}" class="text-danger"   th:errors="*{duration}">help</span>
+                            <span  th:if="${#fields.hasErrors('duration')}" class="text-danger"   th:errors="*{duration}"></span>
                      
                     </div>
 
                     <!-- Num input-->
                     <div class="form-group">
-                        <label class="col-md-12  control-label" for="textinput">Price Single*</label>
+                        <label class="col-md-12  control-label" for="textinput" th:text="#{productPrice}"></label>
                        
                             <div class=" input-group">
                             <input id="price"  th:field="*{pricesingle}" type="number" placeholder="placeholder" class="form-control input-md"  step="any" required="require">
                             <span class="input-group-addon"><i class="fa fa-eur" aria-hidden="true"></i></span>
-                            <b th:if="${#fields.hasErrors('pricesingle')}" class="text-danger" th:errors="*{pricesingle}">help</b>
+                            <b th:if="${#fields.hasErrors('pricesingle')}" class="text-danger" th:errors="*{pricesingle}"></b>
                       
                         </div>
                     </div> 
@@ -73,40 +74,40 @@
                     <!-- Num input-->
                     <div class="form-group">
                          <hr>
-                        <legend>Description Trip</legend>
+                        <legend th:text="#{productDescription}"></legend>
                         <div class="col-md-4">
-                            Descripción _ES *
+                            <b th:text="#{productDescriptionES}"></b>
 
                             <textarea rows="4" cols="40" th:field="*{descripcion_es}"   name="description_es" type="text"  placeholder="descripción de viaje en Castellano"  class="form-control" required="require"></textarea>
-                            <span class="help-block">help</span>
+                            <span class="help-block"></span>
 
 
                         </div>
 
                         <div class="col-md-4">
-                            Descripció _ CA *
+                            <b th:text="#{productDescriptionCA}"></b>
 
                             <textarea rows="4" cols="40" th:field="*{descripcion_ca}" type="text" placeholder="descripció del viatge en Català" class="form-control" required="require"></textarea>
-                            <span class="help-block">help</span>
+                            <span class="help-block"></span>
 
 
 
                         </div>
                         <div class="col-md-4">
-                            Description _ EN *
+                            <b th:text="#{productDescriptionEN}"></b>
                             <textarea rows="4" cols="40" th:field="*{descripcion_en}" type="text" placeholder="description trip in English" class="form-control" required="require"></textarea>
-                            <span class="help-block">help</span>
+                            <span class="help-block"></span>
 
                         </div>
                     </div>
                     <hr>
 
                     <!-- Form Dates -->
-                    <legend>Trip Dates Range</legend>
+                    <legend th:text="#{producteRangeDays}"></legend>
 
                     <!-- Date input-->
                     <div class="form-group">
-                        <label class="col-md-12 control-label">Firts Departure*</label>
+                        <label class="col-md-12 control-label" th:text="#{firstDeparture}"></label>
                         <div class="col-md-12">
                             <div class="input-group date" id="datetimepicker1">
                                 <input type="text" name="first" placeholder="YYYY-mm-dd" class="form-control input-md" >
@@ -120,7 +121,7 @@
 
                     <!-- Date input-->
                     <div class="form-group">
-                        <label class="col-md-12 control-label" >Last Departure*</label>
+                        <label class="col-md-12 control-label" th:text="#{lastDeparture}" ></label>
                         <div class="col-md-12">
                             <div class="input-group date" id="datetimepicker2">
                                 <input type="text" name="last" placeholder="YYYY-MMM-dd" class="form-control input-md" required="require">
@@ -130,11 +131,10 @@
                     </div>
                     <hr>
                     <!-- Form Name -->
-                    <legend>Dates Departure</legend>
+                    <legend th:text="#{departureDates}"></legend>
                     <div class="form-group ">
                         <!-- Date input-->
 
-                        <label class="col-md-12 control-label " >Lista de Fechas*</label>
 
                         <div class="col-md-3">
                             <div   class="input-group date"  id="datetimepicker3">
@@ -169,17 +169,17 @@
 
                     <!-- Form Name -->
 
-                    <legend>Itineray</legend>
+                    <legend th:text="#{itinerary}"></legend>
 
                     <!-- Textarea -->
                     <div class="form-group">
-                        <label class="col-md-12 control-label" for="textinput">Trips Days
+                        <label class="col-md-12 control-label" for="textinput" th:text="#{tripDays}">
                         </label>
                         <div class="col-md-4">
                             Day 1 ES *
 
-                            <textarea rows="4" cols="40" name="day_es" type="text"   placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
-                            <span class="help-block">help</span>
+                            <textarea rows="4" cols="40" name="day_es" type="text"   class="form-control" required="require"></textarea>
+                            <span class="help-block"></span>
 
 
                         </div>
@@ -187,23 +187,23 @@
                         <div class="col-md-4">
                             Day 1 CA *
 
-                            <textarea rows="4" cols="40" name="day_ca" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
-                            <span class="help-block">help</span>
+                            <textarea rows="4" cols="40" name="day_ca" type="text" class="form-control" required="require"></textarea>
+                            <span class="help-block"></span>
 
 
 
                         </div>
                         <div class="col-md-4">
                             Day 1 EN *
-                            <textarea rows="4" cols="40" name="day_en" type="text" placeholder="placeholder" class="form-control" required="require">description itinerary</textarea>
-                            <span class="help-block">help</span>
+                            <textarea rows="4" cols="40" name="day_en" type="text"  class="form-control" required="require"></textarea>
+                            <span class="help-block"></span>
 
                         </div>
 
                         <div class="input_div"></div>
 
                     </div>
-                    <button class="add_button btn btn-default">Add Day</button>
+                    <button class="add_button btn btn-default" th:text="#{addDay}"></button>
 
 
 
@@ -212,10 +212,10 @@
                     <hr>
 
                     <!-- Form Name -->
-                    <legend>Hotels</legend>
+                    <legend th:text="#{hotels}"></legend>
                     <!-- Multiple Checkboxes -->
                     <div class="form-group">
-                        <label class="col-md-12 control-label" for="checkboxes">List</label>
+                        <label class="col-md-12 control-label" for="checkboxes"></label>
 
                         <input type="hidden" class="hidden"  name="hoteles" value=''>
                         <div class="checkboox col-md-4" th:each="hotel : ${hoteles}"  >
@@ -234,7 +234,7 @@
 
                     <hr>
                     <!-- Form Name -->
-                    <legend>Portada Image</legend>
+                    <legend th:text="#{coverImage}"></legend>
                     <!-- File Button -->
                     <div class="form-group">
                         <div class="col-md-4">
@@ -245,7 +245,7 @@
                     <br />
 
                     <!-- File Button -->
-                    <legend>Slide Image</legend>
+                    <legend th:text="#{sliderImage}"></legend>
                     <div class="form-group">
 
                         <div class="col-md-4">
@@ -253,14 +253,14 @@
 
                                 <!--<div clas="col-xs-6" ><input type="file" accept="image/png, image/jpeg" name="files" class="form-control" ><a href="#" class="input-group-addon remove_field">Remove</a><hr /></div> -->
                             </div>
-                            <button class="add_field_button btn btn-default">Add Image (max 3)</button>
+                            <button class="add_field_button btn btn-default" th:text="#{addImage}"></button>
                         </div>
                     </div>
                     <hr>
                     <!-- Submit Button -->
                     <div class="form-group">
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary" th:text="#{create}"></button>
                         </div>
                     </div>
 

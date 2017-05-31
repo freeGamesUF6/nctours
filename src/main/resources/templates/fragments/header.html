@@ -30,39 +30,39 @@ and open the template in the editor.
                     
                     <ul class="nav navbar-nav navbar-right" id="menu" th:case="'admin@admin.com'">
                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" th:text="#{hotels}"> <b class="caret"></b></a>
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b th:text="#{hotels}"></b> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
                                      <a th:href="@{/hotel/list}" th:text="#{hotelList}"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/hotel/new}" th:text="#{addHotel}">Add Hotel</a>
+                                    <a th:href="@{/hotel/new}" th:text="#{addHotel}"></a>
                                 </li>
                                 
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">TRIPS <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b th:text="#{tripList}"></b><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                     <a th:href="@{/trip/list}">Trip List</a>
+                                     <a th:href="@{/trip/list}" th:text="#{trips}"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/trip/new}">Add Trip</a>
+                                    <a th:href="@{/trip/new}" th:text="#{addTrip}"></a>
                                 </li>
                                 
                             </ul>
                         </li> 
                         
                         <li>
-                            <a th:href="@{/book/list}">Admin bookings</a>                  
+                            <a th:href="@{/book/list}"><b th:text="#{bookings}"></b></a>                  
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  th:text="${session.user}" th:unless="${session == null}" ><b class="caret"></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" th:unless="${session == null}" ><b th:text="${session.user}"></b><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a th:href="@{/user/profile}" >Profile</a>
-                                    <a th:href="@{/user/logout}">Logout</a>
+                                    <a th:href="@{/user/profile}" th:text="#{profile}"></a>
+                                    <a th:href="@{/user/logout}" th:text="#{logout}"></a>
                                 </li>
                             </ul>
                         </li>
@@ -73,25 +73,25 @@ and open the template in the editor.
                     <!-- LO QUE VEN TODOS LOS USUARIOS -->
                     <ul class="nav navbar-nav navbar-right" id="menu"  th:case="*">
                         <li>
-                            <a th:if="${session.user == null}" th:href="@{/user/about}">About us</a>
+                            <a th:if="${session.user == null}" th:href="@{/user/about}"><b>About us</b></a>
                         </li>
                         <li>
-                            <a th:if="${session.user != null}" th:href="@{/book/listBooksUser}">Booking List</a>
+                            <a th:if="${session.user != null}" th:href="@{/book/listBooksUser}"><b th:text="#{bookings}"></b></a>
                         </li>
                         <li>
-                            <a th:href="@{/trip/list}">Trip List</a>
+                            <a th:href="@{/trip/list}"><b th:text="#{trips}"></b></a>
                         </li>
                         <li>
-                            <a th:if="${session.user == null}" th:href="@{/user/new}">Register</a>
+                            <a th:if="${session.user == null}" th:href="@{/user/new}"><b>Register</b></a>
                         </li>
                         <li class="dropdown">
                             
-                            <a th:if="${session.user == null}" th:href="@{/user/login}">Login</a>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  th:text="${session.user}" th:unless="${session == null}" ><b class="caret"></a>
+                            <a th:if="${session.user == null}" th:href="@{/user/login}"><b>Login</b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" th:unless="${session == null}" ><b th:text="${session.user}" ></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a th:href="@{/user/profile}" >Profile</a>
-                                    <a th:href="@{/user/logout}">Logout</a>
+                                    <a th:href="@{/user/profile}" th:text="#{profile}"></a>
+                                    <a th:href="@{/user/logout}" th:text="#{logout}"></a>
                                 </li>
                             </ul>
                         </li>
