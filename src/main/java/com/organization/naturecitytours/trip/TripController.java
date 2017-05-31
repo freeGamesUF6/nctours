@@ -249,8 +249,12 @@ public class TripController {
                 newDate = df.parse(firstDate);
                 System.out.println("fecha parseda" + newDate);
                 trip.setDeparturefirst(newDate);
-System.out.println("last fecha" + lastDate);
-                newDate = df.parse(lastDate);
+                    
+                
+                DateFormat dfLast = new SimpleDateFormat("yyyy-MMM-dd");
+                Date newDateLast = new Date();
+                
+                newDateLast = dfLast.parse(lastDate);
                 trip.setDeparturelast(newDate);
 
             } catch (ParseException e) {
