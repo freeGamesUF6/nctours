@@ -243,6 +243,9 @@ a:hover{
     font-size: 30px;
 
 }
+.pcentrado{
+    text-align: center;
+}
 #dates{
     text-align: center;
     margin: 20px;

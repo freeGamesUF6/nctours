@@ -118,19 +118,19 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="service-three">
+                    <div class="tab-pane fade centrado" id="service-three">
                         <h4 th:text="#{dates}"></h4>
                         <div th:each="date : ${trip.dates}">
 
                             <div id="dates"  class = "panel panel-primary col-xs-6 col-md-3">
                                 <div id="datehead"  class = "panel-heading">
-                            <p th:text="${#dates.dayOfWeekName(date.departuredates).toUpperCase()}"></p>
+                            <p  class="pcentrado" th:text="${#dates.dayOfWeekName(date.departuredates).toUpperCase()}"></p>
                                 </div>
 
                                 <div class = "panel-body">
-                                     <b  id="dateday" th:text="${#dates.day(date.departuredates)}"></b>
-                                   <p th:text="${#dates.monthName(date.departuredates).toUpperCase()}"></p>
-                                    <p th:text="${#dates.year(date.departuredates)}"></p>
+                                     <b  class="pcentrado" id="dateday" th:text="${#dates.day(date.departuredates)}"></b>
+                                   <p  class="pcentrado" th:text="${#dates.monthName(date.departuredates).toUpperCase()}"></p>
+                                    <p  class="pcentrado" th:text="${#dates.year(date.departuredates)}"></p>
                                 </div>
                             </div>
                           
