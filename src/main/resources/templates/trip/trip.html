@@ -46,9 +46,38 @@
                             <b th:text="${trip.pricesingle}"></b> <b th:text="#{price}"></b>
                         </li>
                     </ul>
-                    <a th:if="${session.user != null}" class="btn btn-primary" th:href="@{/book/form/}+${trip.id}" th:text="#{reservar}"></a>
+                    <a th:if="${session.user != null && session.user == 'admin@admin.com'}" class="btn btn-primary" th:href="@{/book/form/}+${trip.id}" th:text="#{reservar}"></a>
                     <a   th:if="${session.user == 'admin@admin.com'}" class="btn btn-danger" th:href="@{/trip/delete/}+${trip.id}" th:text="#{deleteTip}" />
                     <span th:if="${session.user == null}" class="label label-info">If You want to book, You must go to your favorite Travel Agency</span>
+                    
+                    <hr>
+                          
+                            <div id="dates"  class = "panel panel-success  col-xs-6 col-md-3">
+                                  <b th:text="#{firstDeparture}" />
+                                    <div id="datehead"  class = "panel-heading">
+                                        <p  class="pcentrado" th:text="${#dates.dayOfWeekName(trip.departurefirst).toUpperCase()}"></p>
+                                    </div>
+                                    <div class = "panel-body">
+                                        <b  class="pcentrado" id="dateday" th:text="${#dates.day(trip.departurefirst)}"></b>
+                                        <p  class="pcentrado" th:text="${#dates.monthName(trip.departurefirst).toUpperCase()}"></p>
+                                        <p  class="pcentrado" th:text="${#dates.year(trip.departurefirst)}"></p>
+                                    </div>
+                                </div>
+                             
+                               
+                                
+                            <div id="dates"  class = "panel panel-success  col-xs-6 col-md-3">
+                                <b th:text="#{lastDeparture}" />
+                                    <div id="datehead"  class = "panel-heading">
+                                        <p  class="pcentrado" th:text="${#dates.dayOfWeekName(trip.departurelast).toUpperCase()}"></p>
+                                    </div>
+                                    <div class = "panel-body">
+                                        <b  class="pcentrado" id="dateday" th:text="${#dates.day(trip.departurelast)}"></b>
+                                        <p  class="pcentrado" th:text="${#dates.monthName(trip.departurelast).toUpperCase()}"></p>
+                                        <p  class="pcentrado" th:text="${#dates.year(trip.departurelast)}"></p>
+                                    </div>
+                            </div>
+                       
                 </div>
             </div>
             <div class="row">
@@ -103,6 +132,8 @@
                         </div>
                         <div class="tab-pane fade centrado" id="service-three">
                             <h4 th:text="#{dates}"></h4>
+                            
+                            
                             <div th:each="date : ${trip.dates}">
                                 <div id="dates"  class = "panel panel-primary col-xs-6 col-md-3">
                                     <div id="datehead"  class = "panel-heading">
@@ -142,6 +173,7 @@
                             <a th:href="${r.id}">
                                 <img class="img-responsive img-hover img-related"  height="100%" width="100%" th:src="@{${r.getImage()}}"  alt="">
                             </a>
+                            <b  style="text-align: center;font-size: 20px;" th:text="${r.name}"></b>
                         </div>
                     </div>
                 </div>
