@@ -181,7 +181,8 @@ public class TripController {
 
             return "/trip/tripNew";
         } else {
-
+            System.out.println("FORMULARIO TRIP");
+            
             String rootPath = "src/main/resources/static/resources/images/trip";
             String relativePath = "/resources/images/trip";
 
@@ -213,20 +214,17 @@ public class TripController {
             Date newDate = new Date();
 
             try {
-
-                System.out.println("primera fecha " + firstDate);
+                
+                System.out.println("Guardando rango de fechas...");
+        
                 newDate = df.parse(firstDate);
-                System.out.println("fecha parseda" + newDate);
                 trip.setDeparturefirst(newDate);
 
-                DateFormat dfLast = new SimpleDateFormat("yyyy-MMM-dd");
-                Date newDateLast = new Date();
-
-                newDateLast = dfLast.parse(lastDate);
+                newDate = df.parse(lastDate);
                 trip.setDeparturelast(newDate);
 
             } catch (ParseException e) {
-                System.out.println("Error en la primera o ultima fecha");
+                System.out.println("Error al guardar rango de fechas!");
             }
 
             //guardar Hoteles
@@ -235,11 +233,11 @@ public class TripController {
                 for (Long hotel : hoteles) {
                     try {
                         Hotel ho = this.hotel.findById(hotel);
-                        System.out.println("hotelessss " + ho.getName());
+                        System.out.println("Nombre de los Hoteles seleccionados -> " + ho.getName());
                         HotelList.add(ho);
 
                     } catch (Exception r) {
-                        System.out.println("No existe el hotel con id: " + hotel);
+                        System.out.println("No existe el hotel con id: " + hotel + "!");
                     }
 
                 }
@@ -248,7 +246,7 @@ public class TripController {
             try {
                 this.trip.save(trip);
             } catch (Exception e) {
-                ObjectError edd = new ObjectError("Nombre Duplicado", " El nombre del Trip ya existe!");
+                ObjectError edd = new ObjectError("Error Trip from", "Algo a ido mal, vuelve a intentarlo Porfavor, gracias");
 
                 result.addError(edd);
                 DateTrip datew = new DateTrip();
@@ -293,6 +291,7 @@ public class TripController {
 
             //Guarda Fechas
             try {
+                System.out.println("Guardando Fechas de salidas ...");
                 for (String date : ddates) {
                     if (date != null) {
 
@@ -302,15 +301,16 @@ public class TripController {
                         dates.setDeparturedates(newDate);
                         this.date.save(dates);
                     } else {
-                        System.out.println("fecha vacia");
+                        System.out.println("Unas de las fechas de salida esta en nulo!");
                     }
                 }
 
             } catch (ParseException e) {
-                System.out.println("errore en  las fechas");
+                System.out.println("Error al guardar fechas de salida!");
             }
 
             //guarda Itinerearios
+            System.out.println("Guardando Itinerarios");
             int i = 0;
             while (i < day_es.length) {
                 Itinerary iti = new Itinerary();
