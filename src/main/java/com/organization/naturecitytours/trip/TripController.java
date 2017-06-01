@@ -88,45 +88,21 @@ public class TripController {
         return "trip/trip";
     }
 
-    /**
-     * Mètode que recupera un viatge determinat o una llista de viatges si el
-     * paràmetre de cerca és buit
-     *
-     * @param trip
-     * @param result
-     * @param model
-     * @return vista per mostrar la llista de viatges o el viatge seleccionat
-     * segons escaigui
+    
+       /**
+     * Controlador de lista de los viajes
+     * @param model Envia la lista de los viajes a la template 
+     * @return tripList.html
      */
     @RequestMapping("/trip/list")
-    public String tripList(Trip trip, BindingResult result, Map<String, Object> model) {
-        // allow parameterless GET request for /trips to return all records
-        if (trip.getName() == null) {
-            trip.setName(""); // empty string signifies broadest possible search
-        }
+    public String tripList(Map<String, Object> model) {
 
-        // find trips bys name
-        Collection<Trip> results = this.trip.findByName(trip.getName());
-        if (results.isEmpty()) {
-            // no trips found
-            result.rejectValue("name", "notFound", "not found");
-            Collection<Trip> res = this.trip.findAll();
-            model.put("tripList", res);
-            return "trip/tripList";
-        } //        else if (results.size() == 1) {
-        //            // 1 trip found
-        //            trip = results.iterator().next();
-        //            return "redirect:/trip/" + trip.getId();
-        //        } 
-        else {
-            // multiple trips found
-            model.put("selections", results);
-            Collection<Trip> res = this.trip.findAll();
-            model.put("list", res);
-            return "trip/tripList";
-        }
-
+        Collection<Trip> t = this.trip.findAll();
+        model.put("list", t);
+        return "/trip/tripList";
     }
+    
+ 
 
     /**
      * Mètode que permet guardar un nou viatge a la base de dades
@@ -362,6 +338,11 @@ public class TripController {
         //return "ARCHIVO VACIO";
     }
     
+    /**
+     * Función para elimiar los viajes por ID
+     * @param tripId recibe por parametro la ID 
+     * @return  Controlador de lista de viajes
+     */
      @RequestMapping("/trip/delete/{id}")
     public String deleteTrip(@PathVariable("id") String tripId){
         int idtrip=Integer.parseInt(tripId);
