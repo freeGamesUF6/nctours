@@ -18,38 +18,43 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Mark
  */
-public interface BookRepository extends Repository<Book,Long> {
+public interface BookRepository extends Repository<Book, Long> {
+
     /**
      * Mètode per guardar una nova reserva a base de dades
-     * @param b 
+     *
+     * @param b
      */
     void save(Book b);
-    
+
     /**
      * Mètode que busca reserves per email d'usuari
+     *
      * @param id
      * @return java.util.Collection de reserves
      */
     @Query("SELECT DISTINCT user FROM User user WHERE user.email LIKE :email%")
     @Transactional(readOnly = true)
     public Collection<User> findByEmail(@Param("email") String email);
-    
+
     @Transactional(readOnly = true)
     public Book findById(@Param("id") int id);
-    
+
     /**
      * Mètode que retorna totes les reserves
-     * @return 
+     *
+     * @return
      */
     @Transactional(readOnly = true)
     public Collection<Book> findAll();
-    
+
     /**
      * Mètode per esborrar una reserva
-     * @param id 
+     *
+     * @param id
      */
     @Modifying
     @Query("DELETE Book book WHERE book.id = :id")
     @Transactional(readOnly = false)
-    public void delete(@Param("id")Long id);
+    public void delete(@Param("id") Long id);
 }

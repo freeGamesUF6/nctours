@@ -11,21 +11,20 @@ import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author Jhona
  */
 public interface ImagesRepository extends Repository<Images, Integer> {
 
-    
-    
     /**
-     *Metodo que guarda una imagen en la bade de datos
+     * Metodo que guarda una imagen en la bade de datos
      *
      * @param images
      */
     void save(Images image);
-    
+
     @Transactional(readOnly = true)
     Collection<Images> findById(Integer id);
 

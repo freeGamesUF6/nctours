@@ -28,20 +28,18 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "tripimage")
 
 public class Images implements Serializable {
-  
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    
-    @Column(name="url")
+
+    @Column(name = "url")
     private String url;
-    
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name="idtrip")
+    @JoinColumn(name = "idtrip")
     private Trip idtrip;
 
     public String getUrl() {
@@ -52,12 +50,7 @@ public class Images implements Serializable {
         this.url = url;
     }
 
-   
-
-
-    
-
-     public Trip getIdtrip() {
+    public Trip getIdtrip() {
         return idtrip;
     }
 
@@ -72,9 +65,4 @@ public class Images implements Serializable {
 //    public void setIdtrip(int idtrip) {
 //        this.idtrip = idtrip;
 //    }
-
-
-    
 }
-
-

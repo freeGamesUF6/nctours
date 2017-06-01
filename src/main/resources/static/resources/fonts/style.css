@@ -86,7 +86,7 @@ body{
     background-color: #A4A4A4;
     color: white;
     padding-left: 25%;
-    
+
 }
 .form-inline{
     margin-left: 5%;
@@ -140,7 +140,7 @@ body{
 }
 
 .page-header{
-   border-bottom: 1px solid #3A2F0B;
+    border-bottom: 1px solid #3A2F0B;
 }
 
 #footer{
@@ -188,7 +188,7 @@ p{
 }
 
 .btn-primary:hover{
-     background-color:#3A2F0B;
+    background-color:#3A2F0B;
 }
 
 a{
@@ -249,7 +249,7 @@ a:hover{
 #dates{
     text-align: center;
     margin: 20px;
-    
+
     padding-left: 0px;
     padding-right: 0px;
     width:112px;
@@ -271,7 +271,7 @@ a:hover{
     font-size: 10px;
 }
 #datehead{
-  
+
     padding-bottom: 0px;
 
 }

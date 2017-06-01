@@ -12,6 +12,7 @@ import org.springframework.data.repository.Repository;
  *
  * @author Mark
  */
-public interface ItineraryRepository extends Repository<Itinerary,Integer> {
+public interface ItineraryRepository extends Repository<Itinerary, Integer> {
+
     void save(Itinerary it);
 }

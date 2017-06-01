@@ -75,23 +75,23 @@ public class TripController {
      * @return a ModelMap with the model attributes for the view
      */
     @RequestMapping("/trip/{tripId}")
-    public String showOTrip(Map<String, Object> model,@PathVariable("tripId") int tripId) {
-     
+    public String showOTrip(Map<String, Object> model, @PathVariable("tripId") int tripId) {
+
         Trip trip = this.trip.findById(tripId);
 
         Collection<Trip> ramdon = this.trip.randomTrip();
-        
-        model.put("ramdon",ramdon);
-        model.put("trip",trip);
+
+        model.put("ramdon", ramdon);
+        model.put("trip", trip);
 
         //mav.addObject(i);
         return "trip/trip";
     }
 
-    
-       /**
+    /**
      * Controlador de lista de los viajes
-     * @param model Envia la lista de los viajes a la template 
+     *
+     * @param model Envia la lista de los viajes a la template
      * @return tripList.html
      */
     @RequestMapping("/trip/list")
@@ -101,8 +101,6 @@ public class TripController {
         model.put("list", t);
         return "/trip/tripList";
     }
-    
- 
 
     /**
      * Mètode que permet guardar un nou viatge a la base de dades
@@ -127,31 +125,29 @@ public class TripController {
         Trip trip = new Trip();
         DateTrip date = new DateTrip();
         Collection<Hotel> hoteles = this.hotel.findAll();
-        
-    
+
         model.put("trip", trip);
         model.put("date", date);
         model.put("hoteles", hoteles);
         return "/trip/tripNew";
     }
-    
-  
 
     /**
-     * 
+     *
      * @param model // modelo para reenviar a otro controlador
-     * @param trip // Objeto Trip 
-     * @param result // Objeto BindindResult con los errores que se pudieran producir
+     * @param trip // Objeto Trip
+     * @param result // Objeto BindindResult con los errores que se pudieran
+     * producir
      * @param firstDate //Dia del primer vuelo del viaje
      * @param lastDate //Dia del último vuelo del viaje
-     * @param file  // Imagen de portada del viaje 
+     * @param file // Imagen de portada del viaje
      * @param ddates // Lista de fechas de los dias disponibles del viaje
      * @param day_es //Descripción de los itinerarios en Español
      * @param day_ca //Descripción de los itinerarios en Catalán
      * @param day_en //Descripción de los itinerarios en Ingles
      * @param hoteles // Hoteles que incluyen en el viaje
      * @param files // Pack de imagenes para Slider
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/trip/new", method = RequestMethod.POST)
     public String addTrip(
@@ -167,25 +163,22 @@ public class TripController {
             @RequestParam("day_en") String[] day_en,
             @RequestParam("hoteles") Long[] hoteles,
             @ModelAttribute ImagesForm files) {
-        
-        
+
         if (result.hasErrors()) {
             //ModelAndView mav = new ModelAndView("/trip/tripNew");
-           
-            
-            
-           List<ObjectError> f =  result.getAllErrors();
-            for (ObjectError fe : f){
-                System.out.println(fe.getCodes()[1] +"error - "+ fe.getDefaultMessage());
-               
+
+            List<ObjectError> f = result.getAllErrors();
+            for (ObjectError fe : f) {
+                System.out.println(fe.getCodes()[1] + "error - " + fe.getDefaultMessage());
+
             }
-            
+
             DateTrip datew = new DateTrip();
             Collection<Hotel> hotelesw = this.hotel.findAll();
             model.addAttribute("date", datew);
             model.addAttribute("hoteles", hotelesw);
             model.addAttribute("result", result.getAllErrors());
-            
+
             return "/trip/tripNew";
         } else {
 
@@ -220,16 +213,15 @@ public class TripController {
             Date newDate = new Date();
 
             try {
-                
-                System.out.println("primera fecha "+ firstDate);
+
+                System.out.println("primera fecha " + firstDate);
                 newDate = df.parse(firstDate);
                 System.out.println("fecha parseda" + newDate);
                 trip.setDeparturefirst(newDate);
-                    
-                
+
                 DateFormat dfLast = new SimpleDateFormat("yyyy-MMM-dd");
                 Date newDateLast = new Date();
-                
+
                 newDateLast = dfLast.parse(lastDate);
                 trip.setDeparturelast(newDate);
 
@@ -253,21 +245,20 @@ public class TripController {
                 }
                 trip.setHotels(HotelList);
             }
-            try{
-            this.trip.save(trip);
-            }catch(Exception e){
-            ObjectError edd = new ObjectError("Nombre Duplicado"," El nombre del Trip ya existe!");
-               
-            
-            result.addError(edd);
-            DateTrip datew = new DateTrip();
-            Collection<Hotel> hotelesw = this.hotel.findAll();
-            model.addAttribute("date", datew);
-            model.addAttribute("hoteles", hotelesw);
-            
-            model.addAttribute("result", result.getAllErrors());
-            
-            return "/trip/tripNew";
+            try {
+                this.trip.save(trip);
+            } catch (Exception e) {
+                ObjectError edd = new ObjectError("Nombre Duplicado", " El nombre del Trip ya existe!");
+
+                result.addError(edd);
+                DateTrip datew = new DateTrip();
+                Collection<Hotel> hotelesw = this.hotel.findAll();
+                model.addAttribute("date", datew);
+                model.addAttribute("hoteles", hotelesw);
+
+                model.addAttribute("result", result.getAllErrors());
+
+                return "/trip/tripNew";
             }
             //Pack de imagenes del trip
             //Iteramos las imagenes uno a uno 
@@ -303,14 +294,14 @@ public class TripController {
             //Guarda Fechas
             try {
                 for (String date : ddates) {
-                    if(date != null){
-                       
-                    DateTrip dates = new DateTrip();
-                    dates.setIdtrip(trip);
-                    newDate = df.parse(date);
-                    dates.setDeparturedates(newDate);
-                    this.date.save(dates);
-                    }else{
+                    if (date != null) {
+
+                        DateTrip dates = new DateTrip();
+                        dates.setIdtrip(trip);
+                        newDate = df.parse(date);
+                        dates.setDeparturedates(newDate);
+                        this.date.save(dates);
+                    } else {
                         System.out.println("fecha vacia");
                     }
                 }
@@ -320,34 +311,34 @@ public class TripController {
             }
 
             //guarda Itinerearios
-             
             int i = 0;
-        while(i< day_es.length){
-             Itinerary iti = new Itinerary();
-             iti.setDay_es(day_es[i]);
-             System.out.println("day ca "+ day_ca[i]);
-             iti.setDay_ca(day_ca[i]);
-             iti.setDay_en(day_en[i]);
-             iti.setTrip(trip);
-             this.itinerary.save(iti);
-             i++;
-        }
+            while (i < day_es.length) {
+                Itinerary iti = new Itinerary();
+                iti.setDay_es(day_es[i]);
+                System.out.println("day ca " + day_ca[i]);
+                iti.setDay_ca(day_ca[i]);
+                iti.setDay_en(day_en[i]);
+                iti.setTrip(trip);
+                this.itinerary.save(iti);
+                i++;
+            }
 
         }
         return "redirect:/trip/list";
         //return "ARCHIVO VACIO";
     }
-    
+
     /**
      * Función para elimiar los viajes por ID
-     * @param tripId recibe por parametro la ID 
-     * @return  Controlador de lista de viajes
+     *
+     * @param tripId recibe por parametro la ID
+     * @return Controlador de lista de viajes
      */
-     @RequestMapping("/trip/delete/{id}")
-    public String deleteTrip(@PathVariable("id") String tripId){
-        int idtrip=Integer.parseInt(tripId);
+    @RequestMapping("/trip/delete/{id}")
+    public String deleteTrip(@PathVariable("id") String tripId) {
+        int idtrip = Integer.parseInt(tripId);
         this.trip.removeById(idtrip);
-        
+
         return "redirect:/trip/list";
     }
 }

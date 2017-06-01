@@ -21,22 +21,23 @@ import javax.persistence.Table;
  * @author Marc
  */
 @Entity
-@Table(name="itinerary")
+@Table(name = "itinerary")
 public class Itinerary implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="day_es")
+    @Column(name = "day_es")
     private String day_es;
-    
-    @Column(name="day_ca")
+
+    @Column(name = "day_ca")
     private String day_ca;
-    
-    @Column(name="day_en")
+
+    @Column(name = "day_en")
     private String day_en;
-      
+
     @ManyToOne
-    @JoinColumn(name="idtrip")
+    @JoinColumn(name = "idtrip")
     private Trip trip;
 
     public Integer getId() {
@@ -71,9 +72,6 @@ public class Itinerary implements Serializable {
         this.day_en = day_en;
     }
 
-
-    
-
     public Trip getTrip() {
         return trip;
     }
@@ -82,8 +80,4 @@ public class Itinerary implements Serializable {
         this.trip = trip;
     }
 
-    
-    
-    
-    
 }

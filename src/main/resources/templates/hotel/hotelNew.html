@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <div th:insert="~{fragments/head :: head}">...</div>
-
     <body>
         <div th:insert="~{fragments/header :: body}">...</div>
-
-        <!-- Entidad Form -->
-
         <hr>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
                     <h3 th:text="#{addHotel}"></h3>
                     <form th:action="@{/hotel/new}"  th:object="${hotel}" method="post" enctype="multipart/form-data">
-
                         <div class="control-group form-group">
                             <label th:text="#{nameHotel}"></label>
                             <div class="form-group">
@@ -26,7 +15,6 @@ and open the template in the editor.
                                 <span class="text-danger" th:errors="*{name}"></span>
                             </div>
                         </div>
-
                         <div class="control-group form-group">
                             <label th:text="#{categoryHotel}"></label>
                             <div class="form-group">
@@ -39,10 +27,6 @@ and open the template in the editor.
                                 </select>
                             </div>
                         </div>
-
-
-
-
                         <div class="control-group form-group">
                             <label th:text="#{AdressHotel}"></label>
                             <div class="form-group">
@@ -50,17 +34,12 @@ and open the template in the editor.
                                 <span class="text-danger" th:errors="*{location}"></span>
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-primary"  th:text="#{add}"></button>
                     </form>
                 </div>
-
             </div>
         </div>
-        <!-- /.row -->
-
         <hr>
-
         <div th:insert="~{fragments/footer :: body}">...</div>
 
     </body>

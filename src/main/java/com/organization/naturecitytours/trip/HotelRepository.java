@@ -17,16 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Jhona
  */
 public interface HotelRepository extends Repository<Hotel, Integer> {
-      @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     Collection<Hotel> findAll();
-    
-         @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     Hotel findById(@Param("hotelId") Long id);
 
-      @Modifying
+    @Modifying
     @Query("DELETE Hotel hotel WHERE hotel.id = :id")
     @Transactional(readOnly = false)
     void removeById(@Param("id") Long id);
-    
+
     void save(Hotel hotel);
 }

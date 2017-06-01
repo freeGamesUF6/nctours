@@ -1,27 +1,14 @@
 <!DOCTYPE html>
-
 <html>
     <div th:insert="~{fragments/head :: head}">...</div>
-
     <body>
         <div th:insert="~{fragments/header :: body}">...</div>
-
-
-        <!-- Page Content -->
         <div class="container" id="lista">
-
-            <!-- Page Heading/Breadcrumbs -->
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header" th:text="#{trips}"></h1>
-
                 </div>
             </div>
-            <!-- /.row -->
-
-
-
-            <!-- Project One -->
             <div  th:each="trip : ${list}"  >
                 <div class="row">
                     <div class="col-md-7">
@@ -36,22 +23,16 @@
                             <p th:text="${trip.descripcion_en}"></p>
                         </div>
                         <div th:unless="${session.user == null}" th:switch="${session.lang}">
-                            
+
                             <p th:case="'es'" th:text="${trip.descripcion_es}"></p>
                             <p th:case="'ca'" th:text="${trip.descripcion_ca}"></p>
                             <p th:case="'en'" th:text="${trip.descripcion_en}"></p>
                         </div>
                         <a  class="btn btn-primary" th:href="${trip.id}" th:text="#{seemore}"></a>
-
                     </div>
                 </div>
-                <!-- /.row -->
                 <hr>
             </div>
-
-
             <div th:insert="~{fragments/footer :: body}">...</div>
-
     </body>
-
 </html>

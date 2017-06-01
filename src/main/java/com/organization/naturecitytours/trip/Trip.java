@@ -61,41 +61,41 @@ public class Trip implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    
+
     @Column(name = "name")
     @NotEmpty
     private String name;
-    
+
     @Range(min = 1, max = 9)
     @Column(name = "duration")
     private String duration;
-    
+
     @Column(name = "pricesingle")
     @DecimalMax("100000.00")
     @NotNull
     private double pricesingle;
-    
+
     @Column(name = "suplement", nullable = true)
     private Double suplement;
-    
+
     @Column(name = "departurefirst")
     private Date departurefirst;
-    
+
     @Column(name = "departurelast")
     private Date departurelast;
-    
+
     @Column(name = "image")
     private String image;
 
-     @Column(name = "descripcion_es")
+    @Column(name = "descripcion_es")
     private String descripcion_es;
-     
-     @Column(name = "descripcion_ca")
+
+    @Column(name = "descripcion_ca")
     private String descripcion_ca;
-     
-      @Column(name = "descripcion_en")
+
+    @Column(name = "descripcion_en")
     private String descripcion_en;
-      
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "triphotels", joinColumns = {
         @JoinColumn(name = "idtrip")}, inverseJoinColumns = {
@@ -150,7 +150,6 @@ public class Trip implements Serializable {
         this.descripcion_en = descripcion_en;
     }
 
-    
     public int getId() {
         return id;
     }
@@ -191,8 +190,6 @@ public class Trip implements Serializable {
         this.suplement = suplement;
     }
 
-
-    
     public String getImage() {
         return image;
     }
@@ -248,8 +245,6 @@ public class Trip implements Serializable {
     public void setDeparturelast(Date departurelast) {
         this.departurelast = departurelast;
     }
-    
-    
 
     public void InserFile(MultipartFile file, File imageFile) {
         try {
@@ -263,7 +258,5 @@ public class Trip implements Serializable {
             System.out.println("ERROR AL SUBIR foto de portada");
         }
     }
-
-
 
 }

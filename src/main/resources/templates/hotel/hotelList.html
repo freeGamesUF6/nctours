@@ -1,47 +1,25 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <div th:insert="~{fragments/head :: head}">...</div>
-    <!-- Bootstrap confirmation -->
-
     <body>
         <div th:insert="~{fragments/header :: body}">...</div>
-
-
-        <!-- Page Content -->
         <div class="container" id="lista">
-
-            <!-- Page Heading/Breadcrumbs -->
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 th:text="#{hotelList}" class="page-header"> 
-                    </h1>
-
+                    <h1 th:text="#{hotelList}" class="page-header"></h1>
                 </div>
             </div>
-            <!-- /.row -->
-
-
-    <!-- modal box -->
+            <!-- MODAL BOX !-->
             <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="myModalLabel" th:text="#{ConfirmDelete}"></h4>
                         </div>
-
                         <div class="modal-body">
                             <p th:text="#{messageDelete}"></p>
                             <p th:text="#{messageDelete2}"></p>
-
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{cancel}"> </button>
                             <a  class="btn btn-danger btn-ok" th:text="#{delete}"></a>
@@ -49,9 +27,7 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-    <!-- /modal box -->
-            <!-- Project One  th:text="#{deleteHotel}"   -->
-
+            <!-- /modal box -->
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-hover" cellpadding="10">
@@ -65,7 +41,6 @@ and open the template in the editor.
                         </thead>
                         <tbody>
                             <tr th:each="hotel : ${list}"  >
-
                                 <td th:text="${hotel.name}"/>
                                 <td th:text="${hotel.category}"/>
                                 <td th:text="${hotel.location}"/>
@@ -73,19 +48,16 @@ and open the template in the editor.
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
-                <!-- /.row -->
                 <hr>
             </div>
-        
-<script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
-            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-        });
-    </script>
+            <script>
+                $('#confirm-delete').on('show.bs.modal', function (e) {
+                    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+                    $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+                });
+            </script>
             <div th:insert="~{fragments/footer :: body}">...</div>
 
     </body>

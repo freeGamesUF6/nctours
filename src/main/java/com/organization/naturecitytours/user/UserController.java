@@ -167,29 +167,29 @@ public class UserController {
         }
     }
 
-    
-    
     /**
-     * Metode que et redirecciona a una vista que retorna una llista amb totes les reserves fetes per l'Usuari.
+     * Metode que et redirecciona a una vista que retorna una llista amb totes
+     * les reserves fetes per l'Usuari.
+     *
      * @param book
      * @param result
      * @param model
      * @param session
-     * @return 
+     * @return
      */
     @RequestMapping("/book/listBooksUser")
-    public String list(Book book,BindingResult result, Map<String, Object> model, HttpSession session){
-        User u=this.user.findByEmail(session.getAttribute("user").toString());
-        Collection<Book> books= u.getBooks();
+    public String list(Book book, BindingResult result, Map<String, Object> model, HttpSession session) {
+        User u = this.user.findByEmail(session.getAttribute("user").toString());
+        Collection<Book> books = u.getBooks();
         if (books.isEmpty()) {
             // no trips found
             result.rejectValue("id", "notFound", "not found");
             return "book/listBooksUser";
-        }else {
-            if (session.getAttribute("user")!=null) {
+        } else {
+            if (session.getAttribute("user") != null) {
                 model.put("selections", books);
                 return "book/listBooksUser";
-            }else{
+            } else {
                 return "book/listBooksUser";
             }
 
@@ -197,10 +197,12 @@ public class UserController {
     }
 
     /**
-     * Metode que serveix per pasar les Dates del viatge i la seva ID per fer la reserva.
+     * Metode que serveix per pasar les Dates del viatge i la seva ID per fer la
+     * reserva.
+     *
      * @param model
      * @param idTrip
-     * @return 
+     * @return
      */
     @RequestMapping("/book/form/{id}")
     public String welcome4(Map<String, Object> model, @PathVariable("id") String idTrip) {
@@ -219,7 +221,8 @@ public class UserController {
 
     /**
      * Metode que et redirecciona a la vista d'about.html
-     * @return 
+     *
+     * @return
      */
     @RequestMapping("/user/about")
     public String about() {

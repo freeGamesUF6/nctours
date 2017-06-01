@@ -33,19 +33,21 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class Prova {
+
     private provaRepository prova;
-    private User u=new User();
+    private User u = new User();
+
     @Autowired
     public Prova(provaRepository prova) {
         this.prova = prova;
-        
+
     }
-   
-    @RequestMapping(value="/provaModal")
-    public String provaModal( Map<String, Object> model){
-        Trip trip=new Trip();
+
+    @RequestMapping(value = "/provaModal")
+    public String provaModal(Map<String, Object> model) {
+        Trip trip = new Trip();
         trip.setName("Calella");
-        Book book=new Book();
+        Book book = new Book();
         book.setDate(new Date());
         book.setNum_Pax(5);
         book.setPvp(1000);
@@ -54,9 +56,10 @@ public class Prova {
         return "book/infoBook";
     }
 //    
-    @RequestMapping(value="/provaSave")
-    public String provaSave(){
-        User us=new User();
+
+    @RequestMapping(value = "/provaSave")
+    public String provaSave() {
+        User us = new User();
         us.setEmail("admin@admin");
         us.setPassword("admin");
         this.prova.save(us);
@@ -64,5 +67,5 @@ public class Prova {
     }
 //    
 //    @RequestMapping(value="/provaTrip")
-    
+
 }

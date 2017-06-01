@@ -15,19 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Jhona
  */
-public interface UserRepository extends Repository<User,Long> {
-    
-    
-     /**
-     * Retrieve 
+public interface UserRepository extends Repository<User, Long> {
+
+    /**
+     * Retrieve
+     *
      * @param email email para buscar un usuario
      * @return devuelve el usuario si lo encuentra
      */
     @Transactional(readOnly = true)
     User findByEmail(String email);
 
-
     void save(User user);
 }
-
-

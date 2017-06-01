@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Jhona
  */
 public class ImagesForm {
-    
-   MultipartFile[] files;
+
+    MultipartFile[] files;
 
     public MultipartFile[] getFiles() {
         return files;
@@ -22,6 +22,5 @@ public class ImagesForm {
     public void setFiles(MultipartFile[] files) {
         this.files = files;
     }
-        
-     
+
 }

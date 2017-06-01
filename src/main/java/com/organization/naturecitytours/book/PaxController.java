@@ -14,16 +14,16 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class PaxController {
-    
+
     PaxRepository pax;
-    
+
     @Autowired
-    public PaxController(PaxRepository pax){
-        this.pax=pax;
+    public PaxController(PaxRepository pax) {
+        this.pax = pax;
     }
-    
-    public void save(Pax p){
+
+    public void save(Pax p) {
         this.pax.save(p);
     }
-    
+
 }

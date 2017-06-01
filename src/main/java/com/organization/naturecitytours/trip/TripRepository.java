@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Mark
  */
-public interface TripRepository extends Repository<Trip,Integer> {
-   
+public interface TripRepository extends Repository<Trip, Integer> {
+
     /**
      * mètode per guardar un nou viatge a la base de dades
      *
@@ -31,12 +31,12 @@ public interface TripRepository extends Repository<Trip,Integer> {
      *
      * @param id the id to search for
      * @return the {@link Owner} if found
-       @Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
-    
+     * @Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE
+     * owner.id =:id")
+     *
+     * @Transactional(readOnly = true) Trip findById(@Param("id") Integer id);
+     */
     @Transactional(readOnly = true)
-    Trip findById(@Param("id") Integer id);
- */ 
-     @Transactional(readOnly = true)
     Trip findById(@Param("tripId") int id);
 
     /**
@@ -48,24 +48,18 @@ public interface TripRepository extends Repository<Trip,Integer> {
     @Transactional(readOnly = true)
     Collection<Trip> findByName(@Param("name") String name);
 
-    
     @Transactional(readOnly = true)
     Collection<Trip> findAll();
-    
 
     @Modifying
     @Query("DELETE Trip trip WHERE trip.id = :id")
     @Transactional(readOnly = false)
     void removeById(@Param("id") int id);
 
-
-
- 
-       @Query(value = "SELECT * FROM Trip order by rand() limit 4",
+    @Query(value = "SELECT * FROM Trip order by rand() limit 4",
             nativeQuery = true)
-       
+
     @Transactional(readOnly = true)
     Collection<Trip> randomTrip();
-    
-    
+
 }

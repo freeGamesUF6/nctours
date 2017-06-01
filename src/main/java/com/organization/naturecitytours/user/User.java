@@ -37,10 +37,10 @@ import org.springframework.core.style.ToStringCreator;
  *
  * @author Mark
  */
-
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +52,9 @@ public class User implements Serializable {
     @NotEmpty
     private String password;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "bookuser", joinColumns = { @JoinColumn(name = "iduser") }, inverseJoinColumns = { @JoinColumn(name = "idbook") })
+    @JoinTable(name = "bookuser", joinColumns = {
+        @JoinColumn(name = "iduser")}, inverseJoinColumns = {
+        @JoinColumn(name = "idbook")})
     private Set<Book> books;
 
     public User() {
@@ -89,11 +91,5 @@ public class User implements Serializable {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

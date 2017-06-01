@@ -12,10 +12,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author Mark
  */
 public interface provaRepository extends Repository<User, Integer> {
+
     void save(User user);
 }

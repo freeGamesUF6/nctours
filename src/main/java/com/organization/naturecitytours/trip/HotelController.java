@@ -32,13 +32,14 @@ class HotelController {
 
     /**
      * Funcion que envia al formulario para crear nuevos hoteles hotelNew.html
-     * @param model Se envia un objeto hotel vacio y que se llenará en la template
-     * @return  hotelNew.hmtl
+     *
+     * @param model Se envia un objeto hotel vacio y que se llenará en la
+     * template
+     * @return hotelNew.hmtl
      */
     @RequestMapping("/hotel/new")
     public String HotelNew(Map<String, Object> model) {
 
-        
         Hotel hotel = new Hotel();
         model.put("hotel", hotel);
 
@@ -46,8 +47,10 @@ class HotelController {
     }
 
     /**
-     * Recibe el objeto Hoten con información, sí los datos introducidos son correctos redirecciona a la lista de hoteles
-     * si no vuelve al formulario y envia los errores
+     * Recibe el objeto Hoten con información, sí los datos introducidos son
+     * correctos redirecciona a la lista de hoteles si no vuelve al formulario y
+     * envia los errores
+     *
      * @param hotel Anotación para validar los campos del objeto
      * @param result Clase con toda la lista de los errores generados
      * @return hotelNew.html o al controlador de lista de hoteles
@@ -64,7 +67,8 @@ class HotelController {
 
     /**
      * Controlador de lista de hoteles
-     * @param model Envia la lista de hoteles 
+     *
+     * @param model Envia la lista de hoteles
      * @return hotelList.html
      */
     @RequestMapping("/hotel/list")
@@ -77,6 +81,7 @@ class HotelController {
 
     /**
      * Elimniar hotel por ID
+     *
      * @param hotelId recibimos por parametro la ID del hotel que se va eliminar
      * @return Controlador de lista de hoteles
      */

@@ -8,13 +8,13 @@ package com.organization.naturecitytours.trip;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import javax.persistence.Entity;
-import javax.persistence.Table;import java.util.ArrayList;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,25 +40,19 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author Mark
  */
-
-
 @Entity
 @Table(name = "date")
 public class DateTrip implements Serializable {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-     
 
-    @Column(name="departuredates")
-    private Date  departuredates;
-    
+    @Column(name = "departuredates")
+    private Date departuredates;
 
-    
     @ManyToOne
-    @JoinColumn(name="idtrip")
+    @JoinColumn(name = "idtrip")
     private Trip idtrip;
 
     public Date getDeparturedates() {
@@ -68,9 +62,6 @@ public class DateTrip implements Serializable {
     public void setDeparturedates(Date departuredates) {
         this.departuredates = departuredates;
     }
-    
-
-
 
     public Trip getIdtrip() {
         return idtrip;
@@ -88,8 +79,4 @@ public class DateTrip implements Serializable {
         this.id = id;
     }
 
-
-    
-    
-    
 }

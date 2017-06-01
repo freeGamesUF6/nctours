@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-
         <nav class="navbar navbar-inverse navbar-fixed-top" id="header" role="navigation">
             <div class="container">
-
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only"></span>
@@ -23,37 +15,33 @@ and open the template in the editor.
                     </button>
                     <a class="navbar-brand" href="/"><img class="embed-responsive-item" id="logo" th:src="@{/resources/images/logoGrande.jpg}" /></a>
                 </div>
-
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  th:switch="${session.user}">
-                    
+
+
                     <!-- LO QUE VE EL ADMINISTRADOR !-->
-                    
                     <ul class="nav navbar-nav navbar-right" id="menu" th:case="'admin@admin.com'">
-                         <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b th:text="#{hotels}"></b> <b class="caret"></b></a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b th:text="#{hotels}"></b> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                     <a th:href="@{/hotel/list}" th:text="#{hotelList}"></a>
+                                    <a th:href="@{/hotel/list}" th:text="#{hotelList}"></a>
                                 </li>
                                 <li>
                                     <a th:href="@{/hotel/new}" th:text="#{addHotel}"></a>
                                 </li>
-                                
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b th:text="#{tripList}"></b><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                     <a th:href="@{/trip/list}" th:text="#{trips}"></a>
+                                    <a th:href="@{/trip/list}" th:text="#{trips}"></a>
                                 </li>
                                 <li>
                                     <a th:href="@{/trip/new}" th:text="#{addTrip}"></a>
                                 </li>
-                                
                             </ul>
                         </li> 
-                        
                         <li>
                             <a th:href="@{/book/list}"><b th:text="#{bookings}"></b></a>                  
                         </li>
@@ -66,10 +54,9 @@ and open the template in the editor.
                                 </li>
                             </ul>
                         </li>
-
-                        
-                       
                     </ul>
+
+
                     <!-- LO QUE VEN TODOS LOS USUARIOS -->
                     <ul class="nav navbar-nav navbar-right" id="menu"  th:case="*">
                         <li>
@@ -85,7 +72,7 @@ and open the template in the editor.
                             <a th:if="${session.user == null}" th:href="@{/user/new}"><b>Register</b></a>
                         </li>
                         <li class="dropdown">
-                            
+
                             <a th:if="${session.user == null}" th:href="@{/user/login}"><b>Login</b></a>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" th:unless="${session == null}" ><b th:text="${session.user}" ></b></a>
                             <ul class="dropdown-menu">
@@ -95,11 +82,9 @@ and open the template in the editor.
                                 </li>
                             </ul>
                         </li>
-                        </ul>
-                    </div>
-                <!-- /.navbar-collapse -->
+                    </ul>
+                </div>
             </div>
-            <!-- /.container -->
         </nav>
     </body>
 </html>

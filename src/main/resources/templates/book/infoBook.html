@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
@@ -13,22 +8,22 @@ and open the template in the editor.
 
     <div th:insert="~{fragments/head :: head}">...</div>
     <style>
-        /* The Modal (background) */
+        /* ModalBox (fondo) */
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
         }
 
-        /* Modal Content */
+        /* Modal BOX Contenido */
         .modal-content {
             position: relative;
             background-color: #fefefe;
@@ -43,7 +38,7 @@ and open the template in the editor.
             animation-duration: 0.4s
         }
 
-        /* Add Animation */
+        /* Modal BOX Animacion */
         @-webkit-keyframes animatetop {
             from {top:-300px; opacity:0} 
             to {top:0; opacity:1}
@@ -54,7 +49,7 @@ and open the template in the editor.
             to {top:0; opacity:1}
         }
 
-        /* The Close Button */
+        /* Boton cerrar Modal BOX*/
         .close {
             color: black;
             float: right;
@@ -64,41 +59,34 @@ and open the template in the editor.
 
         .close:hover,
         .close:focus {
-            //color: #000;
             text-decoration: none;
             cursor: pointer;
         }
 
         .modal-header {
             padding: 2px 16px;
-            //background-color: #5cb85c;
-            //color: black;
+
         }
 
         .modal-body {padding: 2px 16px;}
 
         .modal-footer {
             padding: 2px 16px;
-            //background-color: #5cb85c;
-            //color: black;
+
         }
     </style>
 </head>
 <body onload="printPDF()">
     <div th:insert="~{fragments/header :: body}">...</div>
-
     <hr />
-    <!-- Page Content -->
     <div id="lista" class="container">
         <div class="row">
             <div class="col-md-4"></div> 
             <div class="col-md-4"><h1>Booking process Successful!!</h1></div>
             <div class="col-md-4"><button id="myBtn" class="btn btn-primary">See Booking Information</button></div> 
         </div>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
 
-            <!-- Modal content -->
+        <div id="myModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close">&times;</span>
@@ -132,9 +120,7 @@ and open the template in the editor.
                         </tbody>
                     </table>
                 </div>
-
             </div>
-
         </div>
         <hr />
         <div id="pdf" class="hidden">
@@ -165,46 +151,42 @@ and open the template in the editor.
                 <p style="font-size: 8px; text-align: justify;">Para los viajes internacionales es necesario atender la legislacion vigente en cada caso, siendo responsabilidad del pasajero informarse de los requisitos que cada país exige como ser visados, documentacion, requisitos sanitarios etc. Todos los viajeros deberán llevar en regla su documentación personal, pasaportes, visado, certificados de vacunación, etc. Se declina toda responsabilidad en caso de ser rechazada por alguna autoridad la concesión del visado, por causas particulares del cliente, o ser denegada su entrada en un país, por carecer de algunos de los requisitos que se exigen o defecto del pasaporte, etc., será por cuenta del viajero cualquier gasto que se origine, aplicándole en estas circunstancias las condiciones establecidas para anulación y desistimiento voluntario de servicios.</p>
                 <h6>.</h6>
             </div>
-            
             <div class="col-md-2">Sello de la agencia:</div>             
         </div>
         <hr />
         <div th:insert="~{fragments/footer :: body}">...</div> 
     </div>
     <script>
-        // Get the modal
+        // modalBOX
         var modal = document.getElementById('myModal');
 
-        // Get the button that opens the modal
+        // obre el modalBOX
         var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal 
         btn.onclick = function () {
             modal.style.display = "block";
         }
 
-        // When the user clicks on <span> (x), close the modal
+        // Serveix per tancar la modalBOX
         span.onclick = function () {
             modal.style.display = "none";
         }
-
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
-
+        /**
+         * 
+         * Funcio en JS que crea el pdf
+         */
         function printPDF() {
-           // var logo =new Image();
+            // var logo =new Image();
             //logo.src='https://raw.githubusercontent.com/freeGamesUF6/nctours/master/src/main/resources/static/resources/images/logoGrande.jpg';
             var printDoc = new jsPDF();
             //printDoc.addImage(logo, 'JPEG', 30, 100, 180, 180);
 
-
+            //printem el format del pdf
             printDoc.rect(25, 29, 78, 0.1);
             printDoc.rect(25, 45, 76, 0.1);
             printDoc.rect(25, 60, 76, 0.1);
@@ -214,6 +196,7 @@ and open the template in the editor.
             printDoc.rect(25, 116, 76, 0.1);
             printDoc.rect(25, 130, 76, 0.1);
             printDoc.rect(23, 34, 80, 110);
+            //printem el contingut del pdf
             printDoc.fromHTML($('#pdf').get(0), 25, 10, {'width': 180});
             printDoc.autoPrint();
             printDoc.output("dataurlnewwindow"); // obre una nova pestanya amb el pdf preparat per imprimir

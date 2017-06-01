@@ -27,11 +27,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
  * @author Xavier
- * 
+ *
  */
 @Entity
-@Table(name="pax")
+@Table(name = "pax")
 public class Pax implements Serializable {
+
     @Id
     private String dni;
     @Column(name = "name")
@@ -52,7 +53,9 @@ public class Pax implements Serializable {
     //@Temporal(javax.persistence.TemporalType.DATE)
     private Date passportexpiry;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "bookpax", joinColumns = { @JoinColumn(name = "dnipax") }, inverseJoinColumns = { @JoinColumn(name = "idbook") })
+    @JoinTable(name = "bookpax", joinColumns = {
+        @JoinColumn(name = "dnipax")}, inverseJoinColumns = {
+        @JoinColumn(name = "idbook")})
     private Set<Book> books;
 
     public Pax() {
@@ -69,10 +72,8 @@ public class Pax implements Serializable {
         this.dob = dob;
         this.passport = passport;
         this.passportexpiry = passportexpiry;
-        
+
     }
-    
-    
 
     public Set<Book> getBooks() {
         return books;
@@ -81,8 +82,7 @@ public class Pax implements Serializable {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
-    
-    
+
     public String getDni() {
         return dni;
     }
@@ -131,8 +131,4 @@ public class Pax implements Serializable {
         this.passportexpiry = passportexpiry;
     }
 
-    
-    
-    
-    
 }

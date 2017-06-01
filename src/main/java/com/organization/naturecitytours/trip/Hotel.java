@@ -26,29 +26,31 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Xavier
  * @author Marc
  */
-
 @Entity
-@Table(name="hotel")
+@Table(name = "hotel")
 public class Hotel implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotEmpty
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="category")
+    @Column(name = "category")
     private int category;
-    
+
     @NotEmpty
-    @Column(name="location")
+    @Column(name = "location")
     private String location;
-    
+
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "triphotels", joinColumns = { @JoinColumn(name = "idhotel") }, inverseJoinColumns = { @JoinColumn(name = "idtrip") })
+    @JoinTable(name = "triphotels", joinColumns = {
+        @JoinColumn(name = "idhotel")}, inverseJoinColumns = {
+        @JoinColumn(name = "idtrip")})
     private Set<Trip> trips;
-    
+
     public Long getId() {
         return id;
     }
@@ -88,8 +90,5 @@ public class Hotel implements Serializable {
     public void setTrips(Set<Trip> trips) {
         this.trips = trips;
     }
-    
-    
-    
-    
+
 }

@@ -32,8 +32,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Marc
  */
 @Entity
-@Table(name="book")
+@Table(name = "book")
 public class Book implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,14 +49,18 @@ public class Book implements Serializable {
     @NotNull
     private double pvp;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="idtrip")
+    @JoinColumn(name = "idtrip")
     @NotNull
     private Trip idtrip;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "bookpax", joinColumns = { @JoinColumn(name = "idbook") }, inverseJoinColumns = { @JoinColumn(name = "dnipax") })
+    @JoinTable(name = "bookpax", joinColumns = {
+        @JoinColumn(name = "idbook")}, inverseJoinColumns = {
+        @JoinColumn(name = "dnipax")})
     private Set<Pax> paxs;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "bookuser", joinColumns = { @JoinColumn(name = "idbook") }, inverseJoinColumns = { @JoinColumn(name = "iduser") })
+    @JoinTable(name = "bookuser", joinColumns = {
+        @JoinColumn(name = "idbook")}, inverseJoinColumns = {
+        @JoinColumn(name = "iduser")})
     public Set<User> users;
 
     public Book() {
@@ -69,8 +74,6 @@ public class Book implements Serializable {
         this.paxs = paxs;
         this.users = users;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -131,12 +134,5 @@ public class Book implements Serializable {
     void setDate(String date) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-   
-    
-    
-    
-
-
 
 }

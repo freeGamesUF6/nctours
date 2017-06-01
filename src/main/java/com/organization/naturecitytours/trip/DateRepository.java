@@ -11,6 +11,7 @@ import org.springframework.data.repository.Repository;
  *
  * @author Jhona
  */
-public interface DateRepository extends Repository<DateTrip,Integer> {
+public interface DateRepository extends Repository<DateTrip, Integer> {
+
     void save(DateTrip date);
 }
