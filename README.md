@@ -9,4 +9,5 @@
 ```
 
 Accedir a aquest enllaç: http://localhost:8080/
-<img width="1042" alt="petclinic-screenshot" src="<img width="1042" alt="petclinic-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">">
+
+<img width="1042" alt="nctours-screenshot" src="https://raw.githubusercontent.com/freeGamesUF6/nctours/5d15f1abf21edb047558188be700b8dd3c760680/src/main/resources/static/resources/images/nctorus.PNG">
