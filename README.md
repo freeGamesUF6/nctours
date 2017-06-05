@@ -8,7 +8,7 @@ Els següents articles han de ser instal·lats en el seu sistema:
 * Descarregar la base de dades (https://github.com/freeGamesUF6/nctours/blob/master/src/main/resources/db/mysql/nctours.sql)
 * Eina de línea de comandes del git (https://help.github.com/articles/set-up-git)
 
-###Passos
+### Passos
 
 1) En la línea de comandes del git
 ```
