@@ -28,7 +28,7 @@ Crear una base de dades amb el nom: (nctours) , importar la base de dades Nature
 ```
 4) Run Project
 
-Accedir a aquest enllaç: http://localhost:8080/
+Accedir a aquest enllaç: http://localhost:8080
 
 <img width="1042" alt="nctours-screenshot" src="https://raw.githubusercontent.com/freeGamesUF6/nctours/5d15f1abf21edb047558188be700b8dd3c760680/src/main/resources/static/resources/images/nctorus.PNG">
 
