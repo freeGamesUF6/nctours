@@ -1,12 +1,32 @@
 # Spring NatureCity Tours
 ## Treball de fi de curs de desenvolupament d'aplicacions webs (DAW 2016/2017)
-## Inicia l'aplicació en local
+## Inicia l'aplicació en local amb NetBeans
 
+### Prerequisits
+Els següents articles han de ser instal·lats en el seu sistema:
+* XAMPP ultima versió , actualment (https://www.apachefriends.org/es/index.html)
+* Descarregar la base de dades (https://github.com/freeGamesUF6/nctours/blob/master/src/main/resources/db/mysql/nctours.sql)
+* Eina de línea de comandes del git (https://help.github.com/articles/set-up-git)
+
+###Passos
+
+1) En la línea de comandes del git
 ```
-	git clone https://github.com/freeGamesUF6/nctours.git
-	cd nctours
-	./mvnw spring-boot:run
+git clone https://github.com/freeGamesUF6/nctours.git
 ```
+2) Dins de Netbeans
+```
+File -> Open Project -> nctour project
+```
+3) XAMPP
+```
+Start Apache i  Mysql. Obrir phpMyadmin (http://localhost/phpmyadmin)
+```
+3) Base de Dades
+```
+Crear una base de dades amb el nom: (nctours) , importar la base de dades NatureCity Tours 
+```
+4) Run Project
 
 Accedir a aquest enllaç: http://localhost:8080/
 
@@ -16,6 +36,4 @@ Accedir a aquest enllaç: http://localhost:8080/
 
 El nostre seguiment d'incidències està disponible aquí: https://github.com/freeGamesUF6/nctours/issues
 
-## Configuració de la Base de Dades
 
-En la seva configuració per defecte, NatureCity càrrega una base de dades en memòria (HSQLDB), que s'omple en l'arrencada amb dades. Es proporciona una configuració similar per MySql en cas que es necessita una configuració de base de dades persistent. Recordeu que cada vegada que es canvia el tipus de base de dades, l'arxiu data-access.properties necessita ser actualitzat i l'artefacte mysql-connector-java des del pom.xml ha de ser sense fer comentaris.
