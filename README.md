@@ -16,7 +16,7 @@ git clone https://github.com/freeGamesUF6/nctours.git
 ```
 2) Dins de Netbeans
 ```
-File -> Open Project -> nctour project
+File -> Open Project -> selecciona  nctour project
 ```
 3) XAMPP
 ```
