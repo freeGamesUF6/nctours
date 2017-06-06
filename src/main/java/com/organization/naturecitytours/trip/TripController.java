@@ -246,7 +246,7 @@ public class TripController {
             try {
                 this.trip.save(trip);
             } catch (Exception e) {
-                ObjectError edd = new ObjectError("Error Trip from", "Algo a ido mal, vuelve a intentarlo Porfavor, gracias");
+                ObjectError edd = new ObjectError("Error Trip from", "Algo ha ido mal, vuelve a intentarlo Porfavor, gracias");
 
                 result.addError(edd);
                 DateTrip datew = new DateTrip();
